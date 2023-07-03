@@ -4,5 +4,5 @@ public enum GameElement {
     /*
 
      */
-    PLAY,ENEMY
+    PLAY,MAPS,ENEMY,BOSS
 }
