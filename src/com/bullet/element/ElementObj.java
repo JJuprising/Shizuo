@@ -83,8 +83,7 @@ public abstract class ElementObj {
 	public void die() {  //死亡也是一个对象
 		
 	}
-	
-	
+
 	public  ElementObj createElement(String str) {
 		
 		return null;
@@ -106,13 +105,6 @@ public abstract class ElementObj {
 	public boolean pk(ElementObj obj) {	
 		return this.getRectangle().intersects(obj.getRectangle());
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * 只要是 VO类 POJO 就要为属性生成 get和set方法

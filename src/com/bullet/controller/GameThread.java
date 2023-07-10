@@ -7,6 +7,7 @@ import com.bullet.element.ElementObj;
 import com.bullet.manager.ElementManager;
 import com.bullet.manager.GameElement;
 import com.bullet.manager.GameLoad;
+import com.bullet.manager.GameManager;
 
 /**
  * @说明 游戏的主线程，用于控制游戏加载，游戏关卡，游戏运行时自动化
@@ -16,19 +17,20 @@ import com.bullet.manager.GameLoad;
  */
 public class GameThread extends Thread{
 	private ElementManager em;
-	private int mapID;
+	private GameManager gm;
+
 	public boolean isRunning = true;
 	
-	public GameThread(int MapID) {
-		this.mapID = MapID;
+	public GameThread() {
 		em=ElementManager.getManager();
+		gm = GameManager.getManager();
 	}
 	@Override
 	public void run() {//游戏的run方法  主线程
 		while(true) { //扩展,可以讲true变为一个变量用于控制结束
 //		游戏开始前   读进度条，加载游戏资源(场景资源)
 			isRunning = true;
-			gameLoad(mapID);
+			gameLoad();
 //		游戏进行时   游戏过程中
 			gameRun();
 //		游戏场景结束  游戏资源回收(场景资源)
@@ -45,35 +47,17 @@ public class GameThread extends Thread{
 	/**
 	 * 游戏的加载
 	 */
-	private void gameLoad(int MapID) {
+	private void gameLoad() {
 		GameLoad.loadImg(); //加载图片
-		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
+//		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
 		GameLoad.loadObj();
-//		加载主角
+////		加载主角
 		GameLoad.loadPlay();//也可以带参数，单机还是2人
-//		加载敌人NPC等
-		switch (MapID){
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-				GameLoad.loadEnemy("A",5);
-				break;
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-			case 10:
-				GameLoad.loadEnemy("A",5);
-				GameLoad.loadEnemy("B",5);
-				break;
-			default:
-				GameLoad.loadEnemy("A",1);
-				break;
-		}
-//		全部加载完成，游戏启动
-		em.ResetScore();
+
+////		加载敌人NPC等
+//		GameLoad.loadEnemy();
+//		}
+////		全部加载完成，游戏启动
 	}
 	/**
 	 * @说明  游戏进行时
@@ -87,13 +71,15 @@ public class GameThread extends Thread{
 		long gameTime=0L;//给int类型就可以啦
 		while(isRunning) {// 预留扩展   true可以变为变量，用于控制管关卡结束等
 			Map<GameElement, List<ElementObj>> all = em.getGameElements();
-			List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
-			List<ElementObj> files = em.getElementsByKey(GameElement.PLAYFILE);
-			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
+//			List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
+//			List<ElementObj> files = em.getElementsByKey(GameElement.PLAYFILE);
+//			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
+
 			moveAndUpdate(all,gameTime);//	游戏元素自动化方法
-			
-			EnemyPK(enemys,files);
-			MapPK(files,maps);
+
+//
+//			EnemyPK(enemys,files);
+//			MapPK(files,maps);
 			
 			gameTime++;//唯一的时间控制
 			try {
@@ -201,16 +187,16 @@ public class GameThread extends Thread{
 			}
 		}
 	}
-	public void ChangeMap(int mapID){
-		isRunning = false;
-		this.mapID = mapID;
-		try {
-			sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-	}
+//	public void ChangeMap(int mapID){
+//		isRunning = false;
+//		this.mapID = mapID;
+//		try {
+//			sleep(5000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 	
 }
 

@@ -34,7 +34,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	
 
 //	变量专门用来记录当前主角面向的方向,默认为是up
-	private String fx="up";
+	private String fx="right";
 	private boolean pkType=false;//攻击状态 true 攻击  false停止
 	
 	public Play() {}
@@ -48,6 +48,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		this.setX(Integer.parseInt(split[0]));
 		this.setY(Integer.parseInt(split[1]));
 		ImageIcon icon2 = GameLoad.imgMap.get(split[2]);
+
 		this.setW(icon2.getIconWidth());
 		this.setH(icon2.getIconHeight());
 		this.setIcon(icon2);
@@ -77,15 +78,19 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 			case 37: 
 				this.down=false;this.up=false;
 				this.right=false;this.left=true; this.fx="left"; break;
-			case 38: 
+			case 38:
 				this.right=false;this.left=false;
-				this.down=false; this.up=true;   this.fx="up"; break;
+				this.down=false; this.up=true;
+//				this.fx="up";
+				break;
 			case 39: 
 				this.down=false;this.up=false;
 				this.left=false; this.right=true; this.fx="right";break;
 			case 40: 
 				this.right=false;this.left=false;
-				this.up=false; this.down=true;  this.fx="down";break;
+				this.up=false; this.down=true;
+//				this.fx="down"
+				;break;
 			case 32:
 				this.pkType=true;break;//开启攻击状态
 			}
@@ -175,25 +180,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		return "x:"+x+",y:"+y+",f:"+this.fx;
 	}
 	
-	
-	
 }
 
-//try {
-//Class<?> forName = Class.forName("com.bullet.....");
-//ElementObj element = forName.newInstance().createElement("");
-//} catch (InstantiationException e) {
-//// TODO Auto-generated catch block
-//e.printStackTrace();
-//} catch (IllegalAccessException e) {
-//// TODO Auto-generated catch block
-//e.printStackTrace();
-//} //以后的框架学习中会碰到
-//// 会帮助你返回对象的实体，并初始化数据
-//catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//}
+
 
 
 

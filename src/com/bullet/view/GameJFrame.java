@@ -29,7 +29,7 @@ public class GameJFrame extends JFrame{
 	private KeyListener  keyListener=null;//键盘监听
 	private MouseMotionListener mouseMotionListener=null; //鼠标监听
 	private MouseListener mouseListener=null;
-	private static GameThread thead=null;  //游戏主线程
+	private static GameThread thread =null;  //游戏主线程
 	private static Label label;
 	
 	public GameJFrame() {
@@ -37,7 +37,7 @@ public class GameJFrame extends JFrame{
 	}
 	public void init() {
 		this.setSize(GameX, GameY); //设置窗体大小
-		this.setTitle("Tank Fight");
+		this.setTitle("Bullet Fight");
 		addButton();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//设置退出并且关闭
 		this.setLocationRelativeTo(null);//屏幕居中显示
@@ -65,8 +65,8 @@ public class GameJFrame extends JFrame{
 		if(keyListener !=null) {
 			this.addKeyListener(keyListener);
 		}
-		if(thead !=null) {
-			thead.start();//启动线程
+		if(thread !=null) {
+			thread.start();//启动线程
 		}
 
 //		this.show();
@@ -103,10 +103,10 @@ public class GameJFrame extends JFrame{
 		this.mouseListener = mouseListener;
 	}
 	public void setThead(GameThread thead) {
-		this.thead = thead;
+		this.thread = thead;
 	}
 	public static void ChangeMap(int mapID){
-		thead.ChangeMap(mapID);
+
 	}
 	public static void SetLabel(String content){
 		if(label!=null){

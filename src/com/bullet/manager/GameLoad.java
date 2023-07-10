@@ -75,7 +75,7 @@ public class GameLoad {
 	 *加载图片 代码和图片之间差 一个 路径问题 
 	 */
 	public static void loadImg() {//可以带参数，因为不同的关也可能需要不一样的图片资源
-		String texturl="com/bullet/text/GameData.pro";//文件的命名可以更加有规律
+		String texturl="com/bullet/data/GameData.pro";//文件的命名可以更加有规律
 		ClassLoader classLoader = GameLoad.class.getClassLoader();
 		InputStream texts = classLoader.getResourceAsStream(texturl);
 //		imgMap用于存放数据
@@ -98,9 +98,10 @@ public class GameLoad {
 	 * 加载玩家
 	 */
 	public static void loadPlay() {
-		String playStr="500,500,up";
-		ElementObj obj=getObj("play");  
+		String playStr="500,500,right";
+		ElementObj obj=getObj("play");
 		ElementObj play = obj.createElement(playStr);
+
 //		ElementObj play = new Play().createElement(playStr);
 //		解耦,降低代码和代码之间的耦合度 可以直接通过 接口或者是抽象父类就可以获取到实体对象
 		em.addElement(play, GameElement.PLAY);
@@ -149,7 +150,7 @@ public class GameLoad {
 	private static Map<String,Class<?>> objMap=new HashMap<>();
 	
 	public static void loadObj() {
-		String texturl="com/bullet/text/obj.pro";//文件的命名可以更加有规律
+		String texturl="com/bullet/data/obj.pro";//文件的命名可以更加有规律
 		ClassLoader classLoader = GameLoad.class.getClassLoader();
 		InputStream texts = classLoader.getResourceAsStream(texturl);
 		pro.clear();
@@ -158,6 +159,7 @@ public class GameLoad {
 			Set<Object> set = pro.keySet();//是一个set集合
 			for(Object o:set) {
 				String classUrl=pro.getProperty(o.toString());
+
 //				使用反射的方式直接将 类进行获取
 				Class<?> forName = Class.forName(classUrl);
 				objMap.put(o.toString(), forName);
@@ -171,21 +173,4 @@ public class GameLoad {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-//	用于测试
-	public static void main(String[] args) {
-		MapLoad(5);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
