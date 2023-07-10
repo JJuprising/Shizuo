@@ -1,14 +1,13 @@
 package com.bullet.element;
 
 import java.awt.Graphics;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.ImageIcon;
 
 import com.bullet.manager.ElementManager;
 import com.bullet.manager.GameElement;
 import com.bullet.manager.GameLoad;
+import com.bullet.manager.Settings;
 
 public class Play extends ElementObj /* implements Comparable<Play>*/{
 	/**
@@ -115,16 +114,16 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	@Override
 	public void move() {
 		if (this.left && this.getX()>0) {
-			this.setX(this.getX() - 1);
+			this.setX(this.getX() - Settings.playerSpeed);
 		}
 		if (this.up  && this.getY()>0) {
-			this.setY(this.getY() - 1);
+			this.setY(this.getY() - Settings.playerSpeed);
 		}
 		if (this.right && this.getX()<900-this.getW()) {  //坐标的跳转由大家来完成
-			this.setX(this.getX() + 1);
+			this.setX(this.getX() + Settings.playerSpeed);
 		}
 		if (this.down && this.getY()<600-this.getH()) {
-			this.setY(this.getY() + 1);
+			this.setY(this.getY() + Settings.playerSpeed);
 		}
 	}
 	@Override
@@ -161,7 +160,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		ElementObj element = obj.createElement(this.toString());
 //		System.out.println("子弹是否为空"+element);
 //		装入到集合中
-		ElementManager.getManager().addElement(element, GameElement.PLAYFILE);
+		ElementManager.getManager().addElement(element, GameElement.BULLET);
 //		如果要控制子弹速度等等。。。。还需要代码编写
 	}
 	@Override
@@ -170,11 +169,11 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		int x=this.getX();
 		int y=this.getY();
 		switch(this.fx) { // 子弹在发射时候就已经给予固定的轨迹。可以加上目标，修改json格式
-		case "up": x+=20;break;  
+		case "up": x+=50;break;
 		// 一般不会写20等数值，一般情况下 图片大小就是显示大小；一般情况下可以使用图片大小参与运算
 		case "left": y+=20;break;
-		case "right": x+=50;y+=20;break;
-		case "down": y+=50;x+=20; break;
+		case "right": x+=80;y+=20;break;
+		case "down": y+=50;x+=50; break;
 		}//个人认为： 玩游戏有助于 理解面向对象思想;不能专门玩，需要思考，父类应该怎么抽象，子类应该怎么实现
 //		学习技术不犯法，但是不要用技术做犯法的事.
 		return "x:"+x+",y:"+y+",f:"+this.fx;

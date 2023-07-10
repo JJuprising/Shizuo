@@ -2,16 +2,13 @@ package com.bullet.manager;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
 import javax.swing.ImageIcon;
-
 import com.bullet.element.ElementObj;
 import com.bullet.element.MapObj;
 import com.bullet.element.Play;
@@ -37,8 +34,8 @@ public class GameLoad {
 	 * @param mapId  文件编号 文件id
 	 */
 	public static void MapLoad(int mapId) {
-//		得到啦我们的文件路径
-		String mapName="com/bullet/text/"+mapId+".map";
+//		得到我们的文件路径
+		String mapName="com/bullet/data/"+mapId+".map";
 //		使用io流来获取文件对象   得到类加载器
 		ClassLoader classLoader = GameLoad.class.getClassLoader();
 		InputStream maps = classLoader.getResourceAsStream(mapName);
@@ -61,8 +58,13 @@ public class GameLoad {
 				String [] arrs=pro.getProperty(key).split(";");
 				for(int i=0;i<arrs.length;i++) {
 					ElementObj element = new MapObj().createElement(key+","+arrs[i]);
-					System.out.println(element);
-					em.addElement(element, GameElement.MAPS);
+//					System.out.println(key);
+					if(key.equals("BACKGROUND")){
+						element.setH(Settings.GameY);
+						em.addElement(element, GameElement.BACKGROUND);
+					}
+//					System.out.println(element);
+
 				}
 			}	
 		} catch (IOException e) {

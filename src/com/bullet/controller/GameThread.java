@@ -30,7 +30,7 @@ public class GameThread extends Thread{
 		while(true) { //扩展,可以讲true变为一个变量用于控制结束
 //		游戏开始前   读进度条，加载游戏资源(场景资源)
 			isRunning = true;
-			gameLoad();
+			gameLoad(11);
 //		游戏进行时   游戏过程中
 			gameRun();
 //		游戏场景结束  游戏资源回收(场景资源)
@@ -47,9 +47,9 @@ public class GameThread extends Thread{
 	/**
 	 * 游戏的加载
 	 */
-	private void gameLoad() {
+	private void gameLoad(int MapID) {
 		GameLoad.loadImg(); //加载图片
-//		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
+		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
 		GameLoad.loadObj();
 ////		加载主角
 		GameLoad.loadPlay();//也可以带参数，单机还是2人
@@ -71,14 +71,14 @@ public class GameThread extends Thread{
 		long gameTime=0L;//给int类型就可以啦
 		while(isRunning) {// 预留扩展   true可以变为变量，用于控制管关卡结束等
 			Map<GameElement, List<ElementObj>> all = em.getGameElements();
-//			List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
-//			List<ElementObj> files = em.getElementsByKey(GameElement.PLAYFILE);
+			List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
+			List<ElementObj> bullets = em.getElementsByKey(GameElement.BULLET);
 //			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
 
 			moveAndUpdate(all,gameTime);//	游戏元素自动化方法
 
 //
-//			EnemyPK(enemys,files);
+			EnemyPK(enemys,bullets);
 //			MapPK(files,maps);
 			
 			gameTime++;//唯一的时间控制

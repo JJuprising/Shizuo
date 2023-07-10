@@ -3,13 +3,8 @@ package com.bullet.view;
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
 import com.bullet.element.ElementObj;
-import com.bullet.element.Play;
 import com.bullet.manager.ElementManager;
 import com.bullet.manager.GameElement;
 

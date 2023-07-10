@@ -25,10 +25,14 @@ public class MapObj extends ElementObj{
 //		先写一个假图片再说
 		ImageIcon icon=null;
 		switch(arr[0]) { //设置图片信息 图片还未加载到内存中
-		case "GRASS": icon=new ImageIcon("image/wall/grass.png");break;
-		case "BRICK": icon=new ImageIcon("image/wall/brick.png");break;
-		case "RIVER": icon=new ImageIcon("image/wall/river.png");break;
-		case "IRON": icon=new ImageIcon("image/wall/iron.png");
+			case "BACKGROUND":
+				icon=new ImageIcon("res/images/背景/backimage1.gif");
+
+				break;
+			case "GRASS": icon=new ImageIcon("image/wall/grass.png");break;
+			case "BRICK": icon=new ImageIcon("image/wall/brick.png");break;
+			case "RIVER": icon=new ImageIcon("image/wall/river.png");break;
+			case "IRON": icon=new ImageIcon("image/wall/iron.png");
 					this.hp=4;
 					name="IRON";
 					break;
@@ -55,7 +59,6 @@ public class MapObj extends ElementObj{
 			}
 			super.setLive(live);
 		}
-	
 	
 }
 
