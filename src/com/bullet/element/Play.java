@@ -1,9 +1,7 @@
 package com.bullet.element;
 
 import java.awt.Graphics;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -37,11 +35,29 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 
 	Animation animation;
 
-	
+	ArrayList<String> leftAtkAnimationList = new ArrayList<String>(){
+		{
+			add("LEFT_GUN_ATK_0");
+			add("LEFT_GUN_ATK_1");
+			add("LEFT_GUN_ATK_2");
+			add("LEFT_GUN_ATK_3");
+			add("LEFT_GUN_ATK_4");
+		}
+	};
+	ArrayList<String> rightAtkAnimationList = new ArrayList<String>(){
+		{
+			add("RIGHT_GUN_ATK_0");
+			add("RIGHT_GUN_ATK_1");
+			add("RIGHT_GUN_ATK_2");
+			add("RIGHT_GUN_ATK_3");
+			add("RIGHT_GUN_ATK_4");
+		}
+	};
 
 //	变量专门用来记录当前主角面向的方向,默认为是up
 	private String fx="right";
 	private boolean pkType=false;//攻击状态 true 攻击  false停止
+	private boolean isRight = true;
 	
 	public Play() {}
 	public Play(int x, int y, int w, int h, ImageIcon icon) {
@@ -59,6 +75,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		this.setH(icon2.getIconHeight());
 //		System.out.println("X:"+icon2.getIconWidth()+"Y:"+icon2.getIconHeight());
 		this.setIcon(icon2);
+		animation = new Animation(4);
 		return this;
 	}
 	
@@ -84,7 +101,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 			switch(key) {  //怎么优化 大家中午思考;加 监听会持续触发；有没办法触发一次
 			case 37: 
 				this.down=false;this.up=false;
-				this.right=false;this.left=true; this.fx="left"; break;
+				this.right=false;this.left=true; this.fx="left";
+				isRight = false;
+				break;
 			case 38:
 				this.right=false;this.left=false;
 				this.down=false; this.up=true;
@@ -92,6 +111,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 				break;
 			case 39: 
 				this.down=false;this.up=false;
+				isRight = true;
 				this.left=false; this.right=true; this.fx="right";break;
 			case 40: 
 				this.right=false;this.left=false;
@@ -136,10 +156,14 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	}
 	@Override
 	protected void updateImage(long gameTime) {
-//		ImageIcon icon=GameLoad.imgMap.get(fx);
-//		System.out.println(icon.getIconHeight());//得到图片的高度
-//		如果高度是小于等于0 就说明你的这个图片路径有问题
-		this.setIcon(GameLoad.imgMap.get(fx));
+//		System.out.println(pkType);
+		if(pkType){
+			animation.SetAnimation(isRight?rightAtkAnimationList:leftAtkAnimationList);
+			this.setIcon(animation.LoadSprite(gameTime));
+		}else{
+			animation.ResetAnimation();
+			this.setIcon(GameLoad.imgMap.get(fx));
+		}
 	}
 	/**
 	 * @额外问题：1.请问重写的方法的访问修饰符是否可以修改？
@@ -152,7 +176,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	 *            4.重写的方法抛出的异常 不可以比父类更加宽泛
 	 * 子弹的添加 需要的是 发射者的坐标位置，发射者的方向  如果你可以变换子弹(思考，怎么处理？)
 	 */
-	private long filetime=0;
+	private long fireTime =0;
 //	filefime 和传入的时间 gameTime 进行比较，赋值等操作运算，控制子弹间隔
 //	这个控制代码 自己写
 	@Override   //添加子弹
@@ -160,7 +184,10 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		if(!this.pkType) {//如果是不发射状态 就直接return
 			return;
 		}
-		this.pkType=false;//按一次，发射一个子弹。拼手速(也可以增加变量来控制)
+
+		if(gameTime- fireTime >50){
+
+			fireTime = gameTime;
 //		new PlayFile(); // 构造一个类 需要做比较多的工作  可以选择一种方式，使用小工厂
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
@@ -170,6 +197,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.BULLET);
 //		如果要控制子弹速度等等。。。。还需要代码编写
+		}
 	}
 	@Override
 	public String toString() {// 这里是偷懒，直接使用toString；建议自己定义一个方法

@@ -35,6 +35,34 @@ public class PlayerFoot extends ElementObj{
 
     Animation animation;
 
+    ArrayList<String> leftRunAnimationList = new ArrayList<String>(){
+        {
+            add("LEFT_RUN_0");
+            add("LEFT_RUN_1");
+            add("LEFT_RUN_2");
+            add("LEFT_RUN_3");
+            add("LEFT_RUN_4");
+            add("LEFT_RUN_5");
+            add("LEFT_RUN_6");
+            add("LEFT_RUN_7");
+            add("LEFT_RUN_8");
+
+        }
+    };
+    ArrayList<String> rightRunAnimationList = new ArrayList<String>(){
+        {
+            add("RIGHT_RUN_0");
+            add("RIGHT_RUN_1");
+            add("RIGHT_RUN_2");
+            add("RIGHT_RUN_3");
+            add("RIGHT_RUN_4");
+            add("RIGHT_RUN_5");
+            add("RIGHT_RUN_6");
+            add("RIGHT_RUN_7");
+            add("RIGHT_RUN_8");
+
+        }
+    };
 
 
     //	变量专门用来记录当前主角面向的方向,默认为是up
@@ -56,21 +84,8 @@ public class PlayerFoot extends ElementObj{
         this.setH(icon2.getIconHeight());
 
         this.setIcon(icon2);
-        ArrayList<String> ls = new ArrayList<String>(){
-            {
-                add("RIGHT_RUN_0");
-                add("RIGHT_RUN_1");
-                add("RIGHT_RUN_2");
-                add("RIGHT_RUN_3");
-                add("RIGHT_RUN_4");
-                add("RIGHT_RUN_5");
-                add("RIGHT_RUN_6");
-                add("RIGHT_RUN_7");
-                add("RIGHT_RUN_8");
-
-            }
-        };
-        animation = new Animation(icon2,ls,4);
+        
+        animation = new Animation(4);
         return this;
     }
 
@@ -94,26 +109,29 @@ public class PlayerFoot extends ElementObj{
     public void keyClick(boolean bl,int key) { //只有按下或者鬆開才會 调用这个方法
 //		System.out.println("测试："+key);
         if(bl) {//按下
-            isMoving = true;
             switch(key) {  //怎么优化 大家中午思考;加 监听会持续触发；有没办法触发一次
                 case 37:
+                    isMoving = true;
                     this.down=false;this.up=false;
                     this.right=false;this.left=true;
                     isRight = false;
                     this.fx="LEFT_STAND";
                     break;
                 case 38:
+                    isMoving = true;
                     this.right=false;this.left=false;
                     this.down=false; this.up=true;
 
                     break;
                 case 39:
+                    isMoving = true;
                     this.down=false;this.up=false;
                     this.left=false; this.right=true;
                     isRight = true;
                     this.fx="RIGHT_STAND";
                     break;
                 case 40:
+                    isMoving = true;
                     this.right=false;this.left=false;
                     this.up=false; this.down=true;
 				break;
@@ -158,6 +176,7 @@ public class PlayerFoot extends ElementObj{
 //		如果高度是小于等于0 就说明你的这个图片路径有问题
 
         if(isMoving){
+            animation.SetAnimation(isRight?rightRunAnimationList:leftRunAnimationList);
             this.setIcon(animation.LoadSprite(gameTime));
         }else{
             animation.ResetAnimation();

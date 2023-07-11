@@ -24,8 +24,6 @@ public class GameLoad {
 	
 //	图片集合  使用map来进行存储     枚举类型配合移动(扩展)
 	public static Map<String,ImageIcon> imgMap = new HashMap<>();
-	
-	public static Map<String,List<ImageIcon>> imgMaps;
 
 //	用户读取文件的类
 	private static Properties pro =new Properties();	
