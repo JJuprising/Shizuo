@@ -100,13 +100,17 @@ public class GameLoad {
 	 * 加载玩家
 	 */
 	public static void loadPlay() {
-		String playStr="500,500,right";
+		String playStr="100,400,right";
 		ElementObj obj=getObj("play");
 		ElementObj play = obj.createElement(playStr);
-
+		String footStr="100,445,RIGHT_STAND";
+		ElementObj obj2=getObj("playerfoot");
+		ElementObj foot = obj2.createElement(footStr);
+//		System.out.println(obj);
 //		ElementObj play = new Play().createElement(playStr);
 //		解耦,降低代码和代码之间的耦合度 可以直接通过 接口或者是抽象父类就可以获取到实体对象
 		em.addElement(play, GameElement.PLAY);
+		em.addElement(foot, GameElement.PLAY);
 	}
 	public static void loadEnemy(String type,int count){
 		switch (type){

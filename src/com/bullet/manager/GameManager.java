@@ -11,6 +11,7 @@ public class GameManager {
         return GM;
     }
 
+    public static long gameTime = 0;
 
 
 }

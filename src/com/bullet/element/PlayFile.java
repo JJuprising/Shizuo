@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 
 import com.bullet.manager.ElementManager;
 import com.bullet.manager.GameElement;
+import com.bullet.manager.Settings;
 
 /**
  * @说明 玩家子弹类，本类的实体对象是由玩家对象调用和创建
@@ -45,8 +46,8 @@ public class PlayFile extends ElementObj{
 	}	
 	@Override
 	protected void move() {
-		if(this.getX()<0 || this.getX() >900 || 
-				this.getY() <0 || this.getY()>600) {
+		if(this.getX()<0 || this.getX() > Settings.GameX ||
+				this.getY() <0 || this.getY()>Settings.GameY) {
 			this.setLive(false);
 			return;
 		}

@@ -48,7 +48,7 @@ public class EnemyA extends ElementObj{
 	}
 
 	@Override
-	protected void updateImage() {
+	protected void updateImage(long gameTime) {
 //		ImageIcon icon=GameLoad.imgMap.get(fx);
 //		System.out.println(icon.getIconHeight());//得到图片的高度
 //		如果高度是小于等于0 就说明你的这个图片路径有问题

@@ -1,6 +1,9 @@
 package com.bullet.element;
 
 import java.awt.Graphics;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -8,6 +11,7 @@ import com.bullet.manager.ElementManager;
 import com.bullet.manager.GameElement;
 import com.bullet.manager.GameLoad;
 import com.bullet.manager.Settings;
+import com.bullet.view.Animation;
 
 public class Play extends ElementObj /* implements Comparable<Play>*/{
 	/**
@@ -30,6 +34,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	private boolean up=false;   //上
 	private boolean right=false;//右
 	private boolean down=false; //下
+
+	Animation animation;
+
 	
 
 //	变量专门用来记录当前主角面向的方向,默认为是up
@@ -50,6 +57,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 
 		this.setW(icon2.getIconWidth());
 		this.setH(icon2.getIconHeight());
+//		System.out.println("X:"+icon2.getIconWidth()+"Y:"+icon2.getIconHeight());
 		this.setIcon(icon2);
 		return this;
 	}
@@ -116,18 +124,18 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		if (this.left && this.getX()>0) {
 			this.setX(this.getX() - Settings.playerSpeed);
 		}
-		if (this.up  && this.getY()>0) {
+		if (this.up  && this.getY()>Settings.GameY-Settings.FloorHeight) {
 			this.setY(this.getY() - Settings.playerSpeed);
 		}
-		if (this.right && this.getX()<900-this.getW()) {  //坐标的跳转由大家来完成
+		if (this.right && this.getX()<Settings.GameX-this.getW()) {  //坐标的跳转由大家来完成
 			this.setX(this.getX() + Settings.playerSpeed);
 		}
-		if (this.down && this.getY()<600-this.getH()) {
+		if (this.down && this.getY()<Settings.GameY-this.getH()-Settings.playerFootHeight) {
 			this.setY(this.getY() + Settings.playerSpeed);
 		}
 	}
 	@Override
-	protected void updateImage() {
+	protected void updateImage(long gameTime) {
 //		ImageIcon icon=GameLoad.imgMap.get(fx);
 //		System.out.println(icon.getIconHeight());//得到图片的高度
 //		如果高度是小于等于0 就说明你的这个图片路径有问题

@@ -69,14 +69,14 @@ public abstract class ElementObj {
 	 */
 	public final void model(long gameTime) {
 //		先换装
-		updateImage();
+		updateImage(gameTime);
 //		在移动
 		move();
 //		在发射子弹
 		add(gameTime);
 	}
 //	 long ... aaa  不定长的 数组,可以向这个方法传输 N个 long类型的数据
-	protected void updateImage() {}
+	protected void updateImage(long gameTime) {}
 	protected void add(long gameTime){}
 	
 //	死亡方法  给子类继承的
