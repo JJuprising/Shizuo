@@ -53,8 +53,4 @@ public class EnemyA extends ElementObj{
 //		如果高度是小于等于0 就说明你的这个图片路径有问题
 		this.setIcon(GameLoad.imgMap.get(fx));
 	}
-	
-	
-	
-	
 }

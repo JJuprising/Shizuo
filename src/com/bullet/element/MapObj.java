@@ -1,25 +1,22 @@
 package com.bullet.element;
 
 import java.awt.Graphics;
-
 import javax.swing.ImageIcon;
 
 public class MapObj extends ElementObj{
-//	墙需要血量	
+	//墙需要血量
 	private int hp;
 	private String name;//墙的type  也可以使用枚举
-	
+
+	//重写的绘图函数
 	@Override
 	public void showElement(Graphics g) {
-		g.drawImage(this.getIcon().getImage(),
-				this.getX(), this.getY(),
-				this.getW(),this.getH(),null);
+		g.drawImage(this.getIcon().getImage(), this.getX(), this.getY(), this.getW(),this.getH(),null);
 	}
 	
-	@Override   // 如果可以传入   墙类型,x,y
+	@Override
 	public ElementObj createElement(String str) {
 		System.out.println(str); // 名称,x,y
-		//确认数据传输是对的。 因为只要是使用的配置文件，那么配置文件的格式一定要正确。
 //		只要是需要做字符串解析，那么一定要保证字符串的格式是符合要求的
 		String []arr=str.split(",");
 //		先写一个假图片再说
