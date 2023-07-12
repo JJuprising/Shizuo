@@ -46,8 +46,5 @@ LEFT_RUN_6=res/images/plays/run60.png
 LEFT_RUN_7=res/images/plays/run70.png
 LEFT_RUN_8=res/images/plays/run80.png
 
-
-
-
 LEFT_STAND=res/images/plays/stand0.png
 RIGHT_STAND=res/images/plays/stand1.png
