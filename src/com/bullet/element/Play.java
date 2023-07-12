@@ -64,6 +64,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		g.drawImage(this.getIcon().getImage(), 
 				this.getX(), this.getY(), 
 				this.getW(), this.getH(), null);
+
 	}
 	/*
 	 * @说明 重写方法： 重写的要求：方法名称 和参数类型序列 必须和父类的方法一样

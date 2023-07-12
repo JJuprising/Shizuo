@@ -9,5 +9,5 @@ public enum GameElement {
 	BOSS:BOSS
 	BULLET:子弹
 	DIE:死亡*/
-	BACKGROUND,BLOCK,KIT,PLAY,ENEMY,BOSS,BULLET,DIE;  //枚举类型的顺序是 声明的顺序
+	BACKGROUND,BLOCK,KIT,PLAY,ENEMY,PLANE,BOSS,BULLET,DIE;  //枚举类型的顺序是 声明的顺序
 }

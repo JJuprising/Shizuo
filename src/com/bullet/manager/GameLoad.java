@@ -104,9 +104,13 @@ public class GameLoad {
 		ElementObj obj=getObj("play");
 		ElementObj play = obj.createElement(playStr);
 
+		//加载飞机
+		ElementObj planeObj=getObj("plane");
+		ElementObj plane = planeObj.createElement(playStr);
 //		ElementObj play = new Play().createElement(playStr);
 //		解耦,降低代码和代码之间的耦合度 可以直接通过 接口或者是抽象父类就可以获取到实体对象
 		em.addElement(play, GameElement.PLAY);
+		em.addElement(plane, GameElement.PLANE);
 	}
 	public static void loadEnemy(String type,int count){
 		switch (type){

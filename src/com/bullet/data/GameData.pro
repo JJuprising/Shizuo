@@ -27,3 +27,17 @@ RIGHT_RPG_ATK_4=res/images/plays/attack141.png
 
 LEFT_STAND=res/images/plays/stand0.png
 RIGHT_STAND=res/images/plays/stand1.png
+
+
+
+
+
+
+LEFT_PLANE=res/images/plane/plane_fly0.png
+RIGHT_PLANE=res/images/plane/plane_fly1.png
+LEFT_WING=res/images/plane/plane1.png
+RIGHT_WING=res/images/plane/plane2.png
+PLANE_BOMB0=res/images/plane/plane_bomb0.png
+PLANE_BOMB1=res/images/plane/plane_bomb1.png
+PLANE_BOMB2=res/images/plane/plane_bomb2.png
+PLANE_BOMB3=res/images/plane/plane_bomb3.png

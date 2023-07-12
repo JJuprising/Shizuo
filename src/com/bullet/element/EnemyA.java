@@ -43,7 +43,6 @@ public class EnemyA extends ElementObj{
 		}
 		if(Math.abs(this.getX()-spawnPos)>100||this.getX()<2||this.getX()>795-this.getW()){
 			isLeft = !isLeft;
-
 		}
 	}
 
