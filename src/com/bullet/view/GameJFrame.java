@@ -46,11 +46,11 @@ public class GameJFrame extends JFrame{
 	/*窗体布局: 可以讲 存档，读档。button   给大家扩展的*/
 	public void addButton() {
 //		this.setLayout(manager);//布局格式，可以添加控件
-		label = new Label();
-		label.setBounds(750,0,250,100);
-		Font font = new Font("仿宋", Font.PLAIN, 30);
-		label.setFont(font);
-		this.add(label);
+//		label = new Label();
+//		label.setBounds(750,0,250,100);
+//		Font font = new Font("仿宋", Font.PLAIN, 30);
+//		label.setFont(font);
+//		this.add(label);
 		ElementManager em= ElementManager.getManager();
 
 

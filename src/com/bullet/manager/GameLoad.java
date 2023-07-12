@@ -24,8 +24,6 @@ public class GameLoad {
 	
 //	图片集合  使用map来进行存储     枚举类型配合移动(扩展)
 	public static Map<String,ImageIcon> imgMap = new HashMap<>();
-	
-	public static Map<String,List<ImageIcon>> imgMaps;
 
 //	用户读取文件的类
 	private static Properties pro =new Properties();	
@@ -100,16 +98,22 @@ public class GameLoad {
 	 * 加载玩家
 	 */
 	public static void loadPlay() {
-		String playStr="500,500,right";
+		String playStr="100,400,right";
 		ElementObj obj=getObj("play");
 		ElementObj play = obj.createElement(playStr);
 
 		//加载飞机
 		ElementObj planeObj=getObj("plane");
 		ElementObj plane = planeObj.createElement(playStr);
+		
+		String footStr="100,445,RIGHT_STAND";
+		ElementObj obj2=getObj("playerfoot");
+		ElementObj foot = obj2.createElement(footStr);
+//		System.out.println(obj);
 //		ElementObj play = new Play().createElement(playStr);
 //		解耦,降低代码和代码之间的耦合度 可以直接通过 接口或者是抽象父类就可以获取到实体对象
 		em.addElement(play, GameElement.PLAY);
+		em.addElement(foot, GameElement.PLAY);
 		em.addElement(plane, GameElement.PLANE);
 	}
 	public static void loadEnemy(String type,int count){
