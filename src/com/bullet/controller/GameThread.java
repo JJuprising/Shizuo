@@ -2,19 +2,14 @@ package com.bullet.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import com.bullet.element.ElementObj;
 import com.bullet.manager.ElementManager;
 import com.bullet.manager.GameElement;
 import com.bullet.manager.GameLoad;
 import com.bullet.manager.GameManager;
 
-/**
- * @说明 游戏的主线程，用于控制游戏加载，游戏关卡，游戏运行时自动化
- * 		游戏判定；游戏地图切换 资源释放和重新读取。。。
- * @author renjj
- * @继承 使用继承的方式实现多线程(一般建议使用接口实现)
- */
+
+//主线程
 public class GameThread extends Thread{
 	private ElementManager em;
 	private GameManager gm;
@@ -26,8 +21,8 @@ public class GameThread extends Thread{
 		gm = GameManager.getManager();
 	}
 	@Override
-	public void run() {//游戏的run方法  主线程
-		while(true) { //扩展,可以讲true变为一个变量用于控制结束
+	public void run() {
+		while(true) {
 //		游戏开始前   读进度条，加载游戏资源(场景资源)
 			isRunning = true;
 			gameLoad(11);
@@ -188,6 +183,7 @@ public class GameThread extends Thread{
 			}
 		}
 	}
+
 //	public void ChangeMap(int mapID){
 //		isRunning = false;
 //		this.mapID = mapID;

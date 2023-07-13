@@ -1,13 +1,13 @@
 package com.bullet.element;
 
+import com.bullet.manager.GameLoad;
+
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
-public class MapObj extends ElementObj{
-	//墙需要血量
-	private int hp;
-	private String name;//墙的type  也可以使用枚举
 
+// 地图类
+public class MapObj extends ElementObj{
 	//重写的绘图函数
 	@Override
 	public void showElement(Graphics g) {
@@ -16,23 +16,12 @@ public class MapObj extends ElementObj{
 	
 	@Override
 	public ElementObj createElement(String str) {
-		System.out.println(str); // 名称,x,y
-//		只要是需要做字符串解析，那么一定要保证字符串的格式是符合要求的
 		String []arr=str.split(",");
-//		先写一个假图片再说
 		ImageIcon icon=null;
 		switch(arr[0]) { //设置图片信息 图片还未加载到内存中
 			case "BACKGROUND":
-				icon=new ImageIcon("res/images/背景/backimage1.gif");
-
+				icon=GameLoad.imgMap.get("BACKGROUND");
 				break;
-			case "GRASS": icon=new ImageIcon("image/wall/grass.png");break;
-			case "BRICK": icon=new ImageIcon("image/wall/brick.png");break;
-			case "RIVER": icon=new ImageIcon("image/wall/river.png");break;
-			case "IRON": icon=new ImageIcon("image/wall/iron.png");
-					this.hp=4;
-					name="IRON";
-					break;
 		}
 		int x=Integer.parseInt(arr[1]);
 		int y=Integer.parseInt(arr[2]);
@@ -45,18 +34,6 @@ public class MapObj extends ElementObj{
 		this.setIcon(icon);
 		return this;
 	}
-	@Override  //说明 这个设置扣血等的方法 需要自己思考重新编写。
-		public void setLive(boolean live) {
-//			被调用一次 就减少一次血。
-			if("IRON".equals(name)) {// 水泥墙需要4下
-				this.hp--;
-				if(this.hp >0) {
-					return;
-				}
-			}
-			super.setLive(live);
-		}
-	
 }
 
 

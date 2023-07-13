@@ -2,14 +2,8 @@ package com.bullet.element;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
 import javax.swing.ImageIcon;
 
-/**
- * @说明 所有元素的基类。
- * @author renjj
- *
- */
 public abstract class ElementObj {
 
 	private int x;
@@ -17,12 +11,8 @@ public abstract class ElementObj {
 	private int w;
 	private int h;
 	private ImageIcon icon;
-//	还有。。。。 各种必要的状态值，例如：是否生存.
 	private boolean live=true; //生存状态 true 代表存在，false代表死亡
-						 // 可以采用枚举值来定义这个(生存，死亡，隐身，无敌)
-//	注明：当重新定义一个用于判定状态的变量，需要思考：1.初始化 2.值的改变 3.值的判定
-	public ElementObj() {	//这个构造其实没有作用，只是为继承的时候不报错写的	
-	}
+	public ElementObj() {}
 	/**
 	 * @说明 带参数的构造方法; 可以由子类传输数据到父类
 	 * @param x    左上角X坐标
@@ -39,10 +29,7 @@ public abstract class ElementObj {
 		this.h = h;
 		this.icon = icon;
 	}
-	/**
-	 * @说明 抽象方法，显示元素
-	 * @param g  画笔 用于进行绘画
-	 */
+
 	public abstract void showElement(Graphics g);
 	
 	/**
@@ -55,47 +42,35 @@ public abstract class ElementObj {
 	 * @param key  代表触发的键盘的code值  
 	 * @扩展 本方法是否可以分为2个方法？1个接收按下，1个接收松开(给同学扩展使用)
 	 */
-	public void keyClick(boolean bl,int key) {  //这个方法不是强制必须重写的。
-		System.out.println("测试使用");
-	}
-	/**
-	 * @说明 移动方法; 需要移动的子类，请 重写这个方法
-	 */
+	public void keyClick(boolean bl,int key) {}
+
+	//移动
 	protected void move() {	
 	}
-	/**
-	 * @设计模式 模板模式;在模板模式中定义 对象执行方法的先后顺序,由子类选择性重写方法
-	 *        1.移动  2.换装  3.子弹发射
-	 */
+
+	//更新图片、移动、发射子弹连贯动作模板
 	public final void model(long gameTime) {
-//		先换装
 		updateImage(gameTime);
-//		在移动
 		move();
-//		在发射子弹
 		add(gameTime);
 	}
-//	 long ... aaa  不定长的 数组,可以向这个方法传输 N个 long类型的数据
+
 	protected void updateImage(long gameTime) {}
 	protected void add(long gameTime){}
 	
-//	死亡方法  给子类继承的
-	public void die() {  //死亡也是一个对象
-		
-	}
+//	死亡方法，死亡也作为一个对象
+	public void die() {}
 
+	//创建对象
 	public  ElementObj createElement(String str) {
-		
 		return null;
 	}
-	/**
-	 * @说明 本方法返回 元素的碰撞矩形对象(实时返回)
-	 * @return
-	 */
+
+	//返回对象的碰撞矩阵
 	public Rectangle getRectangle() {
-//		可以将这个数据进行处理 
 		return new Rectangle(x,y,w,h);
 	}
+
 	/**
 	 * @说明 碰撞方法
 	 * 一个是 this对象 一个是传入值 obj
@@ -105,10 +80,7 @@ public abstract class ElementObj {
 	public boolean pk(ElementObj obj) {	
 		return this.getRectangle().intersects(obj.getRectangle());
 	}
-	
-	/**
-	 * 只要是 VO类 POJO 就要为属性生成 get和set方法
-	 */
+
 	public int getX() {
 		return x;
 	}
@@ -145,11 +117,6 @@ public abstract class ElementObj {
 	public void setLive(boolean live) {
 		this.live = live;
 	}
-
-	
-	
-	
-	
 }
 
 

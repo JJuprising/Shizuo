@@ -91,26 +91,6 @@ public class GameLoad {
 		em.addElement(foot, GameElement.PLAY);
 	}
 
-	//加载敌人
-	public static void loadEnemy(String type,int count){
-		switch (type){
-			case "A":
-				for(int i=0;i<count;i++){
-					ElementObj obj=getObj("enemya");
-					ElementObj enemy = obj.createElement("500,500,up");
-					em.addElement(enemy,GameElement.ENEMY);
-				}
-				break;
-			case "B":
-				for(int i=0;i<count;i++){
-					ElementObj obj=getObj("enemyb");
-					ElementObj enemy = obj.createElement("500,500,up");
-					em.addElement(enemy,GameElement.ENEMY);
-				}
-				break;
-		}
-	}
-
 	//加载鬼子
 	public static void loadJanpanese(){
 
