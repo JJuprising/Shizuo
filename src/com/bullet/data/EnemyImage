@@ -1,0 +1,19 @@
+Stand_Gun_Right_000 = res/images/Enemy/L/enemy_stand100.png
+Stand_Gun_Right_001 = res/images/Enemy/L/enemy_stand110.png
+Stand_Gun_Left_000 = res/images/Enemy/L/enemy_stand101.png
+Stand_Gun_Left_001 = res/images/Enemy/L/enemy_stand111.png
+
+
+
+
+Attack_Gun_Right_000 = res/images/Enemy/L/enemy_attack100.png
+Attack_Gun_Right_001 = res/images/Enemy/L/enemy_attack110.png
+Attack_Gun_Right_002 = res/images/Enemy/L/enemy_attack120.png
+Attack_Gun_Right_003 = res/images/Enemy/L/enemy_attack130.png
+Attack_Gun_Right_004 = res/images/Enemy/L/enemy_attack140.png
+Attack_Gun_Left_000 = res/images/Enemy/L/enemy_attack101.png
+Attack_Gun_Left_001 = res/images/Enemy/L/enemy_attack111.png
+Attack_Gun_Left_002 = res/images/Enemy/L/enemy_attack121.png
+Attack_Gun_Left_003 = res/images/Enemy/L/enemy_attack131.png
+Attack_Gun_Left_004 = res/images/Enemy/L/enemy_attack141.png
+

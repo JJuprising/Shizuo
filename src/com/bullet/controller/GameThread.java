@@ -43,8 +43,9 @@ public class GameThread extends Thread{
 	 * 游戏的加载
 	 */
 	private void gameLoad(int MapID) {
-		GameLoad.loadImg(); //加载图片
 		GameLoad.loadObj();
+		GameLoad.loadImg(); //加载图片
+
 		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
 
 ////		加载主角

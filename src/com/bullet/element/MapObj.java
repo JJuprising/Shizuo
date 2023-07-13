@@ -1,10 +1,8 @@
 package com.bullet.element;
 
 import com.bullet.manager.GameLoad;
-
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
-
 
 // 地图类
 public class MapObj extends ElementObj{
