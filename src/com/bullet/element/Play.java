@@ -168,11 +168,11 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		}
 
 		if(gameTime- fireTime >50){
-			test++;
-			if(test==5){
-				UIManager um = UIManager.getManager();
-				um.SetPanel(UIElement.End);
-			}
+			// test++;//测试胜利条件
+			// if(test==5){
+			// 	UIManager um = UIManager.getManager();
+			// 	um.SetPanel(UIElement.End);
+			// }
 			fireTime = gameTime;
 //		new PlayFile(); // 构造一个类 需要做比较多的工作  可以选择一种方式，使用小工厂
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
