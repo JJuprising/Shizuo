@@ -5,10 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-import com.bullet.manager.ElementManager;
-import com.bullet.manager.GameElement;
-import com.bullet.manager.GameLoad;
-import com.bullet.manager.Settings;
+import com.bullet.manager.*;
 import com.bullet.view.Animation;
 
 public class Play extends ElementObj /* implements Comparable<Play>*/{
@@ -34,25 +31,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	private boolean down=false; //下
 
 	Animation animation;
+	AttackType attackType = AttackType.Gun;
 
-	ArrayList<String> leftAtkAnimationList = new ArrayList<String>(){
-		{
-			add("LEFT_GUN_ATK_0");
-			add("LEFT_GUN_ATK_1");
-			add("LEFT_GUN_ATK_2");
-			add("LEFT_GUN_ATK_3");
-			add("LEFT_GUN_ATK_4");
-		}
-	};
-	ArrayList<String> rightAtkAnimationList = new ArrayList<String>(){
-		{
-			add("RIGHT_GUN_ATK_0");
-			add("RIGHT_GUN_ATK_1");
-			add("RIGHT_GUN_ATK_2");
-			add("RIGHT_GUN_ATK_3");
-			add("RIGHT_GUN_ATK_4");
-		}
-	};
+
 
 //	变量专门用来记录当前主角面向的方向,默认为是up
 	private String fx="right";
@@ -147,7 +128,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		if (this.up  && this.getY()>Settings.GameY-Settings.FloorHeight) {
 			this.setY(this.getY() - Settings.playerSpeed);
 		}
-		if (this.right && this.getX()<Settings.GameX-this.getW()) {  //坐标的跳转由大家来完成
+		if (this.right && this.getX()<Settings.GameX-Settings.playerBodyWidth) {  //坐标的跳转由大家来完成
 			this.setX(this.getX() + Settings.playerSpeed);
 		}
 		if (this.down && this.getY()<Settings.GameY-this.getH()-Settings.playerFootHeight) {
@@ -158,7 +139,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	protected void updateImage(long gameTime) {
 //		System.out.println(pkType);
 		if(pkType){
-			animation.SetAnimation(isRight?rightAtkAnimationList:leftAtkAnimationList);
+			animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
 			this.setIcon(animation.LoadSprite(gameTime));
 		}else{
 			animation.ResetAnimation();
@@ -177,6 +158,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	 * 子弹的添加 需要的是 发射者的坐标位置，发射者的方向  如果你可以变换子弹(思考，怎么处理？)
 	 */
 	private long fireTime =0;
+	private int test = 0;
 //	filefime 和传入的时间 gameTime 进行比较，赋值等操作运算，控制子弹间隔
 //	这个控制代码 自己写
 	@Override   //添加子弹
@@ -186,7 +168,11 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		}
 
 		if(gameTime- fireTime >50){
-
+			test++;
+			if(test==5){
+				UIManager um = UIManager.getManager();
+				um.SetPanel(UIElement.End);
+			}
 			fireTime = gameTime;
 //		new PlayFile(); // 构造一个类 需要做比较多的工作  可以选择一种方式，使用小工厂
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
