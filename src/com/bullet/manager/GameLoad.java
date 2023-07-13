@@ -95,7 +95,13 @@ public class GameLoad {
 	public static void loadJanpanese(){
 
 	}
-
+	
+	//加载人质
+	public static void loadHostage() {
+		ElementObj obj = getObj("hostage");
+		ElementObj hostage = obj.createElement("");
+		em.addElement(hostage, GameElement.HOSTAGE);
+	}
 	//要通过这种方式实例化，必须先在obj.pro中给定类的key以及对应的value，我们只需要传入str，便可以创建对象
 	public static ElementObj getObj(String str) {
 		try {

@@ -49,6 +49,7 @@ public class GameThread extends Thread{
 
 ////		加载主角
 		GameLoad.loadPlay();//也可以带参数，单机还是2人
+		GameLoad.loadHostage();
 
 ////		加载敌人NPC等
 //		GameLoad.loadEnemy();
