@@ -12,26 +12,6 @@ public class Boss extends ElementObj{
     private boolean pkType=false;//攻击状态 true 攻击  false停止
     private int moveSpeed=0;
     Animation animation;
-    ArrayList<String> bossAnimationList = new ArrayList<String>(){
-        {
-            add("BOSS1");
-            add("BOSS2");
-            add("BOSS3");
-            add("BOSS4");
-            add("BOSS5");
-            add("BOSS6");
-            add("BOSS7");
-            add("BOSS8");
-            add("BOSS9");
-            add("BOSS10");
-            add("BOSS11");
-            add("BOSS12");
-            add("BOSS13");
-            add("BOSS14");
-            add("BOSS15");
-            add("BOSS16");
-        }
-    };
 
     @Override
     public ElementObj createElement(String str) {
@@ -62,7 +42,7 @@ public class Boss extends ElementObj{
 
     @Override
     protected void updateImage(long gameTime) {
-        animation.SetAnimation(bossAnimationList);
+        animation.SetAnimation(GameLoad.aniMap.get("Boss"));
         this.setIcon(animation.LoadSprite(gameTime));
     }
 }

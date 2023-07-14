@@ -50,10 +50,17 @@ LEFT_RUN_8=res/images/plays/run80.png
 LEFT_STAND=res/images/plays/stand0.png
 RIGHT_STAND=res/images/plays/stand1.png
 
+LEFT_KNIFE_0=res/images/plays/knife00.png
+LEFT_KNIFE_1=res/images/plays/knife10.png
+LEFT_KNIFE_2=res/images/plays/knife20.png
+LEFT_KNIFE_3=res/images/plays/knife30.png
+LEFT_KNIFE_4=res/images/plays/knife40.png
 
-
-
-
+RIGHT_KNIFE_0=res/images/plays/knife01.png
+RIGHT_KNIFE_1=res/images/plays/knife11.png
+RIGHT_KNIFE_2=res/images/plays/knife21.png
+RIGHT_KNIFE_3=res/images/plays/knife31.png
+RIGHT_KNIFE_4=res/images/plays/knife41.png
 
 LEFT_PLANE=res/images/plane/plane_fly0.png
 RIGHT_PLANE=res/images/plane/plane_fly1.png
@@ -122,5 +129,8 @@ BOSS14=res/images/boss/D_boss (14).png
 BOSS15=res/images/boss/D_boss (15).png
 BOSS16=res/images/boss/D_boss (16).png
 
-
+KIT0=res/images/kit/gift0.png
+KIT1=res/images/kit/gift1.png
+KIT2=res/images/kit/gift2.png
+KIT3=res/images/kit/gift3.png
 

@@ -17,4 +17,5 @@ public class GameManager {
     public static String fx;//人物朝向
     public static boolean HostageCrash = false;//人物和人质是否碰撞
     public static boolean canSave = true; //true表示能拯救 false表示不能拯救 给人质用
+    public static boolean isGive = false;
 }

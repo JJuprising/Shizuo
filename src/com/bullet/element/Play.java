@@ -35,6 +35,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	private boolean down=false; //下
 
 	Animation animation;
+	Animation knifeAnime;
 	AttackType attackType = AttackType.Gun;
 
 
@@ -62,6 +63,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //		System.out.println("X:"+icon2.getIconWidth()+"Y:"+icon2.getIconHeight());
 		this.setIcon(icon2);
 		animation = new Animation(4);
+		knifeAnime = new Animation(8);
 		return this;
 	}
 
@@ -104,8 +106,10 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 				this.up=false; this.down=true;
 //				this.fx="down"
 				;break;
-			case 32:
-				this.pkType=true; this.saveType=true; break;//开启攻击状态
+			case 32://空格键
+				this.pkType=true; break;//开启攻击状态
+			case 83://S键
+				this.saveType = true; break;//开机拯救状态
 			}
 		}else {
 			switch(key) {
@@ -113,7 +117,8 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 			case 38: this.up=false;    break;
 			case 39: this.right=false; break;
 			case 40: this.down=false;  break;
-			case 32: this.pkType=false; this.saveType=false; break;//关闭攻击状态
+			case 32: this.pkType=false; break;//关闭攻击状态
+			case 83: this.saveType=false; break;//关闭拯救状态
 			}
 		//a a
 		}	
@@ -159,6 +164,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		if(pkType){
 			animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
 			this.setIcon(animation.LoadSprite(gameTime));
+		}else if (saveType) {
+			knifeAnime.SetAnimation(GameLoad.aniMap.get(isRight?"RightKnife":"LeftKnife"));
+			this.setIcon(knifeAnime.LoadSprite(gameTime));
 		}else{
 			animation.ResetAnimation();
 			this.setIcon(GameLoad.imgMap.get(fx));
@@ -181,13 +189,13 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //	这个控制代码 自己写
 	@Override   //添加子弹
 	public void add(long gameTime) {//有啦时间就可以进行控制
-		if(!this.pkType) {//如果是不发射状态 就直接return
+		if(!this.pkType && !saveType) {//如果是不发射状态 就直接return
 			return;
 		}
 		if (saveType && GameManager.HostageCrash) {
 			 GameManager.canSave = false;
 		}
-		if(gameTime- fireTime >50){
+		if(this.pkType && gameTime- fireTime >50){
 			fireTime = gameTime;
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
@@ -205,12 +213,10 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		int y=this.getY();
 		switch(this.fx) { // 子弹在发射时候就已经给予固定的轨迹。可以加上目标，修改json格式
 		case "up": x+=50;break;
-		// 一般不会写20等数值，一般情况下 图片大小就是显示大小；一般情况下可以使用图片大小参与运算
 		case "left": y+=20;break;
 		case "right": x+=80;y+=20;break;
 		case "down": y+=50;x+=50; break;
-		}//个人认为： 玩游戏有助于 理解面向对象思想;不能专门玩，需要思考，父类应该怎么抽象，子类应该怎么实现
-//		学习技术不犯法，但是不要用技术做犯法的事.
+		}
 		return "x:"+x+",y:"+y+",f:"+this.fx;
 	}
 }
