@@ -13,8 +13,7 @@ public class Enemy extends ElementObj{
 
     @Override
     public ElementObj createElement(String str){
-
-
+        
 
         return this;
     }

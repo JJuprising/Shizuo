@@ -35,5 +35,4 @@ public class Animation {
     public void SetAnimation(ArrayList<String> sprites) {
         this.sprites = sprites;
     }
-
 }

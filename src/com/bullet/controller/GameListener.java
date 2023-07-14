@@ -12,11 +12,9 @@ import com.bullet.manager.GameElement;
 /**
  * @说明 监听类，用于监听用户的操作 KeyListener
  * @author renjj
- *
  */
 public class GameListener implements KeyListener{
 	private ElementManager em=ElementManager.getManager();
-	
 	/*能否通过一个集合来记录所有按下的键，如果重复触发，就直接结束
 	 * 同时，第1次按下，记录到集合中，第2次判定集合中否有。
 	 *       松开就直接删除集合中的记录。
@@ -58,5 +56,4 @@ public class GameListener implements KeyListener{
 			obj.keyClick(false, e.getKeyCode());
 		}
 	}
-
 }

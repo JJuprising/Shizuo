@@ -53,7 +53,6 @@ public class GameJFrame extends JFrame{
 //		this.add(label);
 		ElementManager em= ElementManager.getManager();
 
-
 	}	
 	/**
 	 * 启动方法
@@ -83,8 +82,7 @@ public class GameJFrame extends JFrame{
 		}
 		
 	}
-	
-	
+
 	/*set注入：等大家学习ssm 通过set方法注入配置文件中读取的数据;讲配置文件
 	 * 中的数据赋值为类的属性
 	 * 构造注入：需要配合构造方法
@@ -113,12 +111,4 @@ public class GameJFrame extends JFrame{
 			label.setText(content);
 		}
 	}
-	
-	
-	
 }
-
-
-
-
-

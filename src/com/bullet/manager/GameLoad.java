@@ -2,11 +2,7 @@ package com.bullet.manager;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import javax.swing.ImageIcon;
 import com.bullet.element.ElementObj;
 
@@ -60,6 +56,7 @@ public class GameLoad {
 
 	//加载图片资源，可以在loadImg()中添加参数来为不同的关卡加载图片资源，因此texturl的命名方式就根据关卡类似于String mapName="com/bullet/data/"+mapId+".map";
 	//存储数据的是imgMap，imgMap的key是名字，value是路径
+	public static Map<String,ImageIcon> EnemyImgMap = new HashMap<>();
 	public static void loadImg() {
 		String texturl="com/bullet/data/GameData.pro";
 		ClassLoader classLoader = GameLoad.class.getClassLoader();
@@ -71,6 +68,22 @@ public class GameLoad {
 			for(Object o:set) {
 				String url=pro.getProperty(o.toString());
 				imgMap.put(o.toString(), new ImageIcon(url));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		//由于格式不统一，把敌人和主角的图片位置分开放
+		String enemyurl= "com/bullet/data/EnemyImage";
+		ClassLoader classLoader1 = GameLoad.class.getClassLoader();
+		InputStream img = classLoader1.getResourceAsStream(enemyurl);
+		pro.clear();
+		try {
+			pro.load(img);
+			Set<Object> set = pro.keySet();//是一个set集合
+			for(Object o:set) {
+				String url=pro.getProperty(o.toString());
+				EnemyImgMap.put(o.toString(), new ImageIcon(url));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -93,7 +106,20 @@ public class GameLoad {
 
 	//加载鬼子
 	public static void loadJanpanese(){
-
+		Random random = new Random();
+		int randomInRange = random.nextInt(4)+3;
+		ElementObj obj = getObj("enemy");
+		for(int i=1;i<=randomInRange;i++){
+			int randomLocation = random.nextInt(2);//0代表Left，1代表Right
+			if (randomLocation == 0){
+				ElementObj enemy = obj.createElement("Left");
+				em.addElement(enemy,GameElement.ENEMY);
+			}
+			if (randomLocation == 1){
+				ElementObj enemy = obj.createElement("Right");
+				em.addElement(enemy,GameElement.ENEMY);
+			}
+		}
 	}
 	
 	//加载人质

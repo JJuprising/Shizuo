@@ -38,9 +38,6 @@ public class ElementManager {
 	}
 //	依据key返回 list集合，取出某一类元素
 	public List<ElementObj> getElementsByKey(GameElement ge){
-		String str = new String("abcd");
-//		请问这里产生几个对象？分别是什么对象？分别存储在哪里？
-//		当一块内存没有任何一个引用指向的时候，会被GC回收。
 		return gameElements.get(ge);
 	}	
 	/**
@@ -110,15 +107,4 @@ public class ElementManager {
 		GameJFrame.SetLabel("Win!Score:"+score);
 		GameJFrame.ChangeMap(6);
 	}
-
-
-
-
 }
-
-
-
-
-
-
-

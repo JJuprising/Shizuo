@@ -78,8 +78,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		animation = new Animation(4);
 		return this;
 	}
-	
-	
+
 	/**
 	 * 面向对象中第1个思想： 对象自己的事情自己做
 	 */
@@ -186,7 +185,6 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		}
 
 		if(gameTime- fireTime >50){
-
 			fireTime = gameTime;
 //		new PlayFile(); // 构造一个类 需要做比较多的工作  可以选择一种方式，使用小工厂
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
@@ -214,5 +212,4 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //		学习技术不犯法，但是不要用技术做犯法的事.
 		return "x:"+x+",y:"+y+",f:"+this.fx;
 	}
-	
 }
