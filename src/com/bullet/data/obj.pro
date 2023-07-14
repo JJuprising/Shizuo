@@ -5,3 +5,5 @@ mapobj = com.bullet.element.MapObj
 plane=com.bullet.element.Plane
 hostage = com.bullet.element.Hostage
 enemy = com.bullet.element.Enemy
+bomb = com.bullet.element.Bomb
+wing = com.bullet.element.Wing

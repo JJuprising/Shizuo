@@ -141,17 +141,29 @@ public class GameLoad {
 		ElementObj obj=getObj("play");
 		ElementObj play = obj.createElement(playStr);
 
-		//加载飞机
+		//加载飞机机身和机翼
+
 		ElementObj planeObj=getObj("plane");
-		ElementObj plane = planeObj.createElement(playStr);
-		
+		ElementObj planeBody = planeObj.createElement("BODY"); //机身
+
+
+		//机翼
+		ElementObj wingObj1=getObj("wing");
+		ElementObj font_wing=wingObj1.createElement("FRONT_WING");
+		ElementObj wingObj2=getObj("wing");
+		ElementObj back_wing=wingObj2.createElement("BACK_WING");
+
+		//
+
 		String footStr="100,445,RIGHT_STAND";
 		ElementObj obj2=getObj("playerfoot");
 		ElementObj foot = obj2.createElement(footStr);
 
 		em.addElement(play, GameElement.PLAY);
 		em.addElement(foot, GameElement.PLAY);
-		em.addElement(plane, GameElement.PLANE);
+		em.addElement(planeBody, GameElement.PLANE);
+		em.addElement(font_wing,GameElement.PLANE);
+		em.addElement(back_wing,GameElement.PLANE);
 	}
 
 	//加载鬼子

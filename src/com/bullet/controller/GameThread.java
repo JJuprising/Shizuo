@@ -79,6 +79,7 @@ public class GameThread extends Thread{
 //			System.out.println(gameTime);
 
 			EnemyPK(enemys,bullets);
+
 //			MapPK(files,maps);
 			
 			gameTime++;//唯一的时间控制

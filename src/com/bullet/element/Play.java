@@ -135,6 +135,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 			this.setY(this.getY() + Settings.playerSpeed);
 		}
 	}
+
 	@Override
 	protected void updateImage(long gameTime) {
 //		System.out.println(pkType);
@@ -196,3 +197,10 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		return "x:"+x+",y:"+y+",f:"+this.fx;
 	}
 }
+
+
+
+
+
+
+
