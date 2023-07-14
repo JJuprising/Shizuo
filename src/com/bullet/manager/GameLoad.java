@@ -98,9 +98,7 @@ public class GameLoad {
 	 *@说明 加载动画片段
 	 */
 	public static void loadAni() {
-//		得到我们的文件路径
 		String aniName="com/bullet/data/animation.pro";
-//		使用io流来获取文件对象   得到类加载器
 		ClassLoader classLoader = GameLoad.class.getClassLoader();
 		InputStream ani = classLoader.getResourceAsStream(aniName);
 		if(ani ==null) {
@@ -108,19 +106,12 @@ public class GameLoad {
 			return;
 		}
 		try {
-//			以后用的 都是 xml 和 json
 			pro.clear();
 			pro.load(ani);
-//			可以直接动态的获取所有的key，有key就可以获取 value
-//			java学习中最好的老师 是 java的API文档。
 			Enumeration<?> names = pro.propertyNames();
-			while(names.hasMoreElements()) {//获取是无序的
-//				这样的迭代都有一个问题：一次迭代一个元素。
+			while(names.hasMoreElements()) {
 				String key=names.nextElement().toString();
-//				System.out.println(pro.getProperty(key));
-//				就可以自动的创建和加载 我们的地图啦
 				String [] arrs=pro.getProperty(key).split(";");
-//				System.out.println(key);
 				ArrayList<String> stringList = new ArrayList<String>();
 				for(int i=0;i<arrs.length;i++) {
 					stringList.add(arrs[i]);
@@ -173,9 +164,10 @@ public class GameLoad {
 	//加载鬼子
 	public static void loadJanpanese(){
 		Random random = new Random();
+		//每一次加载鬼子会随机生成3-6名鬼子
 		int randomInRange = random.nextInt(4)+3;
-		ElementObj obj = getObj("enemy");
 		for(int i=1;i<=randomInRange;i++){
+			ElementObj obj = getObj("enemy");
 			int randomLocation = random.nextInt(2);//0代表Left，1代表Right
 			if (randomLocation == 0){
 				ElementObj enemy = obj.createElement("Left");

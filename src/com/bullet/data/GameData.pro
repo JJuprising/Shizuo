@@ -50,10 +50,17 @@ LEFT_RUN_8=res/images/plays/run80.png
 LEFT_STAND=res/images/plays/stand0.png
 RIGHT_STAND=res/images/plays/stand1.png
 
+LEFT_KNIFE_0=res/images/plays/knife00.png
+LEFT_KNIFE_1=res/images/plays/knife10.png
+LEFT_KNIFE_2=res/images/plays/knife20.png
+LEFT_KNIFE_3=res/images/plays/knife30.png
+LEFT_KNIFE_4=res/images/plays/knife40.png
 
-
-
-
+RIGHT_KNIFE_0=res/images/plays/knife01.png
+RIGHT_KNIFE_1=res/images/plays/knife11.png
+RIGHT_KNIFE_2=res/images/plays/knife21.png
+RIGHT_KNIFE_3=res/images/plays/knife31.png
+RIGHT_KNIFE_4=res/images/plays/knife41.png
 
 LEFT_PLANE=res/images/plane/plane_fly0.png
 RIGHT_PLANE=res/images/plane/plane_fly1.png
@@ -65,6 +72,44 @@ PLANE_BOMB3=res/images/bomb/plane_bomb3.png
 HOSTAGE_STAY_0=res/images/hostage/oder10.png
 HOSTAGE_STAY_1=res/images/hostage/oder11.png
 HOSTAGE_STAY_2=res/images/hostage/oder12.png
+
+Run_Gun_Right_000 = res/images/Enemy/L/enemy_run100.png
+Run_Gun_Right_001 = res/images/Enemy/L/enemy_run110.png
+Run_Gun_Right_002 = res/images/Enemy/L/enemy_run120.png
+Run_Gun_Right_003 = res/images/Enemy/L/enemy_run130.png
+Run_Gun_Right_004 = res/images/Enemy/L/enemy_run140.png
+Run_Gun_Left_000 = res/images/Enemy/L/enemy_run101.png
+Run_Gun_Left_001 = res/images/Enemy/L/enemy_run111.png
+Run_Gun_Left_002 = res/images/Enemy/L/enemy_run121.png
+Run_Gun_Left_003 = res/images/Enemy/L/enemy_run131.png
+Run_Gun_Left_004 = res/images/Enemy/L/enemy_run141.png
+
+Stand_Gun_Right_000 = res/images/Enemy/L/enemy_stand100.png
+Stand_Gun_Right_001 = res/images/Enemy/L/enemy_stand110.png
+Stand_Gun_Left_000 = res/images/Enemy/L/enemy_stand101.png
+Stand_Gun_Left_001 = res/images/Enemy/L/enemy_stand111.png
+
+Attack_Gun_Right_000 = res/images/Enemy/L/enemy_attack100.png
+Attack_Gun_Right_001 = res/images/Enemy/L/enemy_attack110.png
+Attack_Gun_Right_002 = res/images/Enemy/L/enemy_attack120.png
+Attack_Gun_Right_003 = res/images/Enemy/L/enemy_attack130.png
+Attack_Gun_Right_004 = res/images/Enemy/L/enemy_attack140.png
+Attack_Gun_Left_000 = res/images/Enemy/L/enemy_attack101.png
+Attack_Gun_Left_001 = res/images/Enemy/L/enemy_attack111.png
+Attack_Gun_Left_002 = res/images/Enemy/L/enemy_attack121.png
+Attack_Gun_Left_003 = res/images/Enemy/L/enemy_attack131.png
+Attack_Gun_Left_004 = res/images/Enemy/L/enemy_attack141.png
+
+Die_Gun_Right_000 = res/images/Enemy/L/enemy_die100.png
+Die_Gun_Right_001 = res/images/Enemy/L/enemy_die110.png
+Die_Gun_Right_002 = res/images/Enemy/L/enemy_die120.png
+Die_Gun_Right_003 = res/images/Enemy/L/enemy_die130.png
+Die_Gun_Right_004 = res/images/Enemy/L/enemy_die140.png
+Die_Gun_Left_000 = res/images/Enemy/L/enemy_die101.png
+Die_Gun_Left_001 = res/images/Enemy/L/enemy_die111.png
+Die_Gun_Left_002 = res/images/Enemy/L/enemy_die121.png
+Die_Gun_Left_003 = res/images/Enemy/L/enemy_die131.png
+Die_Gun_Left_004 = res/images/Enemy/L/enemy_die141.png
 HOSTAGE_SAVE_0=res/images/hostage/oder13.png
 HOSTAGE_SAVE_1=res/images/hostage/oder14.png
 HOSTAGE_SAVE_2=res/images/hostage/oder15.png
@@ -122,5 +167,8 @@ BOSS14=res/images/boss/D_boss (14).png
 BOSS15=res/images/boss/D_boss (15).png
 BOSS16=res/images/boss/D_boss (16).png
 
-
+KIT0=res/images/kit/gift0.png
+KIT1=res/images/kit/gift1.png
+KIT2=res/images/kit/gift2.png
+KIT3=res/images/kit/gift3.png
 

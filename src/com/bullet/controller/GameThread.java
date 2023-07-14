@@ -52,6 +52,7 @@ public class GameThread extends Thread{
 		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
 ////		加载主角
 		GameLoad.loadPlay();//也可以带参数，单机还是2人
+		GameLoad.loadJanpanese();
 		GameLoad.loadHostage();
 
 ////		加载敌人NPC等
@@ -71,19 +72,19 @@ public class GameThread extends Thread{
 		long gameTime=0L;//给int类型就可以啦
 		while(isRunning) {// 预留扩展   true可以变为变量，用于控制管关卡结束等
 			Map<GameElement, List<ElementObj>> all = em.getGameElements();
-			List<ElementObj> player = em.getElementsByKey(GameElement.PLAY);
+			List<ElementObj> players = em.getElementsByKey(GameElement.PLAY);
 			List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
 			List<ElementObj> bullets = em.getElementsByKey(GameElement.BULLET);
-			List<ElementObj> hostage = em.getElementsByKey(GameElement.HOSTAGE);
+			List<ElementObj> hostages = em.getElementsByKey(GameElement.HOSTAGE);
+			List<ElementObj> kits = em.getElementsByKey(GameElement.KIT);
 //			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
 
 			moveAndUpdate(all,gameTime);//	游戏元素自动化方法
 
 //			System.out.println(gameTime);
-
 			EnemyPK(enemys,bullets);
-			HostagePK(hostage,player);
-//			MapPK(files,maps);
+			HostagePK(hostages,players);
+			ElementPK(kits,players);
 			
 			gameTime++;//唯一的时间控制
 			try {
@@ -97,17 +98,11 @@ public class GameThread extends Thread{
 	public void ElementPK(List<ElementObj> listA,List<ElementObj>listB) {
 //		请大家在这里使用循环，做一对一判定，如果为真，就设置2个对象的死亡状态
 		for(int i=0;i<listA.size();i++) {
-			ElementObj enemy=listA.get(i);
+			ElementObj emo1=listA.get(i);
 			for(int j=0;j<listB.size();j++) {
-				ElementObj file=listB.get(j);
-				if(enemy.pk(file)) {
-//					问题： 如果是boos，那么也一枪一个吗？？？？
-//					将 setLive(false) 变为一个受攻击方法，还可以传入另外一个对象的攻击力
-//					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
-//					扩展 留给大家
-//					System.out.println(listB);
-					enemy.setLive(false);
-					file.setLive(false);
+				ElementObj emo2=listB.get(j);
+				if(emo1.pk(emo2)) {
+					emo1.setLive(false);
 					break;
 				}
 			}

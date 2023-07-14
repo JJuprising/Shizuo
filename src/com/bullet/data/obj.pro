@@ -8,3 +8,4 @@ enemy = com.bullet.element.Enemy
 bomb = com.bullet.element.Bomb
 wing = com.bullet.element.Wing
 boss = com.bullet.element.Boss
+kit = com.bullet.element.Kit

@@ -85,6 +85,7 @@ public class PlayerFoot extends ElementObj{
                     this.right=false;this.left=true;
                     isRight = false;
                     this.fx="LEFT_STAND";
+                    GameManager.isMoving = true;
                     break;
                 case 38:
                     isMoving = true;
@@ -98,6 +99,7 @@ public class PlayerFoot extends ElementObj{
                     this.left=false; this.right=true;
                     isRight = true;
                     this.fx="RIGHT_STAND";
+                    GameManager.isMoving = true;
                     break;
                 case 40:
                     isMoving = true;
@@ -108,14 +110,13 @@ public class PlayerFoot extends ElementObj{
         }else {
 
             switch(key) {
-                case 37: this.left=false;  isMoving = false; break;
-                case 38: this.up=false;     isMoving = false;break;
-                case 39: this.right=false;  isMoving = false;break;
-                case 40: this.down=false;   isMoving = false;break;
+                case 37: this.left=false; GameManager.isMoving = false; isMoving = false; break;
+                case 38: this.up=false;     isMoving = false; break;
+                case 39: this.right=false; GameManager.isMoving = false; isMoving = false; break;
+                case 40: this.down=false;   isMoving = false; break;
             }
 
         }
-        GameManager.isMoving = this.isMoving;
         GameManager.fx = this.fx;
     }
 

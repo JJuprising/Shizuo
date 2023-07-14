@@ -1,11 +1,11 @@
 package com.bullet.element;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 
+import com.bullet.manager.ElementManager;
+import com.bullet.manager.GameElement;
 import com.bullet.manager.GameLoad;
 import com.bullet.manager.GameManager;
 import com.bullet.view.Animation;
@@ -31,9 +31,8 @@ public class Hostage extends ElementObj{
 		
 		animationStay.SetAnimation(GameLoad.aniMap.get("Hostage"));
 		animationSave.SetAnimation(GameLoad.aniMap.get("HostageSave"));
-//		animation.SetAnimation(GameLoad.aniMap.get("LeftGun"));
 
-//		System.out.println(GameLoad.aniMap.get("Hostage"));
+		GameManager.HostagePositionY = this.getY();
 		return this;
 	}
 	
@@ -44,15 +43,24 @@ public class Hostage extends ElementObj{
 	
 	@Override
 	protected void move() {
-		if (GameManager.PlayPositionX == 300 && this.getX() > -1480
+		if (GameManager.PlayPositionX == 300 && !(this.getX() - GameManager.MapPositionX == 400)
 				&& GameManager.isMoving && GameManager.fx == "RIGHT_STAND") {
 			this.setX(this.getX() - 2);
-			GameManager.MapPositionX = this.getX();
+			GameManager.HostagePositionX = this.getX();
 		}
-		if (GameManager.PlayPositionX == 200 && this.getX() < 0
+		if (GameManager.PlayPositionX == 200 && !(this.getX() - GameManager.MapPositionX == 400)
 				&& GameManager.isMoving && GameManager.fx == "LEFT_STAND") {
 			this.setX(this.getX() + 2);
-			GameManager.MapPositionX = this.getX();
+			GameManager.HostagePositionX = this.getX();
+		}
+	}
+	@Override
+	protected void add(long gameTime) {
+		if (!GameManager.canSave && !GameManager.isGive && gameTime - this.Time > 150) {
+			ElementObj obj=GameLoad.getObj("kit");  		
+			ElementObj element = obj.createElement(this.toString());
+			ElementManager.getManager().addElement(element, GameElement.KIT);
+			GameManager.isGive = true;
 		}
 	}
 	
@@ -60,11 +68,21 @@ public class Hostage extends ElementObj{
 	protected void updateImage(long gameTime) {
 		if (GameManager.canSave) {
 			this.setIcon(animationStay.LoadSprite(gameTime));
+			this.Time = gameTime;
 		}
 		if (!GameManager.canSave) {
 			this.setIcon(animationSave.LoadSprite(gameTime));
-
-
 		}
+		if (gameTime - this.Time >200) {
+			this.setLive(false);
+		}
+	}
+	
+	@Override
+	public String toString() {
+		//  {X:3,y:5} json格式
+		int x=this.getX();
+		int y=this.getY()+50;
+		return "x:"+x+",y:"+y;
 	}
 }
