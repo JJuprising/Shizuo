@@ -65,7 +65,7 @@ public class Plane extends ElementObj{
             this.setX(this.getX() - moveSpeed);
             fx="LEFT_PLANE";
         }
-        if(!isLeft&&this.getX()<600){
+        if(!isLeft){
             this.setX(this.getX() + moveSpeed);
             fx="RIGHT_PLANE";
 

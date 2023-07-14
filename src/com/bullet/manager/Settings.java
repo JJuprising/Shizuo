@@ -8,6 +8,5 @@ public class Settings {
     public static int playerSpeed = 2;
     public static int playerBodyHeight = 45;
     public static int playerFootHeight = 36;
-    public static int playerBodyWidth = 52;
     public static int playerFootWidth = 30;
 }
