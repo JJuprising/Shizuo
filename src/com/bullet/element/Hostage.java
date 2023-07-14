@@ -4,14 +4,18 @@ import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
 
+import com.bullet.manager.ElementManager;
+import com.bullet.manager.GameElement;
 import com.bullet.manager.GameLoad;
+import com.bullet.manager.GameManager;
 import com.bullet.view.Animation;
 
 public class Hostage extends ElementObj{
 
 	private long Time =0;
-	private boolean canSave = true; //true表示能拯救 false表示不能拯救
-	Animation animation;
+	Animation animationStay;
+	Animation animationSave;
+	
 
 	@Override
 	public ElementObj createElement(String str) {
@@ -22,8 +26,11 @@ public class Hostage extends ElementObj{
 		this.setW(icon.getIconWidth());
 		this.setH(icon.getIconHeight());
 		this.setIcon(icon);
-		animation = new Animation(20);
-		animation.SetAnimation(GameLoad.aniMap.get("Hostage"));
+		animationStay = new Animation(20);
+		animationSave = new Animation(10);
+		
+		animationStay.SetAnimation(GameLoad.aniMap.get("Hostage"));
+		animationSave.SetAnimation(GameLoad.aniMap.get("HostageSave"));
 //		animation.SetAnimation(GameLoad.aniMap.get("LeftGun"));
 
 //		System.out.println(GameLoad.aniMap.get("Hostage"));
@@ -34,15 +41,47 @@ public class Hostage extends ElementObj{
 	public void showElement(Graphics g) {
 		g.drawImage(this.getIcon().getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
 	}
-
+	
+	@Override
+	protected void move() {
+		if (GameManager.PlayPositionX == 300 && !(this.getX() - GameManager.MapPositionX == 400)
+				&& GameManager.isMoving && GameManager.fx == "RIGHT_STAND") {
+			this.setX(this.getX() - 2);
+		}
+		if (GameManager.PlayPositionX == 200 && !(this.getX() - GameManager.MapPositionX == 400)
+				&& GameManager.isMoving && GameManager.fx == "LEFT_STAND") {
+			this.setX(this.getX() + 2);
+		}
+	}
+	@Override
+	protected void add(long gameTime) {
+		if (!GameManager.canSave && !GameManager.isGive && gameTime - this.Time > 150) {
+			ElementObj obj=GameLoad.getObj("kit");  		
+			ElementObj element = obj.createElement(this.toString());
+			ElementManager.getManager().addElement(element, GameElement.BULLET);
+			GameManager.isGive = true;
+		}
+	}
+	
 	@Override
 	protected void updateImage(long gameTime) {
-
-		this.setIcon(animation.LoadSprite(gameTime));
-
-//		System.out.println(this.icon);
-
-
-
+		if (GameManager.canSave) {
+			this.setIcon(animationStay.LoadSprite(gameTime));
+			this.Time = gameTime;
+		}
+		if (!GameManager.canSave) {
+			this.setIcon(animationSave.LoadSprite(gameTime));
+		}
+		if (gameTime - this.Time >200) {
+			this.setLive(false);
+		}
+	}
+	
+	@Override
+	public String toString() {
+		//  {X:3,y:5} json格式
+		int x=this.getX();
+		int y=this.getY()+50;
+		return "x:"+x+",y:"+y;
 	}
 }

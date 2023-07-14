@@ -5,7 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-import com.bullet.manager.*;
+import com.bullet.manager.ElementManager;
+import com.bullet.manager.GameElement;
+import com.bullet.manager.GameLoad;
+import com.bullet.manager.GameManager;
+import com.bullet.manager.Settings;
 import com.bullet.view.Animation;
 
 public class Play extends ElementObj /* implements Comparable<Play>*/{
@@ -31,6 +35,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	private boolean down=false; //下
 
 	Animation animation;
+	Animation knifeAnime;
 	AttackType attackType = AttackType.Gun;
 
 
@@ -38,6 +43,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //	变量专门用来记录当前主角面向的方向,默认为是up
 	private String fx="right";
 	private boolean pkType=false;//攻击状态 true 攻击  false停止
+	private boolean saveType=false;//拯救状态 true 正在拯救 false 不在拯救
 	private boolean isRight = true;
 	
 	public Play() {}
@@ -57,6 +63,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //		System.out.println("X:"+icon2.getIconWidth()+"Y:"+icon2.getIconHeight());
 		this.setIcon(icon2);
 		animation = new Animation(4);
+		knifeAnime = new Animation(8);
 		return this;
 	}
 
@@ -69,6 +76,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		g.drawImage(this.getIcon().getImage(), 
 				this.getX(), this.getY(), 
 				this.getW(), this.getH(), null);
+
 	}
 	/*
 	 * @说明 重写方法： 重写的要求：方法名称 和参数类型序列 必须和父类的方法一样
@@ -98,8 +106,10 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 				this.up=false; this.down=true;
 //				this.fx="down"
 				;break;
-			case 32:
-				this.pkType=true;break;//开启攻击状态
+			case 32://空格键
+				this.pkType=true; break;//开启攻击状态
+			case 83://S键
+				this.saveType = true; break;//开机拯救状态
 			}
 		}else {
 			switch(key) {
@@ -108,6 +118,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 			case 39: this.right=false; break;
 			case 40: this.down=false;  break;
 			case 32: this.pkType=false; break;//关闭攻击状态
+			case 83: this.saveType=false; break;//关闭拯救状态
 			}
 		//a a
 		}	
@@ -121,25 +132,41 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //	}
 	@Override
 	public void move() {
-		if (this.left && this.getX()>0) {
-			this.setX(this.getX() - Settings.playerSpeed);
+		if (this.left) {
+			if (GameManager.MapPositionX == 0 && this.getX() > 0) {
+				this.setX(this.getX() - Settings.playerSpeed);
+				GameManager.PlayPositionX = this.getX();
+			}else if (this.getX() > 200) {
+				this.setX(this.getX() - Settings.playerSpeed);
+				GameManager.PlayPositionX = this.getX();
+			}
 		}
 		if (this.up  && this.getY()>Settings.GameY-Settings.FloorHeight) {
 			this.setY(this.getY() - Settings.playerSpeed);
 		}
-		if (this.right && this.getX()<Settings.GameX-Settings.playerBodyWidth) {  //坐标的跳转由大家来完成
-			this.setX(this.getX() + Settings.playerSpeed);
+		if (this.right) {
+			if (GameManager.MapPositionX == -1480 && this.getX() < Settings.GameX - this.getW()) {
+				this.setX(this.getX() + Settings.playerSpeed);
+				GameManager.PlayPositionX = this.getX();
+			}else if (this.getX() < 300) {
+				this.setX(this.getX() + Settings.playerSpeed);
+				GameManager.PlayPositionX = this.getX();
+			}
 		}
 		if (this.down && this.getY()<Settings.GameY-this.getH()-Settings.playerFootHeight) {
 			this.setY(this.getY() + Settings.playerSpeed);
 		}
 	}
+	
 	@Override
 	protected void updateImage(long gameTime) {
 //		System.out.println(pkType);
 		if(pkType){
 			animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
 			this.setIcon(animation.LoadSprite(gameTime));
+		}else if (saveType) {
+			knifeAnime.SetAnimation(GameLoad.aniMap.get(isRight?"RightKnife":"LeftKnife"));
+			this.setIcon(knifeAnime.LoadSprite(gameTime));
 		}else{
 			animation.ResetAnimation();
 			this.setIcon(GameLoad.imgMap.get(fx));
@@ -162,18 +189,18 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //	这个控制代码 自己写
 	@Override   //添加子弹
 	public void add(long gameTime) {//有啦时间就可以进行控制
-		if(!this.pkType) {//如果是不发射状态 就直接return
+		if(!this.pkType && !saveType) {//如果是不发射状态 就直接return
 			return;
 		}
-
-		if(gameTime- fireTime >50){
+		if (saveType && GameManager.HostageCrash) {
+			 GameManager.canSave = false;
+		}
+		if(this.pkType && gameTime- fireTime >50){
 			fireTime = gameTime;
-//		new PlayFile(); // 构造一个类 需要做比较多的工作  可以选择一种方式，使用小工厂
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
 		ElementObj obj=GameLoad.getObj("file");  		
 		ElementObj element = obj.createElement(this.toString());
-//		System.out.println("子弹是否为空"+element);
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.BULLET);
 //		如果要控制子弹速度等等。。。。还需要代码编写
@@ -186,12 +213,17 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		int y=this.getY();
 		switch(this.fx) { // 子弹在发射时候就已经给予固定的轨迹。可以加上目标，修改json格式
 		case "up": x+=50;break;
-		// 一般不会写20等数值，一般情况下 图片大小就是显示大小；一般情况下可以使用图片大小参与运算
 		case "left": y+=20;break;
 		case "right": x+=80;y+=20;break;
 		case "down": y+=50;x+=50; break;
-		}//个人认为： 玩游戏有助于 理解面向对象思想;不能专门玩，需要思考，父类应该怎么抽象，子类应该怎么实现
-//		学习技术不犯法，但是不要用技术做犯法的事.
+		}
 		return "x:"+x+",y:"+y+",f:"+this.fx;
 	}
 }
+
+
+
+
+
+
+

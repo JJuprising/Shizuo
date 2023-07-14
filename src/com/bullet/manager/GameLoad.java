@@ -128,16 +128,37 @@ public class GameLoad {
 	 * 加载玩家
 	 */
 	public static void loadPlay() {
-		String playStr="100,400,right";
+		String playStr="200,400,right";
 		ElementObj obj=getObj("play");
 		ElementObj play = obj.createElement(playStr);
 
-		String footStr="100,445,RIGHT_STAND";
+		//加载飞机机身和机翼
+
+		ElementObj planeObj=getObj("plane");
+		ElementObj planeBody = planeObj.createElement("BODY"); //机身
+
+
+		//机翼
+		ElementObj wingObj1=getObj("wing");
+		ElementObj font_wing=wingObj1.createElement("FRONT_WING");
+		ElementObj wingObj2=getObj("wing");
+		ElementObj back_wing=wingObj2.createElement("BACK_WING");
+
+		//加载Boss
+		ElementObj bossObj=getObj("boss");
+		ElementObj boss=bossObj.createElement("1");
+
+
+		String footStr="200,445,RIGHT_STAND";
 		ElementObj obj2=getObj("playerfoot");
 		ElementObj foot = obj2.createElement(footStr);
 
 		em.addElement(play, GameElement.PLAY);
 		em.addElement(foot, GameElement.PLAY);
+		em.addElement(planeBody, GameElement.PLANE);
+		em.addElement(font_wing,GameElement.PLANE);
+		em.addElement(back_wing,GameElement.PLANE);
+		em.addElement(boss,GameElement.BOSS);
 	}
 
 	//加载鬼子

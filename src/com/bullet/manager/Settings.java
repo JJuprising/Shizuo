@@ -1,7 +1,7 @@
 package com.bullet.manager;
 
 public class Settings {
-    public static int GameX = 1200;
+    public static int GameX = 1000;
     public static int GameY = 600;
     public static int FloorHeight = 200;
 
