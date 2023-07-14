@@ -42,6 +42,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //	变量专门用来记录当前主角面向的方向,默认为是up
 	private String fx="right";
 	private boolean pkType=false;//攻击状态 true 攻击  false停止
+	private boolean saveType=false;//拯救状态 true 正在拯救 false 不在拯救
 	private boolean isRight = true;
 	
 	public Play() {}
@@ -104,7 +105,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //				this.fx="down"
 				;break;
 			case 32:
-				this.pkType=true;break;//开启攻击状态
+				this.pkType=true; this.saveType=true; break;//开启攻击状态
 			}
 		}else {
 			switch(key) {
@@ -112,7 +113,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 			case 38: this.up=false;    break;
 			case 39: this.right=false; break;
 			case 40: this.down=false;  break;
-			case 32: this.pkType=false; break;//关闭攻击状态
+			case 32: this.pkType=false; this.saveType=false; break;//关闭攻击状态
 			}
 		//a a
 		}	
@@ -151,7 +152,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 			this.setY(this.getY() + Settings.playerSpeed);
 		}
 	}
-
+	
 	@Override
 	protected void updateImage(long gameTime) {
 //		System.out.println(pkType);
@@ -183,15 +184,15 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		if(!this.pkType) {//如果是不发射状态 就直接return
 			return;
 		}
-
+		if (saveType && GameManager.HostageCrash) {
+			 GameManager.canSave = false;
+		}
 		if(gameTime- fireTime >50){
 			fireTime = gameTime;
-//		new PlayFile(); // 构造一个类 需要做比较多的工作  可以选择一种方式，使用小工厂
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
 		ElementObj obj=GameLoad.getObj("file");  		
 		ElementObj element = obj.createElement(this.toString());
-//		System.out.println("子弹是否为空"+element);
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.BULLET);
 //		如果要控制子弹速度等等。。。。还需要代码编写

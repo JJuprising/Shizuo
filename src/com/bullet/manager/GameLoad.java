@@ -158,7 +158,7 @@ public class GameLoad {
 		ElementObj boss=bossObj.createElement("1");
 
 
-		String footStr="100,445,RIGHT_STAND";
+		String footStr="200,445,RIGHT_STAND";
 		ElementObj obj2=getObj("playerfoot");
 		ElementObj foot = obj2.createElement(footStr);
 

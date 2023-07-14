@@ -7,13 +7,15 @@ import java.util.Iterator;
 import javax.swing.ImageIcon;
 
 import com.bullet.manager.GameLoad;
+import com.bullet.manager.GameManager;
 import com.bullet.view.Animation;
 
 public class Hostage extends ElementObj{
 
 	private long Time =0;
-	private boolean canSave = true; //true表示能拯救 false表示不能拯救
-	Animation animation;
+	Animation animationStay;
+	Animation animationSave;
+	
 
 	@Override
 	public ElementObj createElement(String str) {
@@ -24,8 +26,11 @@ public class Hostage extends ElementObj{
 		this.setW(icon.getIconWidth());
 		this.setH(icon.getIconHeight());
 		this.setIcon(icon);
-		animation = new Animation(20);
-		animation.SetAnimation(GameLoad.aniMap.get("Hostage"));
+		animationStay = new Animation(20);
+		animationSave = new Animation(10);
+		
+		animationStay.SetAnimation(GameLoad.aniMap.get("Hostage"));
+		animationSave.SetAnimation(GameLoad.aniMap.get("HostageSave"));
 //		animation.SetAnimation(GameLoad.aniMap.get("LeftGun"));
 
 //		System.out.println(GameLoad.aniMap.get("Hostage"));
@@ -36,15 +41,30 @@ public class Hostage extends ElementObj{
 	public void showElement(Graphics g) {
 		g.drawImage(this.getIcon().getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
 	}
-
+	
+	@Override
+	protected void move() {
+		if (GameManager.PlayPositionX == 300 && this.getX() > -1480
+				&& GameManager.isMoving && GameManager.fx == "RIGHT_STAND") {
+			this.setX(this.getX() - 2);
+			GameManager.MapPositionX = this.getX();
+		}
+		if (GameManager.PlayPositionX == 200 && this.getX() < 0
+				&& GameManager.isMoving && GameManager.fx == "LEFT_STAND") {
+			this.setX(this.getX() + 2);
+			GameManager.MapPositionX = this.getX();
+		}
+	}
+	
 	@Override
 	protected void updateImage(long gameTime) {
+		if (GameManager.canSave) {
+			this.setIcon(animationStay.LoadSprite(gameTime));
+		}
+		if (!GameManager.canSave) {
+			this.setIcon(animationSave.LoadSprite(gameTime));
 
-		this.setIcon(animation.LoadSprite(gameTime));
 
-//		System.out.println(this.icon);
-
-
-
+		}
 	}
 }

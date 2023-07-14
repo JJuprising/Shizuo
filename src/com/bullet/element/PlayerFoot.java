@@ -138,7 +138,7 @@ public class PlayerFoot extends ElementObj{
             this.setY(this.getY() - Settings.playerSpeed);
         }
         if (this.right) {
-        	if (GameManager.MapPositionX == -1480 && GameManager.PlayPositionX < Settings.GameX - Settings.playerBodyWidth) {
+        	if (GameManager.MapPositionX == -1480 && GameManager.PlayPositionX < Settings.GameX - 86) {
         		this.setX(this.getX() + Settings.playerSpeed);
 			}else if (GameManager.PlayPositionX < 300) {
 				this.setX(this.getX() + Settings.playerSpeed);
