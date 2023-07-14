@@ -11,7 +11,8 @@ public class GameManager {
         return GM;
     }
     public static long gameTime = 0;
-
-
-    public int PlayerPos =0;
+    public static int PlayPositionX;
+    public static int MapPositionX;
+    public static boolean isMoving;//人物是否移动
+    public static String fx;//人物朝向
 }

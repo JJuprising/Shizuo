@@ -137,15 +137,11 @@ public class GameLoad {
 	 * 加载玩家
 	 */
 	public static void loadPlay() {
-		String playStr="100,400,right";
+		String playStr="200,400,right";
 		ElementObj obj=getObj("play");
 		ElementObj play = obj.createElement(playStr);
 
-		//加载飞机
-		ElementObj planeObj=getObj("plane");
-		ElementObj plane = planeObj.createElement(playStr);
-		
-		String footStr="100,445,RIGHT_STAND";
+		String footStr="200,445,RIGHT_STAND";
 		ElementObj obj2=getObj("playerfoot");
 		ElementObj foot = obj2.createElement(footStr);
 

@@ -1,6 +1,8 @@
 package com.bullet.element;
 
 import com.bullet.manager.GameLoad;
+import com.bullet.manager.GameManager;
+
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
@@ -26,11 +28,25 @@ public class MapObj extends ElementObj{
 		int w=icon.getIconWidth();
 		int h=icon.getIconHeight();
 		this.setH(h);
-		this.setW(w);
+		this.setW(w+1000);
 		this.setX(x);
 		this.setY(y);
 		this.setIcon(icon);
 		return this;
+	}
+	
+	@Override
+	protected void move() {
+		if (GameManager.PlayPositionX == 300 && this.getX() > -1480
+				&& GameManager.isMoving && GameManager.fx == "RIGHT_STAND") {
+			this.setX(this.getX() - 2);
+			GameManager.MapPositionX = this.getX();
+		}
+		if (GameManager.PlayPositionX == 200 && this.getX() < 0
+				&& GameManager.isMoving && GameManager.fx == "LEFT_STAND") {
+			this.setX(this.getX() + 2);
+			GameManager.MapPositionX = this.getX();
+		}
 	}
 }
 

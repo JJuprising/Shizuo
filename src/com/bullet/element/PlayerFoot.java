@@ -1,6 +1,7 @@
 package com.bullet.element;
 
 import com.bullet.manager.GameLoad;
+import com.bullet.manager.GameManager;
 import com.bullet.manager.Settings;
 import com.bullet.view.Animation;
 
@@ -53,7 +54,6 @@ public class PlayerFoot extends ElementObj{
         this.setH(icon2.getIconHeight());
 
         this.setIcon(icon2);
-        
         animation = new Animation(4);
         return this;
     }
@@ -115,6 +115,8 @@ public class PlayerFoot extends ElementObj{
             }
 
         }
+        GameManager.isMoving = this.isMoving;
+        GameManager.fx = this.fx;
     }
 
 
@@ -125,14 +127,22 @@ public class PlayerFoot extends ElementObj{
 //	}
     @Override
     public void move() {
-        if (this.left && this.getX()>0) {
-            this.setX(this.getX() - Settings.playerSpeed);
+        if (this.left) {
+        	if (GameManager.MapPositionX == 0 && GameManager.PlayPositionX > 0) {
+        		this.setX(this.getX() - Settings.playerSpeed);
+			}else if (GameManager.PlayPositionX > 200) {
+				this.setX(this.getX() - Settings.playerSpeed);
+			}
         }
         if (this.up  && this.getY()>Settings.GameY-Settings.FloorHeight+Settings.playerBodyHeight) {
             this.setY(this.getY() - Settings.playerSpeed);
         }
-        if (this.right && this.getX()<Settings.GameX-Settings.playerBodyWidth) {  //坐标的跳转由大家来完成
-            this.setX(this.getX() + Settings.playerSpeed);
+        if (this.right) {
+        	if (GameManager.MapPositionX == -1480 && GameManager.PlayPositionX < Settings.GameX - Settings.playerBodyWidth) {
+        		this.setX(this.getX() + Settings.playerSpeed);
+			}else if (GameManager.PlayPositionX < 300) {
+				this.setX(this.getX() + Settings.playerSpeed);
+			}
         }
         if (this.down && this.getY()<Settings.GameY-Settings.playerFootHeight-5) {
             this.setY(this.getY() + Settings.playerSpeed);
