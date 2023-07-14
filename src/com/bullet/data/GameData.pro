@@ -58,10 +58,10 @@ RIGHT_STAND=res/images/plays/stand1.png
 LEFT_PLANE=res/images/plane/plane_fly0.png
 RIGHT_PLANE=res/images/plane/plane_fly1.png
 
-PLANE_BOMB0=res/images/plane/plane_bomb0.png
-PLANE_BOMB1=res/images/plane/plane_bomb1.png
-PLANE_BOMB2=res/images/plane/plane_bomb2.png
-PLANE_BOMB3=res/images/plane/plane_bomb3.png
+PLANE_BOMB0=res/images/bomb/plane_bomb0.png
+PLANE_BOMB1=res/images/bomb/plane_bomb1.png
+PLANE_BOMB2=res/images/bomb/plane_bomb2.png
+PLANE_BOMB3=res/images/bomb/plane_bomb3.png
 HOSTAGE_STAY_0=res/images/hostage/oder10.png
 HOSTAGE_STAY_1=res/images/hostage/oder11.png
 HOSTAGE_STAY_2=res/images/hostage/oder12.png

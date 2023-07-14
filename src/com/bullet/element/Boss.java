@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Boss extends ElementObj{
     private boolean pkType=false;//攻击状态 true 攻击  false停止
-    private int moveSpeed=1;
+    private int moveSpeed=0;
     Animation animation;
     ArrayList<String> bossAnimationList = new ArrayList<String>(){
         {
@@ -35,7 +35,7 @@ public class Boss extends ElementObj{
 
     @Override
     public ElementObj createElement(String str) {
-        this.setX(Settings.GameX);
+        this.setX(500);
         this.setY(300);
         ImageIcon icon2 = GameLoad.imgMap.get("BOSS1");
 

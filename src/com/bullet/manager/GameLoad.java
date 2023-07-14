@@ -153,7 +153,10 @@ public class GameLoad {
 		ElementObj wingObj2=getObj("wing");
 		ElementObj back_wing=wingObj2.createElement("BACK_WING");
 
-		//
+		//加载Boss
+		ElementObj bossObj=getObj("boss");
+		ElementObj boss=bossObj.createElement("1");
+
 
 		String footStr="100,445,RIGHT_STAND";
 		ElementObj obj2=getObj("playerfoot");
@@ -164,6 +167,7 @@ public class GameLoad {
 		em.addElement(planeBody, GameElement.PLANE);
 		em.addElement(font_wing,GameElement.PLANE);
 		em.addElement(back_wing,GameElement.PLANE);
+		em.addElement(boss,GameElement.BOSS);
 	}
 
 	//加载鬼子

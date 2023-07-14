@@ -86,8 +86,11 @@ public class Bomb extends ElementObj{
             overKey=true;//炮弹消失
 //            this.setLive(false);
 //            return;
-            this.setW(100);
-            this.setH(100);
+            this.setW(130);
+            this.setH(130);
+            //由于炮弹和爆炸效果图片大小不同，为了不穿帮，需要把爆炸效果坐标往左上调整一下
+            this.setX(this.getX()-50);
+            this.setY(this.getY()-65);
         }
         //炮弹没有到地面 向下坠
         if (!overKey){
