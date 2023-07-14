@@ -34,37 +34,6 @@ public class PlayerFoot extends ElementObj{
     private boolean isMoving = false;
 
     Animation animation;
-
-    ArrayList<String> leftRunAnimationList = new ArrayList<String>(){
-        {
-            add("LEFT_RUN_0");
-            add("LEFT_RUN_1");
-            add("LEFT_RUN_2");
-            add("LEFT_RUN_3");
-            add("LEFT_RUN_4");
-            add("LEFT_RUN_5");
-            add("LEFT_RUN_6");
-            add("LEFT_RUN_7");
-            add("LEFT_RUN_8");
-
-        }
-    };
-    ArrayList<String> rightRunAnimationList = new ArrayList<String>(){
-        {
-            add("RIGHT_RUN_0");
-            add("RIGHT_RUN_1");
-            add("RIGHT_RUN_2");
-            add("RIGHT_RUN_3");
-            add("RIGHT_RUN_4");
-            add("RIGHT_RUN_5");
-            add("RIGHT_RUN_6");
-            add("RIGHT_RUN_7");
-            add("RIGHT_RUN_8");
-
-        }
-    };
-
-
     //	变量专门用来记录当前主角面向的方向,默认为是up
     private String fx="RIGHT_STAND";
     public PlayerFoot() {
@@ -137,12 +106,12 @@ public class PlayerFoot extends ElementObj{
 				break;
             }
         }else {
-            isMoving = false;
+
             switch(key) {
-                case 37: this.left=false;  break;
-                case 38: this.up=false;    break;
-                case 39: this.right=false; break;
-                case 40: this.down=false;  break;
+                case 37: this.left=false;  isMoving = false; break;
+                case 38: this.up=false;     isMoving = false;break;
+                case 39: this.right=false;  isMoving = false;break;
+                case 40: this.down=false;   isMoving = false;break;
             }
 
         }
@@ -162,10 +131,10 @@ public class PlayerFoot extends ElementObj{
         if (this.up  && this.getY()>Settings.GameY-Settings.FloorHeight+Settings.playerBodyHeight) {
             this.setY(this.getY() - Settings.playerSpeed);
         }
-        if (this.right && this.getX()<Settings.GameX-this.getW()) {  //坐标的跳转由大家来完成
+        if (this.right && this.getX()<Settings.GameX-Settings.playerBodyWidth) {  //坐标的跳转由大家来完成
             this.setX(this.getX() + Settings.playerSpeed);
         }
-        if (this.down && this.getY()<Settings.GameY-Settings.playerFootHeight) {
+        if (this.down && this.getY()<Settings.GameY-Settings.playerFootHeight-5) {
             this.setY(this.getY() + Settings.playerSpeed);
         }
     }
@@ -176,7 +145,8 @@ public class PlayerFoot extends ElementObj{
 //		如果高度是小于等于0 就说明你的这个图片路径有问题
 
         if(isMoving){
-            animation.SetAnimation(isRight?rightRunAnimationList:leftRunAnimationList);
+
+            animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightRun":"LeftRun"));
             this.setIcon(animation.LoadSprite(gameTime));
         }else{
             animation.ResetAnimation();

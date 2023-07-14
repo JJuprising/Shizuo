@@ -15,9 +15,14 @@ public class GameLoad {
 	//用户读取文件的类
 	private static Properties pro =new Properties();
 
+//  动画片段集合  使用map来进行存储
+	public static Map<String, ArrayList<String>> aniMap = new HashMap<>();
 
-	//根据传入的地图Id来加载地图资源
-	//地图用地图类来控制，即根据传入的地图Id参数来创建地图类，并进行显示
+
+	/**
+	 * @说明 传入地图id有加载方法依据文件规则自动产生地图文件名称，加载文件
+	 * @param mapId  文件编号 文件id
+	 */
 	public static void MapLoad(int mapId) {
 		String mapName="com/bullet/data/"+mapId+".map";
 		ClassLoader classLoader = GameLoad.class.getClassLoader();
@@ -34,11 +39,10 @@ public class GameLoad {
 //			获取是无序的
 			while(names.hasMoreElements()) {
 				String key=names.nextElement().toString();
-
-				System.out.println(pro.getProperty(key));//得到key对应的value
+				//System.out.println(pro.getProperty(key));//得到key对应的value
 
 				String [] arrs=pro.getProperty(key).split(";");//是否需要删除？
-				System.out.println(arrs.length);
+				//System.out.println(arrs.length);
 
 				for(int i=0;i<arrs.length;i++) {
 					ElementObj obj = getObj("mapobj");
@@ -90,7 +94,48 @@ public class GameLoad {
 		}
 	}
 
-	//加载玩家
+	/**
+	 *@说明 加载动画片段
+	 */
+	public static void loadAni() {
+//		得到我们的文件路径
+		String aniName="com/bullet/data/animation.pro";
+//		使用io流来获取文件对象   得到类加载器
+		ClassLoader classLoader = GameLoad.class.getClassLoader();
+		InputStream ani = classLoader.getResourceAsStream(aniName);
+		if(ani ==null) {
+			System.out.println("ani配置文件读取异常,请重新安装");
+			return;
+		}
+		try {
+//			以后用的 都是 xml 和 json
+			pro.clear();
+			pro.load(ani);
+//			可以直接动态的获取所有的key，有key就可以获取 value
+//			java学习中最好的老师 是 java的API文档。
+			Enumeration<?> names = pro.propertyNames();
+			while(names.hasMoreElements()) {//获取是无序的
+//				这样的迭代都有一个问题：一次迭代一个元素。
+				String key=names.nextElement().toString();
+//				System.out.println(pro.getProperty(key));
+//				就可以自动的创建和加载 我们的地图啦
+				String [] arrs=pro.getProperty(key).split(";");
+//				System.out.println(key);
+				ArrayList<String> stringList = new ArrayList<String>();
+				for(int i=0;i<arrs.length;i++) {
+					stringList.add(arrs[i]);
+				}
+				aniMap.put(key,stringList);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 加载玩家
+	 */
 	public static void loadPlay() {
 		String playStr="100,400,right";
 		ElementObj obj=getObj("play");

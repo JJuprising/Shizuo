@@ -6,41 +6,45 @@ import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 
+import com.bullet.manager.GameLoad;
 import com.bullet.view.Animation;
 
 public class Hostage extends ElementObj{
-	private ImageIcon icon;
+
 	private long Time =0;
 	private boolean canSave = true; //true表示能拯救 false表示不能拯救
+	Animation animation;
 
 	@Override
 	public ElementObj createElement(String str) {
-		icon = new ImageIcon("res/images/人质/ode10.png");
+		ImageIcon icon;
+		icon = GameLoad.imgMap.get("HOSTAGE_STAY_0");
 		this.setX(400);
 		this.setY(400);
-		this.setW(this.icon.getIconWidth());
-		this.setH(this.icon.getIconHeight());
+		this.setW(icon.getIconWidth());
+		this.setH(icon.getIconHeight());
 		this.setIcon(icon);
+		animation = new Animation(20);
+		animation.SetAnimation(GameLoad.aniMap.get("Hostage"));
+//		animation.SetAnimation(GameLoad.aniMap.get("LeftGun"));
+
+//		System.out.println(GameLoad.aniMap.get("Hostage"));
 		return this;
 	}
 	
 	@Override
 	public void showElement(Graphics g) {
-		g.drawImage(this.icon.getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
+		g.drawImage(this.getIcon().getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
 	}
 
-	private int i = 10;
 	@Override
 	protected void updateImage(long gameTime) {
-		if(gameTime- Time >20){
-			Time = gameTime;
-			this.icon = new ImageIcon("res/images/人质/oder"+ i + ".png");
-			this.setW(this.icon.getIconWidth());
-			this.setH(this.icon.getIconHeight());
-			i++;
-			if (i == 12) {
-				i = 10;
-			}
-		}
+
+		this.setIcon(animation.LoadSprite(gameTime));
+
+//		System.out.println(this.icon);
+
+
+
 	}
 }

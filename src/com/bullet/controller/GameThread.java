@@ -15,17 +15,19 @@ public class GameThread extends Thread{
 	private GameManager gm;
 
 	public boolean isRunning = true;
+	private int mapID;
 	
-	public GameThread() {
+	public GameThread(int mapID) {
 		em=ElementManager.getManager();
 		gm = GameManager.getManager();
+		this.mapID = mapID;
 	}
 	@Override
 	public void run() {
 		while(true) {
 //		游戏开始前   读进度条，加载游戏资源(场景资源)
 			isRunning = true;
-			gameLoad(11);
+			gameLoad(mapID);
 //		游戏进行时   游戏过程中
 			gameRun();
 //		游戏场景结束  游戏资源回收(场景资源)
@@ -43,11 +45,10 @@ public class GameThread extends Thread{
 	 * 游戏的加载
 	 */
 	private void gameLoad(int MapID) {
-		GameLoad.loadObj();
 		GameLoad.loadImg(); //加载图片
-
+		GameLoad.loadAni();//加载动画
+		GameLoad.loadObj();
 		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
-
 ////		加载主角
 		GameLoad.loadPlay();//也可以带参数，单机还是2人
 		GameLoad.loadHostage();
@@ -75,7 +76,8 @@ public class GameThread extends Thread{
 
 			moveAndUpdate(all,gameTime);//	游戏元素自动化方法
 
-//
+//			System.out.println(gameTime);
+
 			EnemyPK(enemys,bullets);
 //			MapPK(files,maps);
 			
@@ -147,9 +149,7 @@ public class GameThread extends Thread{
 		}
 	}
 	
-	
-	
-	
+
 //	游戏元素自动化方法
 	public void moveAndUpdate(Map<GameElement, List<ElementObj>> all,long gameTime) {
 //		GameElement.values();//隐藏方法  返回值是一个数组,数组的顺序就是定义枚举的顺序
@@ -185,17 +185,16 @@ public class GameThread extends Thread{
 			}
 		}
 	}
+	public void ChangeMap(int mapID){
+		isRunning = false;
+		this.mapID = mapID;
+		try {
+			sleep(50);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
-//	public void ChangeMap(int mapID){
-//		isRunning = false;
-//		this.mapID = mapID;
-//		try {
-//			sleep(5000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
+	}
 	
 }
 

@@ -34,6 +34,7 @@ public class GameListener implements KeyListener{
 //		拿到玩家集合
 
 		int key=e.getKeyCode();
+//		System.out.println(key);
 		if(set.contains(key)) { //判定集合中是否已经存在,包含这个对象
 //			如果包含直接结束方法
 			return;
