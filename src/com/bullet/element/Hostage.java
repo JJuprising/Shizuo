@@ -58,7 +58,7 @@ public class Hostage extends ElementObj{
 		if (!GameManager.canSave && !GameManager.isGive && gameTime - this.Time > 150) {
 			ElementObj obj=GameLoad.getObj("kit");  		
 			ElementObj element = obj.createElement(this.toString());
-			ElementManager.getManager().addElement(element, GameElement.BULLET);
+			ElementManager.getManager().addElement(element, GameElement.KIT);
 			GameManager.isGive = true;
 		}
 	}
