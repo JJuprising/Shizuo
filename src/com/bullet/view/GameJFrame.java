@@ -70,6 +70,8 @@ public class GameJFrame extends JFrame{
 			isStart = true;
 		}
 		this.setVisible(true);//显示界面
+		setFocusable(true);
+		requestFocus();//聚焦当前面板，使得keylistener能工作
 	}
 
 	/*set注入：等大家学习ssm 通过set方法注入配置文件中读取的数据;讲配置文件
