@@ -1,8 +1,6 @@
 package com.bullet.element;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 

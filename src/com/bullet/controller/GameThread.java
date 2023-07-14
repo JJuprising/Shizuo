@@ -51,6 +51,7 @@ public class GameThread extends Thread{
 		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
 ////		加载主角
 		GameLoad.loadPlay();//也可以带参数，单机还是2人
+		GameLoad.loadJanpanese();
 		GameLoad.loadHostage();
 
 ////		加载敌人NPC等

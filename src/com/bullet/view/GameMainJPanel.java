@@ -74,17 +74,4 @@ public class GameMainJPanel extends JPanel implements Runnable{
 			}		
 		}
 	}
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-

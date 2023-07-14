@@ -53,3 +53,41 @@ RIGHT_STAND=res/images/plays/stand1.png
 HOSTAGE_STAY_0=res/images/hostage/oder10.png
 HOSTAGE_STAY_1=res/images/hostage/oder11.png
 HOSTAGE_STAY_2=res/images/hostage/oder12.png
+
+Run_Gun_Right_000 = res/images/Enemy/L/enemy_run100.png
+Run_Gun_Right_001 = res/images/Enemy/L/enemy_run110.png
+Run_Gun_Right_002 = res/images/Enemy/L/enemy_run120.png
+Run_Gun_Right_003 = res/images/Enemy/L/enemy_run130.png
+Run_Gun_Right_004 = res/images/Enemy/L/enemy_run140.png
+Run_Gun_Left_000 = res/images/Enemy/L/enemy_run101.png
+Run_Gun_Left_001 = res/images/Enemy/L/enemy_run111.png
+Run_Gun_Left_002 = res/images/Enemy/L/enemy_run121.png
+Run_Gun_Left_003 = res/images/Enemy/L/enemy_run131.png
+Run_Gun_Left_004 = res/images/Enemy/L/enemy_run141.png
+
+Stand_Gun_Right_000 = res/images/Enemy/L/enemy_stand100.png
+Stand_Gun_Right_001 = res/images/Enemy/L/enemy_stand110.png
+Stand_Gun_Left_000 = res/images/Enemy/L/enemy_stand101.png
+Stand_Gun_Left_001 = res/images/Enemy/L/enemy_stand111.png
+
+Attack_Gun_Right_000 = res/images/Enemy/L/enemy_attack100.png
+Attack_Gun_Right_001 = res/images/Enemy/L/enemy_attack110.png
+Attack_Gun_Right_002 = res/images/Enemy/L/enemy_attack120.png
+Attack_Gun_Right_003 = res/images/Enemy/L/enemy_attack130.png
+Attack_Gun_Right_004 = res/images/Enemy/L/enemy_attack140.png
+Attack_Gun_Left_000 = res/images/Enemy/L/enemy_attack101.png
+Attack_Gun_Left_001 = res/images/Enemy/L/enemy_attack111.png
+Attack_Gun_Left_002 = res/images/Enemy/L/enemy_attack121.png
+Attack_Gun_Left_003 = res/images/Enemy/L/enemy_attack131.png
+Attack_Gun_Left_004 = res/images/Enemy/L/enemy_attack141.png
+
+Die_Gun_Right_000 = res/images/Enemy/L/enemy_die100.png
+Die_Gun_Right_001 = res/images/Enemy/L/enemy_die110.png
+Die_Gun_Right_002 = res/images/Enemy/L/enemy_die120.png
+Die_Gun_Right_003 = res/images/Enemy/L/enemy_die130.png
+Die_Gun_Right_004 = res/images/Enemy/L/enemy_die140.png
+Die_Gun_Left_000 = res/images/Enemy/L/enemy_die101.png
+Die_Gun_Left_001 = res/images/Enemy/L/enemy_die111.png
+Die_Gun_Left_002 = res/images/Enemy/L/enemy_die121.png
+Die_Gun_Left_003 = res/images/Enemy/L/enemy_die131.png
+Die_Gun_Left_004 = res/images/Enemy/L/enemy_die141.png
