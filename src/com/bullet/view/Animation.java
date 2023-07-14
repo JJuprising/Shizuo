@@ -1,11 +1,9 @@
 package com.bullet.view;
 
 import com.bullet.manager.GameLoad;
-
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Animation {
     public Animation(int animationSpeed){
@@ -17,7 +15,7 @@ public class Animation {
     private long startTime =-1;
     private int idx = 0;
 
-    public ImageIcon LoadSprite(long currentTime) {
+    public ImageIcon LoadSprite(long currentTime) {//返回当前帧的图图
 
         if(startTime ==-1){
             startTime = currentTime;
@@ -28,12 +26,12 @@ public class Animation {
         }
         return GameLoad.imgMap.get(sprites.get(idx));
     }
-    public void ResetAnimation() {
+    public void ResetAnimation() {//重置动画
         idx = 0;
         startTime = -1;
     }
     public void SetAnimation(ArrayList<String> sprites) {
         this.sprites = sprites;
-    }
+    }//设置动画序列，列表的字符串是GameData里的键
 
 }

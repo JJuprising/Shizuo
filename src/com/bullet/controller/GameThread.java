@@ -2,35 +2,32 @@ package com.bullet.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import com.bullet.element.ElementObj;
 import com.bullet.manager.ElementManager;
 import com.bullet.manager.GameElement;
 import com.bullet.manager.GameLoad;
 import com.bullet.manager.GameManager;
 
-/**
- * @说明 游戏的主线程，用于控制游戏加载，游戏关卡，游戏运行时自动化
- * 		游戏判定；游戏地图切换 资源释放和重新读取。。。
- * @author renjj
- * @继承 使用继承的方式实现多线程(一般建议使用接口实现)
- */
+
+//主线程
 public class GameThread extends Thread{
 	private ElementManager em;
 	private GameManager gm;
 
 	public boolean isRunning = true;
+	private int mapID;
 	
-	public GameThread() {
+	public GameThread(int mapID) {
 		em=ElementManager.getManager();
 		gm = GameManager.getManager();
+		this.mapID = mapID;
 	}
 	@Override
-	public void run() {//游戏的run方法  主线程
-		while(true) { //扩展,可以讲true变为一个变量用于控制结束
+	public void run() {
+		while(true) {
 //		游戏开始前   读进度条，加载游戏资源(场景资源)
 			isRunning = true;
-			gameLoad(11);
+			gameLoad(mapID);
 //		游戏进行时   游戏过程中
 			gameRun();
 //		游戏场景结束  游戏资源回收(场景资源)
@@ -49,11 +46,12 @@ public class GameThread extends Thread{
 	 */
 	private void gameLoad(int MapID) {
 		GameLoad.loadImg(); //加载图片
+		GameLoad.loadAni();//加载动画
 		GameLoad.loadObj();
 		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
-
 ////		加载主角
 		GameLoad.loadPlay();//也可以带参数，单机还是2人
+		GameLoad.loadHostage();
 
 ////		加载敌人NPC等
 //		GameLoad.loadEnemy();
@@ -78,7 +76,8 @@ public class GameThread extends Thread{
 
 			moveAndUpdate(all,gameTime);//	游戏元素自动化方法
 
-//
+//			System.out.println(gameTime);
+
 			EnemyPK(enemys,bullets);
 //			MapPK(files,maps);
 			
@@ -150,9 +149,7 @@ public class GameThread extends Thread{
 		}
 	}
 	
-	
-	
-	
+
 //	游戏元素自动化方法
 	public void moveAndUpdate(Map<GameElement, List<ElementObj>> all,long gameTime) {
 //		GameElement.values();//隐藏方法  返回值是一个数组,数组的顺序就是定义枚举的顺序
@@ -188,16 +185,16 @@ public class GameThread extends Thread{
 			}
 		}
 	}
-//	public void ChangeMap(int mapID){
-//		isRunning = false;
-//		this.mapID = mapID;
-//		try {
-//			sleep(5000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
+	public void ChangeMap(int mapID){
+		isRunning = false;
+		this.mapID = mapID;
+		try {
+			sleep(50);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
 	
 }
 

@@ -21,11 +21,9 @@ import com.bullet.manager.GameElement;
 public class GameMainJPanel extends JPanel implements Runnable{
 //	联动管理器
 	private ElementManager em;
-	
 	public GameMainJPanel() {
 		init();
 	}
-
 	public void init() {
 		em = ElementManager.getManager();//得到元素管理器对象
 	}

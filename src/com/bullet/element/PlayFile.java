@@ -21,6 +21,7 @@ public class PlayFile extends ElementObj{
 	private int attack;//攻击力
 	private int moveNum=3;//移动速度值
 	private String fx;
+	private ImageIcon icon;
 //	剩下的大家扩展; 可以扩展出多种子弹： 激光，导弹等等。(玩家类就需要有子弹类型)
 	public PlayFile() {}//一个空的构造方法
 //	对创建这个对象的过程进行封装，外界只需要传输必要的约定参数，返回值就是对象实体
@@ -35,15 +36,21 @@ public class PlayFile extends ElementObj{
 			case "f":this.fx=split2[1];break;
 			}
 		}
-		this.setW(10);
-		this.setH(10);
+		switch (this.fx) {
+		case "left":icon = new ImageIcon("res/images/子弹/bullet00.png"); break;
+		case "right":icon = new ImageIcon("res/images/子弹/bullet01.png"); break;
+		}
+		this.setW(this.icon.getIconWidth());
+		this.setH(this.icon.getIconHeight());
+		this.setIcon(icon);
 		return this;
 	}
+	
 	@Override
 	public void showElement(Graphics g) {	
-		g.setColor(Color.red);// new Color(255,255,255)
-		g.fillOval(this.getX(), this.getY(), this.getW(), this.getH());
-	}	
+		g.drawImage(this.icon.getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
+	}
+	
 	@Override
 	protected void move() {
 		if(this.getX()<0 || this.getX() > Settings.GameX ||
@@ -52,10 +59,8 @@ public class PlayFile extends ElementObj{
 			return;
 		}
 		switch(this.fx) {
-		case "up": this.setY(this.getY()-this.moveNum);break;
 		case "left": this.setX(this.getX()-this.moveNum);break;
 		case "right": this.setX(this.getX()+this.moveNum);break;
-		case "down": this.setY(this.getY()+this.moveNum);break;
 		}
 		
 	}
@@ -84,7 +89,10 @@ public class PlayFile extends ElementObj{
 //		}
 //	}
 	
-	
+	@Override
+	public void setLive(boolean live) {
+		super.setLive(live);
+	}
 }
 
 
