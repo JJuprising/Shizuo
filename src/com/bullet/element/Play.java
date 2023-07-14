@@ -5,7 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-import com.bullet.manager.*;
+import com.bullet.manager.ElementManager;
+import com.bullet.manager.GameElement;
+import com.bullet.manager.GameLoad;
+import com.bullet.manager.GameManager;
+import com.bullet.manager.Settings;
 import com.bullet.view.Animation;
 
 public class Play extends ElementObj /* implements Comparable<Play>*/{
@@ -122,14 +126,26 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 //	}
 	@Override
 	public void move() {
-		if (this.left && this.getX()>0) {
-			this.setX(this.getX() - Settings.playerSpeed);
+		if (this.left) {
+			if (GameManager.MapPositionX == 0 && this.getX() > 0) {
+				this.setX(this.getX() - Settings.playerSpeed);
+				GameManager.PlayPositionX = this.getX();
+			}else if (this.getX() > 200) {
+				this.setX(this.getX() - Settings.playerSpeed);
+				GameManager.PlayPositionX = this.getX();
+			}
 		}
 		if (this.up  && this.getY()>Settings.GameY-Settings.FloorHeight) {
 			this.setY(this.getY() - Settings.playerSpeed);
 		}
-		if (this.right && this.getX()<Settings.GameX-Settings.playerBodyWidth) {  //坐标的跳转由大家来完成
-			this.setX(this.getX() + Settings.playerSpeed);
+		if (this.right) {
+			if (GameManager.MapPositionX == -1480 && this.getX() < Settings.GameX - this.getW()) {
+				this.setX(this.getX() + Settings.playerSpeed);
+				GameManager.PlayPositionX = this.getX();
+			}else if (this.getX() < 300) {
+				this.setX(this.getX() + Settings.playerSpeed);
+				GameManager.PlayPositionX = this.getX();
+			}
 		}
 		if (this.down && this.getY()<Settings.GameY-this.getH()-Settings.playerFootHeight) {
 			this.setY(this.getY() + Settings.playerSpeed);

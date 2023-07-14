@@ -137,7 +137,7 @@ public class GameLoad {
 	 * 加载玩家
 	 */
 	public static void loadPlay() {
-		String playStr="100,400,right";
+		String playStr="200,400,right";
 		ElementObj obj=getObj("play");
 		ElementObj play = obj.createElement(playStr);
 
