@@ -31,9 +31,8 @@ public class Hostage extends ElementObj{
 		
 		animationStay.SetAnimation(GameLoad.aniMap.get("Hostage"));
 		animationSave.SetAnimation(GameLoad.aniMap.get("HostageSave"));
-//		animation.SetAnimation(GameLoad.aniMap.get("LeftGun"));
 
-//		System.out.println(GameLoad.aniMap.get("Hostage"));
+		GameManager.HostagePositionY = this.getY();
 		return this;
 	}
 	
@@ -47,10 +46,12 @@ public class Hostage extends ElementObj{
 		if (GameManager.PlayPositionX == 300 && !(this.getX() - GameManager.MapPositionX == 400)
 				&& GameManager.isMoving && GameManager.fx == "RIGHT_STAND") {
 			this.setX(this.getX() - 2);
+			GameManager.HostagePositionX = this.getX();
 		}
 		if (GameManager.PlayPositionX == 200 && !(this.getX() - GameManager.MapPositionX == 400)
 				&& GameManager.isMoving && GameManager.fx == "LEFT_STAND") {
 			this.setX(this.getX() + 2);
+			GameManager.HostagePositionX = this.getX();
 		}
 	}
 	@Override

@@ -143,6 +143,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		}
 		if (this.up  && this.getY()>Settings.GameY-Settings.FloorHeight) {
 			this.setY(this.getY() - Settings.playerSpeed);
+			GameManager.PlayPositionY = this.getY();
 		}
 		if (this.right) {
 			if (GameManager.MapPositionX == -1480 && this.getX() < Settings.GameX - this.getW()) {
@@ -155,6 +156,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		}
 		if (this.down && this.getY()<Settings.GameY-this.getH()-Settings.playerFootHeight) {
 			this.setY(this.getY() + Settings.playerSpeed);
+			GameManager.PlayPositionY = this.getY();
 		}
 	}
 	
@@ -192,7 +194,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		if(!this.pkType && !saveType) {//如果是不发射状态 就直接return
 			return;
 		}
-		if (saveType && GameManager.HostageCrash) {
+		if (saveType && GameManager.HostageCrash
+				&& Math.abs(this.getX() - GameManager.HostagePositionX) < 30
+				&& Math.abs(this.getY() - GameManager.HostagePositionY) < 10) {
 			 GameManager.canSave = false;
 		}
 		if(this.pkType && gameTime- fireTime >50){
