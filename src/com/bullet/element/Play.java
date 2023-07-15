@@ -45,6 +45,8 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	private boolean pkType=false;//攻击状态 true 攻击  false停止
 	private boolean saveType=false;//拯救状态 true 正在拯救 false 不在拯救
 	private boolean isRight = true;
+
+	private GameManager gm;
 	
 	public Play() {}
 	public Play(int x, int y, int w, int h, ImageIcon icon) {
@@ -53,6 +55,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	//题外话: 过时的方法能用吗？ 可以用，也能够用，因为你不用jdk底层使用
 	@Override
 	public ElementObj createElement(String str) {
+		gm = GameManager.getManager();
 		String[] split = str.split(",");
 		this.setX(Integer.parseInt(split[0]));
 		this.setY(Integer.parseInt(split[1]));
@@ -62,7 +65,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		this.setH(icon2.getIconHeight());
 //		System.out.println("X:"+icon2.getIconWidth()+"Y:"+icon2.getIconHeight());
 		this.setIcon(icon2);
-		animation = new Animation(4);
+		animation = new Animation(6);
 		knifeAnime = new Animation(8);
 		return this;
 	}
@@ -110,6 +113,15 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 				this.pkType=true; break;//开启攻击状态
 			case 83://S键
 				this.saveType = true; break;//开机拯救状态
+			case 49:
+				gm.setAttackType(AttackType.Gun);
+				break;
+			case 50:
+				gm.setAttackType(AttackType.Rpg);
+				break;
+			case 51:
+				gm.setAttackType(AttackType.Grenade);
+				break;
 			}
 		}else {
 			switch(key) {
@@ -133,12 +145,12 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	@Override
 	public void move() {
 		if (this.left) {
-			if (GameManager.MapPositionX == 0 && this.getX() > 0) {
+			if (gm.MapPositionX == 0 && this.getX() > 0) {
 				this.setX(this.getX() - Settings.playerSpeed);
-				GameManager.PlayPositionX = this.getX();
+				gm.PlayPositionX = this.getX();
 			}else if (this.getX() > 200) {
 				this.setX(this.getX() - Settings.playerSpeed);
-				GameManager.PlayPositionX = this.getX();
+				gm.PlayPositionX = this.getX();
 			}
 		}
 		if (this.up  && this.getY()>Settings.GameY-Settings.FloorHeight) {
@@ -163,15 +175,42 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	@Override
 	protected void updateImage(long gameTime) {
 //		System.out.println(pkType);
-		if(pkType){
-			animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
+		if(pkType&&!gm.isReloading()){
+			switch (gm.getAttackType()){
+				case Gun:
+					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
+					break;
+				case Grenade:
+					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightKnife":"LeftKnife"));
+					break;
+				case Rpg:
+					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightRPG":"LeftRPG"));
+					break;
+				default:
+					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
+					break;
+			}
 			this.setIcon(animation.LoadSprite(gameTime));
 		}else if (saveType) {
 			knifeAnime.SetAnimation(GameLoad.aniMap.get(isRight?"RightKnife":"LeftKnife"));
 			this.setIcon(knifeAnime.LoadSprite(gameTime));
 		}else{
 			animation.ResetAnimation();
-			this.setIcon(GameLoad.imgMap.get(fx));
+			switch (gm.getAttackType()){
+				case Gun:
+					this.setIcon(GameLoad.imgMap.get(isRight?"RIGHT_GUN_ATK_0":"LEFT_GUN_ATK_0"));
+					break;
+				case Grenade:
+					this.setIcon(GameLoad.imgMap.get(isRight?"RIGHT_KNIFE_0":"LEFT_KNIFE_0"));
+					break;
+				case Rpg:
+					this.setIcon(GameLoad.imgMap.get(isRight?"RIGHT_RPG_ATK_0":"LEFT_RPG_ATK_0"));
+					break;
+				default:
+					this.setIcon(GameLoad.imgMap.get(isRight?"RIGHT_GUN_ATK_0":"LEFT_GUN_ATK_0"));
+					break;
+			}
+
 		}
 	}
 	/**
@@ -199,11 +238,25 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 				&& Math.abs(this.getY() - GameManager.HostagePositionY) < 10) {
 			 GameManager.canSave = false;
 		}
-		if(this.pkType && gameTime- fireTime >50){
+		if(gameTime- fireTime >Settings.ShootSpeed&&gm.ShootAmmo()){
 			fireTime = gameTime;
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
-		ElementObj obj=GameLoad.getObj("file");  		
+			ElementObj obj;
+			switch (gm.getAttackType()){
+			case Gun:
+				obj = GameLoad.getObj("file");
+				break;
+			case Grenade:
+				obj = GameLoad.getObj("grenade");
+				break;
+			case Rpg:
+				obj = GameLoad.getObj("rpg");
+				break;
+			default:
+				obj = GameLoad.getObj("file");
+				break;
+		}
 		ElementObj element = obj.createElement(this.toString());
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.BULLET);
@@ -223,11 +276,14 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		}
 		return "x:"+x+",y:"+y+",f:"+this.fx;
 	}
+	@Override
+	public boolean pk(ElementObj obj) {
+		boolean isHit = this.getRectangle().intersects(obj.getRectangle());
+		if(isHit){
+			gm.setHp(-10);
+		}
+
+
+		return isHit;
+	}
 }
-
-
-
-
-
-
-

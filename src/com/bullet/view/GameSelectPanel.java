@@ -1,5 +1,6 @@
 package com.bullet.view;
 
+import com.bullet.manager.Settings;
 import com.bullet.manager.UIElement;
 import com.bullet.manager.UIManager;
 
@@ -10,18 +11,27 @@ import java.awt.event.ActionListener;
 
 public class GameSelectPanel extends JPanel {
     public GameSelectPanel(){
-//        // 创建一个标签，用于显示标题图片
-//        JLabel label = new JLabel(new ImageIcon("path/to/image.png"));
-        JLabel label = new JLabel("关卡选择");
+    	ImageIcon background = new ImageIcon("res/images/background/LOGO.png");
+    	ImageIcon select = new ImageIcon("res/images/background/Select.png");
+    	ImageIcon level1 = new ImageIcon("res/images/background/1.png");
+    	ImageIcon level2 = new ImageIcon("res/images/background/2.png");
+    	
+    	background.setImage(background.getImage().getScaledInstance(Settings.GameX,Settings.GameY + Settings.GameInfoY,Image.SCALE_DEFAULT));
+    	select.setImage(select.getImage().getScaledInstance(300,100,Image.SCALE_DEFAULT));
+    	level1.setImage(level1.getImage().getScaledInstance(300,200,Image.SCALE_DEFAULT));
+    	level2.setImage(level2.getImage().getScaledInstance(300,200,Image.SCALE_DEFAULT));
+    	
+    	JLabel label = new JLabel(background);
+    	JLabel label2 = new JLabel(select);
         setLayout(null);
         // 创建两个按钮
-        JButton button1 = new JButton("第一关");
-        JButton button2 = new JButton("第二关");
+        JButton button1 = new JButton(level1);
+        JButton button2 = new JButton(level2);
 
-        label.setBounds(600,100,200,50);
-        label.setFont(new Font("宋体",Font.BOLD,20));
-        button1.setBounds(500,200,200,100);
-        button2.setBounds(500,400,200,100);
+        label.setBounds(0,0,Settings.GameX,Settings.GameY + Settings.GameInfoY);
+        label2.setBounds(350,50,300,100);
+        button1.setBounds(50,260,300,200);
+        button2.setBounds(650,260,300,200);
 
         // 为按钮添加点击事件监听器
         button1.addActionListener(new ActionListener() {
@@ -38,10 +48,11 @@ public class GameSelectPanel extends JPanel {
             }
         });
 
-        // 将标签和按钮添加到面板中
-        this.add(label);
+        // 将标签和按钮添加到面板中      
         this.add(button1);
         this.add(button2);
+        this.add(label2);
+        this.add(label);       
 
         // 设置窗口大小和可见性
         setSize(400, 300);

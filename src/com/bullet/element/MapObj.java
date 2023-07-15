@@ -19,8 +19,11 @@ public class MapObj extends ElementObj{
 		String []arr=str.split(",");
 		ImageIcon icon=null;
 		switch(arr[0]) { //设置图片信息 图片还未加载到内存中
-			case "BACKGROUND":
-				icon=GameLoad.imgMap.get("BACKGROUND");
+			case "BACKGROUND1":
+				icon=GameLoad.imgMap.get("BACKGROUND1");
+				break;
+			case "BACKGROUND2":
+				icon=GameLoad.imgMap.get("BACKGROUND2");
 				break;
 		}
 		int x=Integer.parseInt(arr[1]);

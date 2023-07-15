@@ -2,6 +2,7 @@ package com.bullet.view;
 
 import com.bullet.controller.GameThread;
 import com.bullet.manager.ElementManager;
+import com.bullet.manager.GameManager;
 import com.bullet.manager.Settings;
 
 import java.awt.*;
@@ -36,7 +37,7 @@ public class GameJFrame extends JFrame{
 		init();
 	}
 	public void init() {
-		this.setSize(Settings.GameX, Settings.GameY+39); //设置窗体大小
+		this.setSize(Settings.GameX, Settings.GameY+Settings.GameDeltaY+Settings.GameInfoY); //设置窗体大小
 		this.setTitle("Bullet Fight");
 //		addButton();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//设置退出并且关闭
@@ -44,7 +45,9 @@ public class GameJFrame extends JFrame{
 	}
 	/*窗体布局: 可以讲 存档，读档。button   给大家扩展的*/
 	public void addButton() {
-	}	
+//		initLabel();
+	}
+
 	/**
 	 * 启动方法
 	 */
@@ -53,7 +56,7 @@ public class GameJFrame extends JFrame{
 
 	public void start() {
 		if(!isStart&&this.jPanel instanceof Runnable){//是否开启过线程，只有游戏界面需要键盘监听和游戏线程
-			System.out.println(keyListener);
+//			System.out.println(keyListener);
 			if(keyListener !=null) {
 				this.addKeyListener(keyListener);
 

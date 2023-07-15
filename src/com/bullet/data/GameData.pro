@@ -1,7 +1,8 @@
 left=res/images/plays/attack000.png
 right=res/images/plays/attack001.png
 
-BACKGROUND=res/images/background/backimage1.gif
+BACKGROUND1=res/images/background/backimage1.gif
+BACKGROUND2=res/images/background/backimage2.png
 
 LEFT_GUN_ATK_0=res/images/plays/attack000.png
 LEFT_GUN_ATK_1=res/images/plays/attack010.png
@@ -110,6 +111,10 @@ Die_Gun_Left_001 = res/images/Enemy/L/enemy_die111.png
 Die_Gun_Left_002 = res/images/Enemy/L/enemy_die121.png
 Die_Gun_Left_003 = res/images/Enemy/L/enemy_die131.png
 Die_Gun_Left_004 = res/images/Enemy/L/enemy_die141.png
+
+Bullet_Right = res/images/bullet/bullet10.png
+Bullet_Left = res/images/bullet/bullet11.png
+
 HOSTAGE_SAVE_0=res/images/hostage/oder13.png
 HOSTAGE_SAVE_1=res/images/hostage/oder14.png
 HOSTAGE_SAVE_2=res/images/hostage/oder15.png
@@ -172,3 +177,9 @@ KIT1=res/images/kit/gift1.png
 KIT2=res/images/kit/gift2.png
 KIT3=res/images/kit/gift3.png
 
+GUN_LEFT=res/images/bullet/bullet00.png
+GUN_RIGHT=res/images/bullet/bullet01.png
+RPG_LEFT=res/images/bullet/bullet40.png
+RPG_RIGHT=res/images/bullet/bullet41.png
+
+GRENADE = res/images/bullet/image583.png
