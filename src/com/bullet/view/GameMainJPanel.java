@@ -47,11 +47,16 @@ public class GameMainJPanel extends JPanel implements Runnable{
 		this.add(scoreLabel);
 		this.add(levelLabel);
 
-		weaponLabel.setBounds(20,Settings.GameY+Settings.GameDeltaY,200,30);
-		ammoLabel.setBounds(220,Settings.GameY+Settings.GameDeltaY,200,30);
-		HpLabel.setBounds(420,Settings.GameY+Settings.GameDeltaY,200,30);
-		scoreLabel.setBounds(620,Settings.GameY+Settings.GameDeltaY,200,30);
-		levelLabel.setBounds(820,Settings.GameY+Settings.GameDeltaY,200,30);
+		weaponLabel.setBounds(20,Settings.GameY + 20,200,30);
+		weaponLabel.setFont(new Font("宋体",Font.BOLD,20));
+		ammoLabel.setBounds(220,Settings.GameY+ 20,200,30);
+		ammoLabel.setFont(new Font("宋体",Font.BOLD,20));
+		HpLabel.setBounds(420,Settings.GameY+ 20,200,30);
+		HpLabel.setFont(new Font("宋体",Font.BOLD,20));
+		scoreLabel.setBounds(620,Settings.GameY+ 20,200,30);
+		scoreLabel.setFont(new Font("宋体",Font.BOLD,20));
+		levelLabel.setBounds(820,Settings.GameY+ 20,200,30);
+		levelLabel.setFont(new Font("宋体",Font.BOLD,20));
 
 		gm.SetLabel(weaponLabel,ammoLabel,HpLabel,scoreLabel,levelLabel);
 		gm.UpdateLabel();

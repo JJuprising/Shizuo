@@ -1,5 +1,7 @@
 package com.bullet.view;
 
+import com.bullet.manager.GameManager;
+import com.bullet.manager.Settings;
 import com.bullet.manager.UIElement;
 import com.bullet.manager.UIManager;
 
@@ -10,18 +12,29 @@ import java.awt.event.ActionListener;
 
 public class GameWinPanel extends JPanel {
     public GameWinPanel(){
-//        // 创建一个标签，用于显示标题图片
-//        JLabel label = new JLabel(new ImageIcon("path/to/image.png"));
-        JLabel label = new JLabel("你赢了！");
+    	ImageIcon background;
+    	if (GameManager.getManager().getHp() == 0) {
+    		background = new ImageIcon("res/images/background/LOSE.png");
+		} else {
+			background = new ImageIcon("res/images/background/WIN.png");
+		}
+    	ImageIcon start = new ImageIcon("res/images/background/Start.png");
+    	ImageIcon exit = new ImageIcon("res/images/background/Exit.png");
+    	
+    	background.setImage(background.getImage().getScaledInstance(Settings.GameX,Settings.GameY + Settings.GameInfoY,Image.SCALE_DEFAULT));
+    	start.setImage(start.getImage().getScaledInstance(200,50,Image.SCALE_DEFAULT));
+    	exit.setImage(exit.getImage().getScaledInstance(200,50,Image.SCALE_DEFAULT));
+    	
+        JLabel label = new JLabel(background);
         setLayout(null);
         // 创建两个按钮
-        JButton button1 = new JButton("关卡选择");
-        JButton button2 = new JButton("主菜单");
+        JButton button1 = new JButton(start);
+        JButton button2 = new JButton(exit);
 
-        label.setBounds(600,100,200,50);
+        label.setBounds(0,0,Settings.GameX,Settings.GameY + Settings.GameInfoY);
         label.setFont(new Font("宋体",Font.BOLD,20));
-        button1.setBounds(500,200,200,100);
-        button2.setBounds(500,400,200,100);
+        button1.setBounds(200,525,200,50);
+        button2.setBounds(600,525,200,50);
 
         // 为按钮添加点击事件监听器
         button1.addActionListener(new ActionListener() {
@@ -33,18 +46,18 @@ public class GameWinPanel extends JPanel {
 
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                UIManager um = UIManager.getManager();
-                um.SetPanel(UIElement.Start);
+                System.exit(114514);
             }
         });
 
         // 将标签和按钮添加到面板中
-        this.add(label);
+        
         this.add(button1);
         this.add(button2);
+        this.add(label);
 
         // 设置窗口大小和可见性
-        setSize(400, 300);
+//        setSize(400, 300);
         setVisible(true);
     }
 }

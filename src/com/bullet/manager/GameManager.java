@@ -149,7 +149,6 @@ public class GameManager {
         this.levelLabel = levelLabel;
     }
     public void UpdateLabel(){
-
         levelLabel.setText("Level:"+mapID);
         weaponLabel.setText("Weapon:"+attackType);
         ammoLabel.setText("Ammo:"+ammo[attackType.ordinal()]);

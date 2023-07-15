@@ -29,9 +29,9 @@ public class GameSelectPanel extends JPanel {
         JButton button2 = new JButton(level2);
 
         label.setBounds(0,0,Settings.GameX,Settings.GameY + Settings.GameInfoY);
-        label2.setBounds(50,50,300,100);
+        label2.setBounds(350,50,300,100);
         button1.setBounds(50,260,300,200);
-        button2.setBounds(600,260,300,200);
+        button2.setBounds(650,260,300,200);
 
         // 为按钮添加点击事件监听器
         button1.addActionListener(new ActionListener() {

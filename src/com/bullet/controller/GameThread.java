@@ -8,19 +8,21 @@ import com.bullet.manager.ElementManager;
 import com.bullet.manager.GameElement;
 import com.bullet.manager.GameLoad;
 import com.bullet.manager.GameManager;
+import com.bullet.manager.SoundManager;
 
 
 //主线程
 public class GameThread extends Thread{
 	private ElementManager em;
 	private GameManager gm;
-
+	private SoundManager sm;
 
 	private int mapID;
 	
 	public GameThread(int mapID) {
 		em=ElementManager.getManager();
 		gm = GameManager.getManager();
+		sm = SoundManager.getManager();
 		this.mapID = mapID;
 	}
 	@Override
@@ -30,7 +32,7 @@ public class GameThread extends Thread{
 			gm.StartGame();
 			gameLoad(mapID);
 //		游戏进行时   游戏过程中
-			gameRun();
+			gameRun();		
 //		游戏场景结束  游戏资源回收(场景资源)
 			gameOver();
 			try {
