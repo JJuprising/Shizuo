@@ -12,12 +12,18 @@ public class Enemy extends ElementObj implements Runnable{
 
     private ElementManager em=ElementManager.getManager();
     ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//主角位置
+    private int playX = Play.getX();
 
     private String fx;//敌人方向
-    private boolean pkType=false;//攻击状态
+    private boolean pkType=false;//攻击状态 false为未处于Attack状态而true未处于Attack状态
     private String EnemyState;//敌人状态
+
+    private long standbyTime = 0L;//站立的时间
     private long gameTime=0L;//为了在本线程中使用而添加的游戏时间
-    private long Time = 0;
+    private long Time = 0; //上次发射子弹时间
+    private long lastshootTime = 0L;//上次发射子弹时间
+
+
     Animation Run;//跑步动画
     Animation Stand;//站立动画
     Animation Attack;//攻击动画
@@ -55,7 +61,7 @@ public class Enemy extends ElementObj implements Runnable{
         this.setEnemyState("Run");//一开始是跑步状态
         this.setFx(str);
         this.setY(LocaY);
-
+        //初始化各种动画
         this.setRun(new Animation(10));
         this.setStand(new Animation(10));
         this.setAttack(new Animation(15));
@@ -66,7 +72,7 @@ public class Enemy extends ElementObj implements Runnable{
             this.setX(500);
             this.setH(icon.getIconHeight());
             this.setW(icon.getIconWidth());
-
+            //根据敌人方向设置动画图片
             this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Gun_Right"));
             this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Right"));
             this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Right"));
@@ -77,7 +83,7 @@ public class Enemy extends ElementObj implements Runnable{
             this.setX(0);
             this.setH(icon.getIconHeight());
             this.setW(icon.getIconWidth());
-
+            //根据敌人方向设置动画图片
             this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Gun_Left"));
             this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Left"));
             this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Left"));
@@ -87,27 +93,25 @@ public class Enemy extends ElementObj implements Runnable{
 
     @Override
     protected void move() {
-        int playX = Play.getX();
-
         if(this.fx.equals("Right")){
-            if(this.getX()>playX+100){
+            if(this.getX()>this.getPlayX()+200){
                 this.setX(this.getX()-1);
             }
-            if(this.getX()<=playX+100){
+            if(this.getX()<=this.getPlayX()+200){
                 this.setEnemyState("Stand");
             }
-            if(this.getX()<=playX+100 && this.getEnemyState().equals("Stand")){
+            if(this.getX()<=this.getPlayX()+200 && this.getEnemyState().equals("Stand")){
                 this.setEnemyState("Attack");
             }
         }
         if(this.fx.equals("Left")){
-            if(this.getX()<playX-100){
+            if(this.getX()<this.getPlayX()-200){
                 this.setX(this.getX()+1);
             }
-            if(this.getX()>=playX-100){
+            if(this.getX()>=this.getPlayX()-200){
                 this.setEnemyState("Stand");
             }
-            if(this.getX()>=playX-100 && this.getEnemyState().equals("Stand")){
+            if(this.getX()>=this.getPlayX()-200 && this.getEnemyState().equals("Stand")){
                 this.setEnemyState("Attack");
             }
         }
@@ -116,12 +120,17 @@ public class Enemy extends ElementObj implements Runnable{
     //根据不同的状态给予不同的动画
     @Override
     protected void updateImage(long gameTime) {
-        this.setGameTime(gameTime);
+        this.setGameTime(gameTime);//这个不用管，只是传参到我的run中的
+
+        if(this.getStandbyTime() > 0){//站立的时间还没有结束
+            this.setEnemyState("Stand");
+            this.setStandbyTime(this.getStandbyTime()-(gameTime-this.getTime()));
+            this.setTime(gameTime);
+        }
         if(this.getEnemyState().equals("Run")){
             this.setIcon(Run.LoadSprite(gameTime));
         } else if (this.getEnemyState().equals("Stand")) {
             this.setIcon(Stand.LoadSprite(gameTime));
-            System.out.println(this.getIcon());
         } else if (this.getEnemyState().equals("Attack")) {
             this.setIcon(Attack.LoadSprite(gameTime));
         }
@@ -129,12 +138,28 @@ public class Enemy extends ElementObj implements Runnable{
 
     @Override
     protected void add(long gameTime) {
-            if(gameTime-this.getTime()>300 && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Right_002") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Left_002"))){
-                ElementObj obj = GameLoad.getObj("enemyfile");
-                ElementObj element = obj.createElement(this.fx+","+this.getX()+","+this.getY());
-                ElementManager.getManager().addElement(element,GameElement.ENEMYFILE);
-                this.setTime(gameTime);
+        //当满足发射间隔，并且动作符合图片的时候就发射子弹
+        if(gameTime-this.getLastshootTime()>200 && this.getEnemyState().equals("Attack") && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Right_002") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Left_002"))){
+            this.setPkType(true);
+            ElementObj obj = GameLoad.getObj("enemyfile");
+
+            int fileX = 0,fileY =0;
+            fileY = this.getY()+15;
+            if(this.fx.equals("Left")){
+                fileX = this.getX()+100;
             }
+            if(this.fx.equals("Right")){
+                fileX = this.getX()-30;
+            }
+            ElementObj element = obj.createElement(this.fx+","+ fileX +","+fileY);
+            ElementManager.getManager().addElement(element,GameElement.ENEMYFILE);
+            this.setLastshootTime(gameTime);//记录最后开枪时间
+            this.setTime(this.getLastshootTime());//把最后开枪时间记录为开始站立的时间
+        }
+        if(this.isPkType() && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Right_004") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Left_004"))){
+            this.setStandbyTime(200L);//打完一枪之后时间间隔，需要站立的时间
+            this.setPkType(false);
+        }
     }
 
     public long getGameTime() {
@@ -183,5 +208,29 @@ public class Enemy extends ElementObj implements Runnable{
     public void die(){
         super.die();
         GameManager.getManager().setScore(200);
+    }
+    public long getStandbyTime() {
+        return standbyTime;
+    }
+    public void setStandbyTime(long standbyTime) {
+        this.standbyTime = standbyTime;
+    }
+    public long getLastshootTime() {
+        return lastshootTime;
+    }
+    public void setLastshootTime(long lastshootTime) {
+        this.lastshootTime = lastshootTime;
+    }
+    public boolean isPkType() {
+        return pkType;
+    }
+    public void setPkType(boolean pkType) {
+        this.pkType = pkType;
+    }
+    public int getPlayX() {
+        return playX;
+    }
+    public void setPlayX(int playX) {
+        this.playX = playX;
     }
 }
