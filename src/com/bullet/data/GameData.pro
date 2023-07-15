@@ -110,6 +110,10 @@ Die_Gun_Left_001 = res/images/Enemy/L/enemy_die111.png
 Die_Gun_Left_002 = res/images/Enemy/L/enemy_die121.png
 Die_Gun_Left_003 = res/images/Enemy/L/enemy_die131.png
 Die_Gun_Left_004 = res/images/Enemy/L/enemy_die141.png
+
+Bullet_Right = res/images/bullet/bullet10.png
+Bullet_Left = res/images/bullet/bullet11.png
+
 HOSTAGE_SAVE_0=res/images/hostage/oder13.png
 HOSTAGE_SAVE_1=res/images/hostage/oder14.png
 HOSTAGE_SAVE_2=res/images/hostage/oder15.png

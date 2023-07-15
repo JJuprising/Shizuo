@@ -164,8 +164,8 @@ public class GameLoad {
 	//加载鬼子
 	public static void loadJanpanese(){
 		Random random = new Random();
-		//每一次加载鬼子会随机生成3-6名鬼子
-		int randomInRange = random.nextInt(4)+3;
+		//每一次加载鬼子会随机生成3-5名鬼子
+		int randomInRange = random.nextInt(3)+3;
 		for(int i=1;i<=randomInRange;i++){
 			ElementObj obj = getObj("enemy");
 			int randomLocation = random.nextInt(2);//0代表Left，1代表Right
