@@ -48,7 +48,6 @@ public class Enemy extends ElementObj implements Runnable{
     //创建敌人
     @Override
     public ElementObj createElement(String str){
-        this.setTime(0);
         Random random = new Random();
         ImageIcon icon;
         int LocaY = random.nextInt((Settings.GameY-this.getH()-Settings.playerFootHeight)-(Settings.GameY-Settings.FloorHeight)+1)+(Settings.GameY-Settings.FloorHeight);
@@ -56,7 +55,10 @@ public class Enemy extends ElementObj implements Runnable{
         this.setEnemyState("Run");//一开始是跑步状态
         this.setFx(str);
         this.setY(LocaY);
-        this.setRun(new Animation(5));
+        //初始化各种动画
+        this.setRun(new Animation(10));
+        this.setStand(new Animation(10));
+        this.setAttack(new Animation(15));
 
         if(str.equals("Right")){
             icon = GameLoad.EnemyImgMap.get("Run_Gun_Right_000");
@@ -64,11 +66,10 @@ public class Enemy extends ElementObj implements Runnable{
             this.setX(500);
             this.setH(icon.getIconHeight());
             this.setW(icon.getIconWidth());
+            //根据敌人方向设置动画图片
             this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Gun_Right"));
-            Stand = new Animation(100);
-            Stand.SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Right"));
-            Attack = new Animation(10);
-            Attack.SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Right"));
+            this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Right"));
+            this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Right"));
         }
         if (str.equals("Left")){
             icon = GameLoad.EnemyImgMap.get("Run_Gun_Left_000");
@@ -76,11 +77,10 @@ public class Enemy extends ElementObj implements Runnable{
             this.setX(0);
             this.setH(icon.getIconHeight());
             this.setW(icon.getIconWidth());
+            //根据敌人方向设置动画图片
             this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Gun_Left"));
-            Stand = new Animation(100);
-            Stand.SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Left"));
-            Attack = new Animation(10);
-            Attack.SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Left"));
+            this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Left"));
+            this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Left"));
         }
         return this;
     }
@@ -129,14 +129,12 @@ public class Enemy extends ElementObj implements Runnable{
 
     @Override
     protected void add(long gameTime) {
-//        if(gameTime-this.getTime()>100 && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Right_002") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Left_002"))){
-            if(gameTime-this.getTime()>100){
+            if(gameTime-this.getTime()>300 && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Right_002") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Left_002"))){
                 ElementObj obj = GameLoad.getObj("enemyfile");
                 ElementObj element = obj.createElement(this.fx+","+this.getX()+","+this.getY());
                 ElementManager.getManager().addElement(element,GameElement.ENEMYFILE);
                 this.setTime(gameTime);
             }
-//        }
     }
 
     public long getGameTime() {
