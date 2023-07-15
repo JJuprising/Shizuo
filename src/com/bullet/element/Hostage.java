@@ -77,7 +77,11 @@ public class Hostage extends ElementObj{
 			this.setLive(false);
 		}
 	}
-	
+	@Override
+	public void die(){
+		super.die();
+		GameManager.getManager().setScore(500);
+	}
 	@Override
 	public String toString() {
 		//  {X:3,y:5} json格式

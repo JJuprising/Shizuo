@@ -15,7 +15,7 @@ public class GameThread extends Thread{
 	private ElementManager em;
 	private GameManager gm;
 
-	public boolean isRunning = true;
+
 	private int mapID;
 	
 	public GameThread(int mapID) {
@@ -27,7 +27,7 @@ public class GameThread extends Thread{
 	public void run() {
 		while(true) {
 //		游戏开始前   读进度条，加载游戏资源(场景资源)
-			isRunning = true;
+			gm.StartGame();
 			gameLoad(mapID);
 //		游戏进行时   游戏过程中
 			gameRun();
@@ -70,7 +70,9 @@ public class GameThread extends Thread{
 	
 	private void gameRun() {
 		long gameTime=0L;//给int类型就可以啦
-		while(isRunning) {// 预留扩展   true可以变为变量，用于控制管关卡结束等
+		while(GameManager.IsGameRunning()) {// 预留扩展   true可以变为变量，用于控制管关卡结束等
+			gameTime++;//唯一的时间控制
+			GameManager.gameTime = gameTime;
 			Map<GameElement, List<ElementObj>> all = em.getGameElements();
 			List<ElementObj> players = em.getElementsByKey(GameElement.PLAY);
 			List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
@@ -78,9 +80,7 @@ public class GameThread extends Thread{
 			List<ElementObj> hostages = em.getElementsByKey(GameElement.HOSTAGE);
 			List<ElementObj> kits = em.getElementsByKey(GameElement.KIT);
 //			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
-
 			moveAndUpdate(all,gameTime);//	游戏元素自动化方法
-
 //			System.out.println(gameTime);
 			EnemyPK(enemys,bullets);
 			HostagePK(hostages,players);
@@ -120,7 +120,7 @@ public class GameThread extends Thread{
 //					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
 //					扩展 留给大家
 //					System.out.println(listB);
-					em.AddScore(1);
+
 					enemy.setLive(false);
 					file.setLive(false);
 					break;
@@ -159,6 +159,11 @@ public class GameThread extends Thread{
 				}
 				obj.model(gameTime);//调用的模板方法 不是move
 			}
+//			if(ge==GameElement.ENEMY){
+//				if(list.size()==0){
+//					gm.StopGame();//赢！
+//				}
+//			}
 		}	
 	}
 
@@ -177,7 +182,7 @@ public class GameThread extends Thread{
 		}
 	}
 	public void ChangeMap(int mapID){
-		isRunning = false;
+		gm.StopGame();
 		this.mapID = mapID;
 		try {
 			sleep(50);

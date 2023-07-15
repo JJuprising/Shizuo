@@ -1,23 +1,20 @@
 package com.bullet.element;
 
-import com.bullet.manager.ElementManager;
-import com.bullet.manager.GameElement;
-import com.bullet.manager.GameLoad;
-import com.bullet.manager.Settings;
+import com.bullet.manager.*;
 import com.bullet.view.Animation;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-//Ö»ÊÇ´´½¨ÆÕÍ¨µÄµĞÈËÀà
+//åªæ˜¯åˆ›å»ºæ™®é€šçš„æ•Œäººç±»
 public class Enemy extends ElementObj implements Runnable{
 
     private ElementManager em=ElementManager.getManager();
     ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);
-    private String fx;//µĞÈË·½Ïò
+    private String fx;//æ•Œäººæ–¹å‘
 
-    private long gameTime=0L;//ÉèÖÃ
+    private long gameTime=0L;//è®¾ç½®
     Animation animation;
 
     public Enemy(){
@@ -47,7 +44,7 @@ public class Enemy extends ElementObj implements Runnable{
         g.drawImage(this.getIcon().getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
     }
 
-    //´´½¨µĞÈË
+    //åˆ›å»ºæ•Œäºº
     @Override
     public ElementObj createElement(String str){
         System.out.println(str);
@@ -99,7 +96,7 @@ public class Enemy extends ElementObj implements Runnable{
         }
     }
 
-    //µĞÈË´ÓµØÍ¼Á½±ß³öÏÖ£¬ÏÈÅÜµ½Ò»¶¨Î»ÖÃ£¬È»ºóÕ¾×Å£¬ËæºóÄÃ³öÎäÆ÷£¬Ò»¶¨ÆµÂÊÉä»÷
+    //æ•Œäººä»åœ°å›¾ä¸¤è¾¹å‡ºç°ï¼Œå…ˆè·‘åˆ°ä¸€å®šä½ç½®ï¼Œç„¶åç«™ç€ï¼Œéšåæ‹¿å‡ºæ­¦å™¨ï¼Œä¸€å®šé¢‘ç‡å°„å‡»
     @Override
     protected void updateImage(long gameTime) {
         setGameTime(gameTime);
@@ -124,5 +121,11 @@ public class Enemy extends ElementObj implements Runnable{
 
     public void setFx(String fx) {
         this.fx = fx;
+    }
+
+    @Override
+    public void die(){
+        super.die();
+        GameManager.getManager().setScore(200);
     }
 }

@@ -1,6 +1,7 @@
 package com.bullet.element;
 
 import com.bullet.manager.GameLoad;
+import com.bullet.manager.GameManager;
 import com.bullet.manager.Settings;
 import com.bullet.view.Animation;
 
@@ -38,6 +39,11 @@ public class Boss extends ElementObj{
     protected void move() {
         this.setX(this.getX()-moveSpeed);
 
+    }
+    @Override
+    public void die(){
+        super.die();
+        GameManager.getManager().setScore(1000);
     }
 
     @Override
