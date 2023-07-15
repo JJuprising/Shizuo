@@ -189,6 +189,8 @@ public class GameManager {
         ammo[0] =Settings.maxGunAmmo;
         ammo[1] =Settings.maxRPGAmmo;
         ammo[2] =Settings.maxGrenadeAmmo;
+        canSave = true; //true表示能拯救 false表示不能拯救 给人质用
+        boolean isGive = false;
         UpdateLabel();
 
     }

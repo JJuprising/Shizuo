@@ -30,23 +30,19 @@ public class Plane extends ElementObj{
     @Override
     public ElementObj createElement(String str) {
         //出现位置应该是屏幕右边界
-        int x= 0;
-        int y= 0;
+
+        String[] split = str.split(",");
+        this.setX(Integer.parseInt(split[0]));
+        this.setY(Integer.parseInt(split[1]));
 
         ImageIcon icon=null; /*GameLoad.imgMap.get("LEFT_PLANE");*/
-
         //机身
         icon=GameLoad.imgMap.get("LEFT_PLANE");
-        x= Settings.GameX;
-        y= 50;
-
-        this.setX(x);
-        this.setY(y);
 
         this.setW(icon.getIconWidth());
         this.setH(icon.getIconHeight());
         this.setIcon(icon);
-        System.out.println("飞机生成");
+//        System.out.println("飞机生成");
         return this;
     }
 

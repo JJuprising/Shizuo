@@ -3,7 +3,6 @@ package com.bullet.controller;
 import java.util.List;
 import java.util.Map;
 import com.bullet.element.ElementObj;
-import com.bullet.element.Hostage;
 import com.bullet.manager.*;
 
 
@@ -46,12 +45,13 @@ public class GameThread extends Thread{
 	private void gameLoad(int MapID) {
 		GameLoad.loadImg(); //加载图片
 		GameLoad.loadAni();//加载动画
-		GameLoad.loadObj();
-		GameLoad.MapLoad(MapID);//可以变为 变量，每一关重新加载  加载地图
-////		加载主角
-		GameLoad.loadPlay();//也可以带参数，单机还是2人
-		GameLoad.loadJanpanese();
-		GameLoad.loadHostage();
+		GameLoad.loadObj();//加载类列表
+		GameLoad.loadMap(MapID);//加载地图
+//		GameLoad.loadPlayer();//加载主角
+//		GameLoad.loadPlane();//加载飞机
+//		GameLoad.loadBoss();//加载boss
+//		GameLoad.loadJapanese();//加载敌人
+//		GameLoad.loadHostage();//加载人质
 
 ////		加载敌人NPC等
 //		GameLoad.loadEnemy();

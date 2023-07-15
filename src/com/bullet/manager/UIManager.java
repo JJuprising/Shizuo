@@ -51,7 +51,7 @@ public class UIManager {
                 break;
             case Level1:
                 gameJFrame.setjPanel(mainPanel);
-                th.ChangeMap(11);
+                th.ChangeMap(1);
                 gameJFrame.start();
                 break;
             case Level2:

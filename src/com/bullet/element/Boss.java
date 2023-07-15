@@ -16,8 +16,9 @@ public class Boss extends ElementObj{
 
     @Override
     public ElementObj createElement(String str) {
-        this.setX(500);
-        this.setY(300);
+        String[] split = str.split(",");
+        this.setX(Integer.parseInt(split[0]));
+        this.setY(Integer.parseInt(split[1]));
         ImageIcon icon2 = GameLoad.imgMap.get("BOSS1");
 
         this.setW(icon2.getIconWidth());
