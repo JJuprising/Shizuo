@@ -44,5 +44,10 @@ public class Boss extends ElementObj{
     protected void updateImage(long gameTime) {
         animation.SetAnimation(GameLoad.aniMap.get("Boss"));
         this.setIcon(animation.LoadSprite(gameTime));
+        if (gameTime%18==0){
+            moveSpeed=1;
+        }else {
+            moveSpeed=0;
+        }
     }
 }
