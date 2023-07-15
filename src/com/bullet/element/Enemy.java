@@ -12,7 +12,6 @@ public class Enemy extends ElementObj implements Runnable{
 
     private ElementManager em=ElementManager.getManager();
     ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//主角位置
-    private int playX = Play.getX();
 
     private String fx;//敌人方向
     private boolean pkType=false;//攻击状态 false为未处于Attack状态而true未处于Attack状态
@@ -23,6 +22,9 @@ public class Enemy extends ElementObj implements Runnable{
     private long Time = 0; //上次发射子弹时间
     private long lastshootTime = 0L;//上次发射子弹时间
 
+    private boolean isNear=false; //判断近远，控制敌人动作
+
+    private int addNum = 0;
 
     Animation Run;//跑步动画
     Animation Stand;//站立动画
@@ -56,7 +58,9 @@ public class Enemy extends ElementObj implements Runnable{
     public ElementObj createElement(String str){
         Random random = new Random();
         ImageIcon icon;
-        int LocaY = random.nextInt((Settings.GameY-this.getH()-Settings.playerFootHeight)-(Settings.GameY-Settings.FloorHeight)+1)+(Settings.GameY-Settings.FloorHeight);
+
+        //敌人的Y位置，使用random随机生成位置范围
+        int LocaY = random.nextInt((Settings.GameY-this.getH()-Settings.playerFootHeight)-(Settings.GameY-Settings.FloorHeight)+1)+(Settings.GameY-Settings.FloorHeight-7);
 
         this.setEnemyState("Run");//一开始是跑步状态
         this.setFx(str);
@@ -69,7 +73,7 @@ public class Enemy extends ElementObj implements Runnable{
         if(str.equals("Right")){
             icon = GameLoad.EnemyImgMap.get("Run_Gun_Right_000");
             this.setIcon(icon);
-            this.setX(500);
+            this.setX(Settings.GameX);
             this.setH(icon.getIconHeight());
             this.setW(icon.getIconWidth());
             //根据敌人方向设置动画图片
@@ -93,25 +97,35 @@ public class Enemy extends ElementObj implements Runnable{
 
     @Override
     protected void move() {
-        if(this.fx.equals("Right")){
-            if(this.getX()>this.getPlayX()+100){
-                this.setX(this.getX()-1);
-            }
-            if(this.getX()<=this.getPlayX()+100){
-                this.setEnemyState("Stand");
-            }
-            if(this.getX()<=this.getPlayX()+100 && this.getEnemyState().equals("Stand")){
+        int playX = Play.getX();
+        int distance = Math.abs(this.getX()-playX);
+
+        if(!this.isNear()){
+            if(distance>=150){
+                if(this.fx.equals("Right")){
+                    this.setX(this.getX()-1);
+                }
+                if(this.fx.equals("Left")){
+                    this.setX(this.getX()+1);
+                }
+                if(distance==150){
+                    this.setEnemyState("Stand");
+                }
+            } else if (distance<=150 && this.getEnemyState().equals("Stand")) {
                 this.setEnemyState("Attack");
             }
-        }
-        if(this.fx.equals("Left")){
-            if(this.getX()<this.getPlayX()-100){
-                this.setX(this.getX()+1);
-            }
-            if(this.getX()>=this.getPlayX()-100){
-                this.setEnemyState("Stand");
-            }
-            if(this.getX()>=this.getPlayX()-100 && this.getEnemyState().equals("Stand")){
+        }else{
+            if(distance<=300 && this.getX()>0 && this.getX()<=Settings.GameX){
+                if(this.fx.equals("Right")){
+                    this.setX(this.getX()+1);
+                }
+                if(this.fx.equals("Left")){
+                    this.setX(this.getX()-1);
+                }
+                if(distance==300 || this.getX()==0){
+                    this.setEnemyState("Stand");
+                }
+            } else if ((distance>=300 || this.getX()==0) && this.getEnemyState().equals("Stand")) {
                 this.setEnemyState("Attack");
             }
         }
@@ -155,11 +169,19 @@ public class Enemy extends ElementObj implements Runnable{
 
             ElementObj element = obj.createElement(this.fx+","+ fileX +","+fileY);
             ElementManager.getManager().addElement(element,GameElement.ENEMYFILE);
+
+            this.setAddNum(this.getAddNum()+1);//每次发射子弹数就加1
+
             this.setLastshootTime(gameTime);//记录最后开枪时间
             this.setTime(this.getLastshootTime());//把最后开枪时间记录为开始站立的时间
         }
         if(this.isPkType() && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Right_004") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Left_004"))){
             this.setStandbyTime(100L);//打完一枪之后时间间隔，需要站立的时间
+
+            if(this.getAddNum()%2==0){//当射击两枪后，就转变远近状态
+                this.setNear(!this.isNear());
+            }
+
             this.setPkType(false);
         }
     }
@@ -229,10 +251,19 @@ public class Enemy extends ElementObj implements Runnable{
     public void setPkType(boolean pkType) {
         this.pkType = pkType;
     }
-    public int getPlayX() {
-        return playX;
+    public boolean isNear() {
+        return isNear;
     }
-    public void setPlayX(int playX) {
-        this.playX = playX;
+
+    public void setNear(boolean near) {
+        isNear = near;
+    }
+
+    public int getAddNum() {
+        return addNum;
+    }
+
+    public void setAddNum(int addNum) {
+        this.addNum = addNum;
     }
 }
