@@ -45,6 +45,8 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	private boolean pkType=false;//攻击状态 true 攻击  false停止
 	private boolean saveType=false;//拯救状态 true 正在拯救 false 不在拯救
 	private boolean isRight = true;
+
+	private GameManager gm;
 	
 	public Play() {}
 	public Play(int x, int y, int w, int h, ImageIcon icon) {
@@ -53,6 +55,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	//题外话: 过时的方法能用吗？ 可以用，也能够用，因为你不用jdk底层使用
 	@Override
 	public ElementObj createElement(String str) {
+		gm = GameManager.getManager();
 		String[] split = str.split(",");
 		this.setX(Integer.parseInt(split[0]));
 		this.setY(Integer.parseInt(split[1]));
@@ -110,6 +113,15 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 				this.pkType=true; break;//开启攻击状态
 			case 83://S键
 				this.saveType = true; break;//开机拯救状态
+			case 49:
+				gm.setAttackType(AttackType.Gun);
+				break;
+			case 50:
+				gm.setAttackType(AttackType.Rpg);
+				break;
+			case 51:
+				gm.setAttackType(AttackType.Grenade);
+				break;
 			}
 		}else {
 			switch(key) {
@@ -133,16 +145,17 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	@Override
 	public void move() {
 		if (this.left) {
-			if (GameManager.MapPositionX == 0 && this.getX() > 0) {
+			if (gm.MapPositionX == 0 && this.getX() > 0) {
 				this.setX(this.getX() - Settings.playerSpeed);
-				GameManager.PlayPositionX = this.getX();
+				gm.PlayPositionX = this.getX();
 			}else if (this.getX() > 200) {
 				this.setX(this.getX() - Settings.playerSpeed);
-				GameManager.PlayPositionX = this.getX();
+				gm.PlayPositionX = this.getX();
 			}
 		}
 		if (this.up  && this.getY()>Settings.GameY-Settings.FloorHeight) {
 			this.setY(this.getY() - Settings.playerSpeed);
+			GameManager.PlayPositionY = this.getY();
 		}
 		if (this.right) {
 			if (GameManager.MapPositionX == -1480 && this.getX() < Settings.GameX - this.getW()) {
@@ -155,6 +168,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		}
 		if (this.down && this.getY()<Settings.GameY-this.getH()-Settings.playerFootHeight) {
 			this.setY(this.getY() + Settings.playerSpeed);
+			GameManager.PlayPositionY = this.getY();
 		}
 	}
 	
@@ -192,10 +206,12 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		if(!this.pkType && !saveType) {//如果是不发射状态 就直接return
 			return;
 		}
-		if (saveType && GameManager.HostageCrash) {
+		if (saveType && GameManager.HostageCrash
+				&& Math.abs(this.getX() - GameManager.HostagePositionX) < 30
+				&& Math.abs(this.getY() - GameManager.HostagePositionY) < 10) {
 			 GameManager.canSave = false;
 		}
-		if(this.pkType && gameTime- fireTime >50){
+		if(gameTime- fireTime >50&&gm.ShootAmmo()){
 			fireTime = gameTime;
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
@@ -218,6 +234,16 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		case "down": y+=50;x+=50; break;
 		}
 		return "x:"+x+",y:"+y+",f:"+this.fx;
+	}
+	@Override
+	public boolean pk(ElementObj obj) {
+		boolean isHit = this.getRectangle().intersects(obj.getRectangle());
+		if(isHit){
+			gm.setHp(-10);
+		}
+
+
+		return isHit;
 	}
 }
 

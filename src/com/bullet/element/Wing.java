@@ -96,7 +96,7 @@ public class Wing extends ElementObj{
             this.setX(this.getX() - moveSpeed);
 
         }
-        if(!isLeft&&this.getX()<600){
+        if(!isLeft){
             this.setX(this.getX() + moveSpeed);
 
         }

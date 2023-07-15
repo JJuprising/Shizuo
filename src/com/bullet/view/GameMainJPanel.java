@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import com.bullet.element.ElementObj;
 import com.bullet.manager.ElementManager;
 import com.bullet.manager.GameElement;
+import com.bullet.manager.GameManager;
+import com.bullet.manager.Settings;
 
 /**
  * @说明 游戏的主要面板
@@ -21,11 +23,41 @@ import com.bullet.manager.GameElement;
 public class GameMainJPanel extends JPanel implements Runnable{
 //	联动管理器
 	private ElementManager em;
+	private GameManager gm;
 	public GameMainJPanel() {
 		init();
+		initLabel();
 	}
+
 	public void init() {
 		em = ElementManager.getManager();//得到元素管理器对象
+		gm = GameManager.getManager();
+		setLayout(null);
+	}
+	private void initLabel(){
+		Label weaponLabel = new Label();
+		Label ammoLabel = new Label();
+		Label HpLabel = new Label();
+		Label scoreLabel = new Label();
+		Label levelLabel = new Label();
+
+		this.add(weaponLabel);
+		this.add(ammoLabel);
+		this.add(HpLabel);
+		this.add(scoreLabel);
+		this.add(levelLabel);
+
+		weaponLabel.setBounds(20,Settings.GameY+Settings.GameDeltaY,200,30);
+		ammoLabel.setBounds(220,Settings.GameY+Settings.GameDeltaY,200,30);
+		HpLabel.setBounds(420,Settings.GameY+Settings.GameDeltaY,200,30);
+		scoreLabel.setBounds(620,Settings.GameY+Settings.GameDeltaY,200,30);
+		levelLabel.setBounds(820,Settings.GameY+Settings.GameDeltaY,200,30);
+
+		gm.SetLabel(weaponLabel,ammoLabel,HpLabel,scoreLabel,levelLabel);
+		gm.UpdateLabel();
+
+
+
 	}
 	/**
 	 * paint方法是进行绘画元素。
@@ -62,7 +94,7 @@ public class GameMainJPanel extends JPanel implements Runnable{
 	}
 	@Override
 	public void run() {  //接口实现
-		while(true) {
+		while(GameManager.IsGameRunning()) {
 //			System.out.println("多线程运动");
 			this.repaint();
 //			一般情况下，多线程都会使用一个休眠,控制速度

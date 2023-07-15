@@ -82,29 +82,29 @@ public class ElementManager {
 //		道具，子弹，爆炸效果，死亡效果。。。。
 	}
 
-	int score=0;
-	int target;
-	int level=1;
-
-	public void ResetScore(){
-		score=0;
-		target = 0;
-		SetTarget();
-		GameJFrame.SetLabel("Level:"+level+" Score:"+score);
-	}
-	public void SetTarget(){
-		target=gameElements.get(GameElement.ENEMY).size();
-	}
-	public void AddScore(int count){
-		score+=count;
-		GameJFrame.SetLabel("Level:"+level+" Score:"+score);
-		if(score==target){
-			GameWin();
-		}
-	}
-	public void GameWin(){
-		level=6;
-		GameJFrame.SetLabel("Win!Score:"+score);
-		GameJFrame.ChangeMap(6);
-	}
+//	int score=0;
+//	int target;
+//	int level=1;
+//
+//	public void ResetScore(){
+//		score=0;
+//		target = 0;
+//		SetTarget();
+//		GameJFrame.SetLabel("Level:"+level+" Score:"+score);
+//	}
+//	public void SetTarget(){
+//		target=gameElements.get(GameElement.ENEMY).size();
+//	}
+//	public void AddScore(int count){
+//		score+=count;
+//		GameJFrame.SetLabel("Level:"+level+" Score:"+score);
+//		if(score==target){
+//			GameWin();
+//		}
+//	}
+//	public void GameWin(){
+//		level=6;
+//		GameJFrame.SetLabel("Win!Score:"+score);
+//		GameJFrame.ChangeMap(6);
+//	}
 }

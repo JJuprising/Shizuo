@@ -1,28 +1,25 @@
 package com.bullet.element;
 
-import com.bullet.manager.ElementManager;
-import com.bullet.manager.GameElement;
-import com.bullet.manager.GameLoad;
-import com.bullet.manager.Settings;
+import com.bullet.manager.*;
 import com.bullet.view.Animation;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-//只是创建普通的敌人类
+//敌人类
 public class Enemy extends ElementObj implements Runnable{
 
     private ElementManager em=ElementManager.getManager();
-    ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//得到主角
+    ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//主角位置
 
     private String fx;//敌人方向
-    private boolean pkType=false;//开枪状态
+    private boolean pkType=false;//攻击状态
     private String EnemyState;//敌人状态
-    private long gameTime=0L;//设置
+    private long gameTime=0L;//为了在本线程中使用而添加的游戏时间
     private long Time = 0;
-    Animation Run;//奔跑的动画
-    Animation Stand;//站立的动画
+    Animation Run;//跑步动画
+    Animation Stand;//站立动画
     Animation Attack;//攻击动画
 
     public Enemy(){
@@ -56,7 +53,7 @@ public class Enemy extends ElementObj implements Runnable{
         ImageIcon icon;
         int LocaY = random.nextInt((Settings.GameY-this.getH()-Settings.playerFootHeight)-(Settings.GameY-Settings.FloorHeight)+1)+(Settings.GameY-Settings.FloorHeight);
 
-        this.setEnemyState("Run");//一开始敌人是在跑
+        this.setEnemyState("Run");//一开始是跑步状态
         this.setFx(str);
         this.setY(LocaY);
         this.setRun(new Animation(5));
@@ -116,7 +113,7 @@ public class Enemy extends ElementObj implements Runnable{
         }
     }
 
-    //敌人从地图两边出现，先跑到一定位置，然后站着，随后拿出武器，一定频率射击
+    //根据不同的状态给予不同的动画
     @Override
     protected void updateImage(long gameTime) {
         this.setGameTime(gameTime);
@@ -183,5 +180,10 @@ public class Enemy extends ElementObj implements Runnable{
     }
     public void setAttack(Animation attack) {
         Attack = attack;
+    }
+    @Override
+    public void die(){
+        super.die();
+        GameManager.getManager().setScore(200);
     }
 }
