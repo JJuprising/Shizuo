@@ -16,7 +16,7 @@ public class GameStartPanel extends JPanel {
     	ImageIcon start = new ImageIcon("res/images/background/Start.png");
     	ImageIcon exit = new ImageIcon("res/images/background/Exit.png");
     	
-    	background.setImage(background.getImage().getScaledInstance(Settings.GameX,Settings.GameY,Image.SCALE_DEFAULT));
+    	background.setImage(background.getImage().getScaledInstance(Settings.GameX,Settings.GameY + Settings.GameInfoY,Image.SCALE_DEFAULT));
     	start.setImage(start.getImage().getScaledInstance(200,50,Image.SCALE_DEFAULT));
     	exit.setImage(exit.getImage().getScaledInstance(200,50,Image.SCALE_DEFAULT));
     	
@@ -26,10 +26,10 @@ public class GameStartPanel extends JPanel {
         JButton button1 = new JButton(start);
         JButton button2 = new JButton(exit);
 
-        label.setBounds(0,0,Settings.GameX,Settings.GameY);
+        label.setBounds(0,0,Settings.GameX,Settings.GameY + Settings.GameInfoY);
         label.setFont(new Font("宋体",Font.BOLD,20));
-        button1.setBounds(200,470,200,50);
-        button2.setBounds(600,470,200,50);
+        button1.setBounds(200,525,200,50);
+        button2.setBounds(600,525,200,50);
 
         // 为按钮添加点击事件监听器
         button1.addActionListener(new ActionListener() {

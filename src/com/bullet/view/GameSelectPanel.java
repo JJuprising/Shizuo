@@ -16,7 +16,7 @@ public class GameSelectPanel extends JPanel {
     	ImageIcon level1 = new ImageIcon("res/images/background/1.png");
     	ImageIcon level2 = new ImageIcon("res/images/background/2.png");
     	
-    	background.setImage(background.getImage().getScaledInstance(Settings.GameX,Settings.GameY,Image.SCALE_DEFAULT));
+    	background.setImage(background.getImage().getScaledInstance(Settings.GameX,Settings.GameY + Settings.GameInfoY,Image.SCALE_DEFAULT));
     	select.setImage(select.getImage().getScaledInstance(300,100,Image.SCALE_DEFAULT));
     	level1.setImage(level1.getImage().getScaledInstance(300,200,Image.SCALE_DEFAULT));
     	level2.setImage(level2.getImage().getScaledInstance(300,200,Image.SCALE_DEFAULT));
@@ -28,10 +28,10 @@ public class GameSelectPanel extends JPanel {
         JButton button1 = new JButton(level1);
         JButton button2 = new JButton(level2);
 
-        label.setBounds(0,0,Settings.GameX,Settings.GameY);
+        label.setBounds(0,0,Settings.GameX,Settings.GameY + Settings.GameInfoY);
         label2.setBounds(50,50,300,100);
-        button1.setBounds(50,200,300,200);
-        button2.setBounds(600,200,300,200);
+        button1.setBounds(50,260,300,200);
+        button2.setBounds(600,260,300,200);
 
         // 为按钮添加点击事件监听器
         button1.addActionListener(new ActionListener() {
