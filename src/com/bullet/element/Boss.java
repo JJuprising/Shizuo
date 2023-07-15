@@ -3,6 +3,7 @@ package com.bullet.element;
 import com.bullet.manager.GameLoad;
 import com.bullet.manager.GameManager;
 import com.bullet.manager.Settings;
+import com.bullet.manager.SoundManager;
 import com.bullet.view.Animation;
 
 import javax.swing.*;
@@ -55,6 +56,7 @@ public class Boss extends ElementObj{
     public void die(){
         super.die();
         GameManager.getManager().setScore(1000);
+        SoundManager.getManager().PlaySound("res/music/music (12).wav");
 
     }
 

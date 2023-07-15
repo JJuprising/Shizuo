@@ -215,11 +215,7 @@ public class GameManager {
         UpdateLabel();
 
     }
-    public void CheckWin(){
-        if(ElementManager.getManager().getElementsByKey(GameElement.ENEMY).size()==0){
-            StopGame();
-        }
-    }
+
     public static boolean IsGameRunning(){
         return isGameRunning;
     }

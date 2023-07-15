@@ -113,21 +113,21 @@ public class GameLoad {
 							ElementObj planeObj=getObj("plane");
 							ElementObj planeBody = planeObj.createElement(x+","+y+",BODY"); //机身
 
-							x-=10;
-							y-=8;
-							//前翼
-							ElementObj wingObj1=getObj("wing");
-
-							ElementObj font_wing=wingObj1.createElement(x+","+y+",FRONT_WING");
-
-							x+=84;
-							y-=2;
-							//尾翼
-							ElementObj wingObj2=getObj("wing");
-							ElementObj back_wing=wingObj2.createElement(x+","+y+",BACK_WING");
+//							x-=10;
+//							y-=8;
+//							//前翼
+//							ElementObj wingObj1=getObj("wing");
+//
+//							ElementObj font_wing=wingObj1.createElement(x+","+y+",FRONT_WING");
+//
+//							x+=84;
+//							y-=2;
+//							//尾翼
+//							ElementObj wingObj2=getObj("wing");
+//							ElementObj back_wing=wingObj2.createElement(x+","+y+",BACK_WING");
 							em.addElement(planeBody, GameElement.PLANE);
-							em.addElement(font_wing,GameElement.PLANE);
-							em.addElement(back_wing,GameElement.PLANE);
+//							em.addElement(font_wing,GameElement.PLANE);
+//							em.addElement(back_wing,GameElement.PLANE);
 							break;
 						case "BOSS":
 							//加载Boss

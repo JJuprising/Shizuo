@@ -76,13 +76,22 @@ public class GameThread extends Thread{
 			List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
 			List<ElementObj> bullets = em.getElementsByKey(GameElement.BULLET);
 			List<ElementObj> hostages = em.getElementsByKey(GameElement.HOSTAGE);
+			List<ElementObj> plane = em.getElementsByKey(GameElement.PLANE);
 			List<ElementObj> kits = em.getElementsByKey(GameElement.KIT);
-//			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
+			List<ElementObj> boss = em.getElementsByKey(GameElement.BOSS);
+			List<ElementObj> enemybullet = em.getElementsByKey(GameElement.ENEMYFILE);
 			moveAndUpdate(all,gameTime);//	游戏元素自动化方法
 //			System.out.println(gameTime);
 			EnemyPK(enemys,bullets);
+			PlanePK(plane,bullets);
+			BossPK(boss,bullets);
 			HostagePK(hostages,players);
 			ElementPK(kits,players);
+			BulletPK(enemybullet,players);
+			if(GetEnemyCount()<1){
+				gm.EndGame();
+			}
+
 
 			try {
 				sleep(Settings.RefreshSpeed);//默认理解为 1秒刷新100次
@@ -125,6 +134,55 @@ public class GameThread extends Thread{
 			}
 		}
 	}
+	public void PlanePK(List<ElementObj> listA,List<ElementObj>listB) {
+		boolean isHit = false;
+//		请大家在这里使用循环，做一对一判定，如果为真，就设置2个对象的死亡状态
+		for(int i=0;i<listB.size();i++) {
+			ElementObj file=listB.get(i);
+			for(int j=0;j<listA.size();j++) {
+				ElementObj enemy=listA.get(j);
+				if(file.pk(enemy)) {
+//					问题： 如果是boos，那么也一枪一个吗？？？？
+//					将 setLive(false) 变为一个受攻击方法，还可以传入另外一个对象的攻击力
+//					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
+//					扩展 留给大家
+//					System.out.println(listB);
+
+					file.setLive(false);
+					enemy.setLive(false);
+					isHit = true;
+					break;
+				}
+			}
+			if(isHit){
+				for(int j=0;j<listA.size();j++) {
+					ElementObj enemy=listA.get(j);
+					enemy.setLive(false);
+				}
+				break;
+			}
+		}
+	}
+	public void BossPK(List<ElementObj> listA,List<ElementObj>listB) {
+//		请大家在这里使用循环，做一对一判定，如果为真，就设置2个对象的死亡状态
+		for(int i=0;i<listA.size();i++) {
+			ElementObj enemy=listA.get(i);
+			for(int j=0;j<listB.size();j++) {
+				ElementObj file=listB.get(j);
+				if(enemy.pk(file)) {
+//					问题： 如果是boos，那么也一枪一个吗？？？？
+//					将 setLive(false) 变为一个受攻击方法，还可以传入另外一个对象的攻击力
+//					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
+//					扩展 留给大家
+//					System.out.println(listB);
+
+					enemy.setLive(false);
+					file.setLive(false);
+					break;
+				}
+			}
+		}
+	}
 	public void HostagePK(List<ElementObj> listA,List<ElementObj>listB) {
 		for(int i=0;i<listA.size();i++) {
 			ElementObj hostage=listA.get(i);
@@ -132,6 +190,19 @@ public class GameThread extends Thread{
 				ElementObj player=listB.get(j);
 				if(hostage.pk(player)) {
 					GameManager.HostageCrash = true;
+				}
+			}
+		}
+	}
+	public void BulletPK(List<ElementObj> listA,List<ElementObj>listB) {
+		for(int i=0;i<listA.size();i++) {
+			ElementObj bullet=listA.get(i);
+			for(int j=0;j<listB.size();j++) {
+				ElementObj player=listB.get(j);
+				if(bullet.pk(player)) {
+					GameManager.HostageCrash = true;
+					bullet.setLive(false);
+					gm.setHp(-1);
 				}
 			}
 		}
@@ -181,11 +252,27 @@ public class GameThread extends Thread{
 	public void ChangeMap(int mapID){
 		gm.StopGame();
 		this.mapID = mapID;
+		gm.setMapID(mapID);
 		try {
 			sleep(50);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	public int GetEnemyCount(){
+		ElementManager em = ElementManager.getManager();
+
+
+		List<ElementObj> enemys = em.getElementsByKey(GameElement.ENEMY);
+		List<ElementObj> plane = em.getElementsByKey(GameElement.PLANE);
+		List<ElementObj> boss = em.getElementsByKey(GameElement.BOSS);
+		List<ElementObj> hostage = em.getElementsByKey(GameElement.HOSTAGE);
+
+		int count = enemys.size()+plane.size()+boss.size()+hostage.size();
+//		System.out.println(count);
+		return count;
 
 	}
 	

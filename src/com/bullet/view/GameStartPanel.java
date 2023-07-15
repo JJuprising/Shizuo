@@ -1,6 +1,7 @@
 package com.bullet.view;
 
 import com.bullet.manager.Settings;
+import com.bullet.manager.SoundManager;
 import com.bullet.manager.UIElement;
 import com.bullet.manager.UIManager;
 
@@ -35,12 +36,14 @@ public class GameStartPanel extends JPanel {
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 UIManager um = UIManager.getManager();
+                SoundManager.getManager().PlaySound("res/music/gun.wav");
                 um.SetPanel(UIElement.Select);
             }
         });
 
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                SoundManager.getManager().PlaySound("res/music/gun.wav");
                 System.exit(114514);
             }
         });

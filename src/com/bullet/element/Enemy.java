@@ -130,58 +130,58 @@ public class Enemy extends ElementObj implements Runnable{
         return this;
     }
 
-    @Override
-    protected void move() { 
-		if (GameManager.PlayPositionX == 300
-				&& !(Enemy.get(0).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(0))
-				&& GameManager.fx == "RIGHT_STAND") {
-			Enemy.get(0).setX(Enemy.get(0).getX() - 2);
-		}
-		if (GameManager.PlayPositionX == 200
-				&& !(Enemy.get(0).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(0))
-				&& GameManager.fx == "LEFT_STAND") {
-			Enemy.get(0).setX(Enemy.get(0).getX() + 2);
-		}
-		if (GameManager.PlayPositionX == 300
-				&& !(Enemy.get(1).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(1))
-				&& GameManager.fx == "RIGHT_STAND") {
-			Enemy.get(1).setX(Enemy.get(1).getX() - 2);
-		}
-		if (GameManager.PlayPositionX == 200
-				&& !(Enemy.get(1).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(1))
-				&& GameManager.fx == "LEFT_STAND") {
-			Enemy.get(1).setX(Enemy.get(1).getX() + 2);
-		}
-		if (GameManager.PlayPositionX == 300
-				&& !(Enemy.get(2).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(2))
-				&& GameManager.fx == "RIGHT_STAND") {
-			Enemy.get(2).setX(Enemy.get(2).getX() - 2);
-		}
-		if (GameManager.PlayPositionX == 200
-				&& !(Enemy.get(2).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(2))
-				&& GameManager.fx == "LEFT_STAND") {
-			Enemy.get(2).setX(Enemy.get(2).getX() + 2);
-		}
-		if (GameManager.PlayPositionX == 300
-				&& !(Enemy.get(3).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(3))
-				&& GameManager.fx == "RIGHT_STAND") {
-			Enemy.get(3).setX(Enemy.get(3).getX() - 2);
-		}
-		if (GameManager.PlayPositionX == 200
-				&& !(Enemy.get(3).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(3))
-				&& GameManager.fx == "LEFT_STAND") {
-			Enemy.get(3).setX(Enemy.get(3).getX() + 2);
-		}
-		if (GameManager.PlayPositionX == 300
-				&& !(Enemy.get(4).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(4))
-				&& GameManager.fx == "RIGHT_STAND") {
-			Enemy.get(4).setX(Enemy.get(4).getX() - 2);
-		}
-		if (GameManager.PlayPositionX == 200
-				&& !(Enemy.get(4).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(4))
-				&& GameManager.fx == "LEFT_STAND") {
-			Enemy.get(4).setX(Enemy.get(4).getX() + 2);
-		}
+//    @Override
+//    protected void move() {
+//		if (GameManager.PlayPositionX == 300
+//				&& !(Enemy.get(0).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(0))
+//				&& GameManager.fx == "RIGHT_STAND") {
+//			Enemy.get(0).setX(Enemy.get(0).getX() - 2);
+//		}
+//		if (GameManager.PlayPositionX == 200
+//				&& !(Enemy.get(0).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(0))
+//				&& GameManager.fx == "LEFT_STAND") {
+//			Enemy.get(0).setX(Enemy.get(0).getX() + 2);
+//		}
+//		if (GameManager.PlayPositionX == 300
+//				&& !(Enemy.get(1).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(1))
+//				&& GameManager.fx == "RIGHT_STAND") {
+//			Enemy.get(1).setX(Enemy.get(1).getX() - 2);
+//		}
+//		if (GameManager.PlayPositionX == 200
+//				&& !(Enemy.get(1).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(1))
+//				&& GameManager.fx == "LEFT_STAND") {
+//			Enemy.get(1).setX(Enemy.get(1).getX() + 2);
+//		}
+//		if (GameManager.PlayPositionX == 300
+//				&& !(Enemy.get(2).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(2))
+//				&& GameManager.fx == "RIGHT_STAND") {
+//			Enemy.get(2).setX(Enemy.get(2).getX() - 2);
+//		}
+//		if (GameManager.PlayPositionX == 200
+//				&& !(Enemy.get(2).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(2))
+//				&& GameManager.fx == "LEFT_STAND") {
+//			Enemy.get(2).setX(Enemy.get(2).getX() + 2);
+//		}
+//		if (GameManager.PlayPositionX == 300
+//				&& !(Enemy.get(3).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(3))
+//				&& GameManager.fx == "RIGHT_STAND") {
+//			Enemy.get(3).setX(Enemy.get(3).getX() - 2);
+//		}
+//		if (GameManager.PlayPositionX == 200
+//				&& !(Enemy.get(3).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(3))
+//				&& GameManager.fx == "LEFT_STAND") {
+//			Enemy.get(3).setX(Enemy.get(3).getX() + 2);
+//		}
+//		if (GameManager.PlayPositionX == 300
+//				&& !(Enemy.get(4).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(4))
+//				&& GameManager.fx == "RIGHT_STAND") {
+//			Enemy.get(4).setX(Enemy.get(4).getX() - 2);
+//		}
+//		if (GameManager.PlayPositionX == 200
+//				&& !(Enemy.get(4).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(4))
+//				&& GameManager.fx == "LEFT_STAND") {
+//			Enemy.get(4).setX(Enemy.get(4).getX() + 2);
+//		}
 //        if(!this.isNear()){
 //            if(distance>=150){
 //                this.setEnemyState("Run");
@@ -213,7 +213,44 @@ public class Enemy extends ElementObj implements Runnable{
 //                this.setEnemyState("Attack");
 //            }
 //        }
+//    }
+
+    protected void move() {
+        int playX = Play.getX();
+        int distance = Math.abs(this.getX() - playX);
+        if (!this.isNear()) {
+            if (distance >= 150) {
+                this.setEnemyState("Run");
+                if (this.fx.equals("Right")) {
+                    this.setX(this.getX() - 1);
+                }
+                if (this.fx.equals("Left")) {
+                    this.setX(this.getX() + 1);
+                }
+                if (distance == 150) {
+                    this.setEnemyState("Stand");
+                }
+            } else if (distance <= 150 && this.getEnemyState().equals("Stand")) {
+                this.setEnemyState("Attack");
+            }
+        } else {
+            if (distance <= 300 && this.getX() > 0 && this.getX() <= Settings.GameX) {
+                this.setEnemyState("Run");
+                if (this.fx.equals("Right")) {
+                    this.setX(this.getX() + 1);
+                }
+                if (this.fx.equals("Left")) {
+                    this.setX(this.getX() - 1);
+                }
+                if (distance == 300 || this.getX() == 0) {
+                    this.setEnemyState("Stand");
+                }
+            } else if ((distance >= 300 || this.getX() == 0) && this.getEnemyState().equals("Stand")) {
+                this.setEnemyState("Attack");
+            }
+        }
     }
+
 
     //根据不同的状态给予不同的动画
     @Override
@@ -252,6 +289,7 @@ public class Enemy extends ElementObj implements Runnable{
             }
 
             ElementObj element = obj.createElement(this.fx+","+ fileX +","+fileY);
+            SoundManager.getManager().PlaySound("res/music/bullet.wav");
             ElementManager.getManager().addElement(element,GameElement.ENEMYFILE);
 
             this.setAddNum(this.getAddNum()+1);//每次发射子弹数就加1
@@ -274,6 +312,7 @@ public class Enemy extends ElementObj implements Runnable{
     public void die(){
         ElementObj obj = GameLoad.getObj("enemydie");
         ElementObj element = obj.createElement(this.fx+","+this.getX()+","+this.getY());
+        SoundManager.getManager().PlaySound("res/music/music (11).wav");
         ElementManager.getManager().addElement(element,GameElement.ENEMYDIE);
         GameManager.getManager().setScore(200);
     }
