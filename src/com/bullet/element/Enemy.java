@@ -101,6 +101,7 @@ public class Enemy extends ElementObj implements Runnable{
 
         if(!this.isNear()){
             if(distance>=150){
+                this.setEnemyState("Run");
                 if(this.fx.equals("Right")){
                     this.setX(this.getX()-1);
                 }
@@ -115,6 +116,7 @@ public class Enemy extends ElementObj implements Runnable{
             }
         }else{
             if(distance<=300 && this.getX()>0 && this.getX()<=Settings.GameX){
+                this.setEnemyState("Run");
                 if(this.fx.equals("Right")){
                     this.setX(this.getX()+1);
                 }
