@@ -5,6 +5,7 @@ import com.bullet.view.Animation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.util.Random;
 
 //敌人类
@@ -12,7 +13,8 @@ public class Enemy extends ElementObj implements Runnable{
     public static int LocaY=400;
     private ElementManager em=ElementManager.getManager();
     ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//主角位置
-
+    List<ElementObj> Enemy = em.getElementsByKey(GameElement.ENEMY);
+    
     private String fx;//敌人方向
     private boolean pkType=false;//攻击状态 false为未处于Attack状态而true未处于Attack状态
     private String EnemyState;//敌人状态
@@ -60,6 +62,8 @@ public class Enemy extends ElementObj implements Runnable{
         String[] split = str.split(",");
         this.setX(Integer.parseInt(split[0]));
         this.setY(Integer.parseInt(split[1]));
+        GameManager.enemyPositionX.add(Integer.parseInt(split[0]));
+        System.out.println(GameManager.enemyPositionX);
         this.setFx(split[2]);
         ImageIcon icon;
         this.setEnemyState("Run");//一开始是跑步状态
@@ -127,41 +131,88 @@ public class Enemy extends ElementObj implements Runnable{
     }
 
     @Override
-    protected void move() {
-        int playX = Play.getX();
-        int distance = Math.abs(this.getX()-playX);
-
-        if(!this.isNear()){
-            if(distance>=150){
-                this.setEnemyState("Run");
-                if(this.fx.equals("Right")){
-                    this.setX(this.getX()-1);
-                }
-                if(this.fx.equals("Left")){
-                    this.setX(this.getX()+1);
-                }
-                if(distance==150){
-                    this.setEnemyState("Stand");
-                }
-            } else if (distance<=150 && this.getEnemyState().equals("Stand")) {
-                this.setEnemyState("Attack");
-            }
-        }else{
-            if(distance<=300 && this.getX()>0 && this.getX()<=Settings.GameX){
-                this.setEnemyState("Run");
-                if(this.fx.equals("Right")){
-                    this.setX(this.getX()+1);
-                }
-                if(this.fx.equals("Left")){
-                    this.setX(this.getX()-1);
-                }
-                if(distance==300 || this.getX()==0){
-                    this.setEnemyState("Stand");
-                }
-            } else if ((distance>=300 || this.getX()==0) && this.getEnemyState().equals("Stand")) {
-                this.setEnemyState("Attack");
-            }
-        }
+    protected void move() { 
+		if (GameManager.PlayPositionX == 300
+				&& !(Enemy.get(0).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(0))
+				&& GameManager.fx == "RIGHT_STAND") {
+			Enemy.get(0).setX(Enemy.get(0).getX() - 2);
+		}
+		if (GameManager.PlayPositionX == 200
+				&& !(Enemy.get(0).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(0))
+				&& GameManager.fx == "LEFT_STAND") {
+			Enemy.get(0).setX(Enemy.get(0).getX() + 2);
+		}
+		if (GameManager.PlayPositionX == 300
+				&& !(Enemy.get(1).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(1))
+				&& GameManager.fx == "RIGHT_STAND") {
+			Enemy.get(1).setX(Enemy.get(1).getX() - 2);
+		}
+		if (GameManager.PlayPositionX == 200
+				&& !(Enemy.get(1).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(1))
+				&& GameManager.fx == "LEFT_STAND") {
+			Enemy.get(1).setX(Enemy.get(1).getX() + 2);
+		}
+		if (GameManager.PlayPositionX == 300
+				&& !(Enemy.get(2).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(2))
+				&& GameManager.fx == "RIGHT_STAND") {
+			Enemy.get(2).setX(Enemy.get(2).getX() - 2);
+		}
+		if (GameManager.PlayPositionX == 200
+				&& !(Enemy.get(2).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(2))
+				&& GameManager.fx == "LEFT_STAND") {
+			Enemy.get(2).setX(Enemy.get(2).getX() + 2);
+		}
+		if (GameManager.PlayPositionX == 300
+				&& !(Enemy.get(3).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(3))
+				&& GameManager.fx == "RIGHT_STAND") {
+			Enemy.get(3).setX(Enemy.get(3).getX() - 2);
+		}
+		if (GameManager.PlayPositionX == 200
+				&& !(Enemy.get(3).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(3))
+				&& GameManager.fx == "LEFT_STAND") {
+			Enemy.get(3).setX(Enemy.get(3).getX() + 2);
+		}
+		if (GameManager.PlayPositionX == 300
+				&& !(Enemy.get(4).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(4))
+				&& GameManager.fx == "RIGHT_STAND") {
+			Enemy.get(4).setX(Enemy.get(4).getX() - 2);
+		}
+		if (GameManager.PlayPositionX == 200
+				&& !(Enemy.get(4).getX() - GameManager.MapPositionX == GameManager.enemyPositionX.get(4))
+				&& GameManager.fx == "LEFT_STAND") {
+			Enemy.get(4).setX(Enemy.get(4).getX() + 2);
+		}
+//        if(!this.isNear()){
+//            if(distance>=150){
+//                this.setEnemyState("Run");
+//                if(this.fx.equals("Right")){
+//                    this.setX(this.getX()-1);
+//                }
+//                if(this.fx.equals("Left")){
+//                    this.setX(this.getX()+1);
+//                }
+//                if(distance==150){
+//                    this.setEnemyState("Stand");
+//                }
+//            } else if (distance<=150 && this.getEnemyState().equals("Stand")) {
+//                this.setEnemyState("Attack");
+//            }
+//        }else{
+//            if(distance<=300 && this.getX()>0 && this.getX()<=Settings.GameX){
+//                this.setEnemyState("Run");
+//                if(this.fx.equals("Right")){
+//                    this.setX(this.getX()+1);
+//                }
+//                if(this.fx.equals("Left")){
+//                    this.setX(this.getX()-1);
+//                }
+//                if(distance==300 || this.getX()==0){
+//                    this.setEnemyState("Stand");
+//                }
+//            } else if ((distance>=300 || this.getX()==0) && this.getEnemyState().equals("Stand")) {
+//                this.setEnemyState("Attack");
+//            }
+//        }
     }
 
     //根据不同的状态给予不同的动画

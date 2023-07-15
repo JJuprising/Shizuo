@@ -3,6 +3,7 @@ package com.bullet.manager;
 import com.bullet.element.AttackType;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameManager {
 
@@ -25,6 +26,7 @@ public class GameManager {
     public static boolean HostageCrash = false;//人物和人质是否碰撞
     public static boolean canSave = true; //true表示能拯救 false表示不能拯救 给人质用
     public static boolean isGive = false;
+    public static ArrayList<Integer> enemyPositionX = new ArrayList<>();
 
 
     private static int score=0;
