@@ -9,7 +9,7 @@ import java.util.Random;
 
 //敌人类
 public class Enemy extends ElementObj implements Runnable{
-
+    public static int LocaY=400;
     private ElementManager em=ElementManager.getManager();
     ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//主角位置
 
@@ -59,12 +59,11 @@ public class Enemy extends ElementObj implements Runnable{
         Random random = new Random();
         ImageIcon icon;
 
-        //敌人的Y位置，使用random随机生成位置范围
-        int LocaY = random.nextInt((Settings.GameY-this.getH()-Settings.playerFootHeight)-(Settings.GameY-Settings.FloorHeight)+1)+(Settings.GameY-Settings.FloorHeight-7);
-
+        //敌人位置是从Y[400,512]
         this.setEnemyState("Run");//一开始是跑步状态
         this.setFx(str);
-        this.setY(LocaY);
+        this.setY(Enemy.LocaY);
+        Enemy.setLocaY(Enemy.LocaY+30);
         //初始化各种动画
         this.setRun(new Animation(10));
         this.setStand(new Animation(10));
@@ -265,5 +264,12 @@ public class Enemy extends ElementObj implements Runnable{
 
     public void setAddNum(int addNum) {
         this.addNum = addNum;
+    }
+    public static int getLocaY() {
+        return LocaY;
+    }
+
+    public static void setLocaY(int locaY) {
+        LocaY = locaY;
     }
 }
