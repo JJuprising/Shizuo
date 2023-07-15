@@ -219,6 +219,14 @@ public class Enemy extends ElementObj implements Runnable{
         }
     }
 
+    @Override
+    public void die(){
+        ElementObj obj = GameLoad.getObj("enemydie");
+        ElementObj element = obj.createElement(this.fx+","+this.getX()+","+this.getY());
+        ElementManager.getManager().addElement(element,GameElement.ENEMYDIE);
+        GameManager.getManager().setScore(200);
+    }
+
     public long getGameTime() {
         return gameTime;
     }
@@ -261,11 +269,6 @@ public class Enemy extends ElementObj implements Runnable{
     public void setAttack(Animation attack) {
         Attack = attack;
     }
-    @Override
-    public void die(){
-        super.die();
-        GameManager.getManager().setScore(200);
-    }
     public long getStandbyTime() {
         return standbyTime;
     }
@@ -287,22 +290,18 @@ public class Enemy extends ElementObj implements Runnable{
     public boolean isNear() {
         return isNear;
     }
-
     public void setNear(boolean near) {
         isNear = near;
     }
-
     public int getAddNum() {
         return addNum;
     }
-
     public void setAddNum(int addNum) {
         this.addNum = addNum;
     }
     public static int getLocaY() {
         return LocaY;
     }
-
     public static void setLocaY(int locaY) {
         LocaY = locaY;
     }

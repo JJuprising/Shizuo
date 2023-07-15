@@ -173,7 +173,7 @@ public class GameThread extends Thread{
 //			for(int i=0;i<list.size();i++) {
 			for(int i=list.size()-1;i>=0;i--){
 				ElementObj obj=list.get(i);//读取为基类
-				obj.die();//需要大家自己补充
+				obj.die();//死亡时创建死亡实例
 				list.remove(i);
 			}
 		}
