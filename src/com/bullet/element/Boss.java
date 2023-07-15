@@ -44,6 +44,7 @@ public class Boss extends ElementObj{
     public void die(){
         super.die();
         GameManager.getManager().setScore(1000);
+
     }
 
     @Override

@@ -58,11 +58,14 @@ public class GameManager {
 
     public void setHp(int delta) {
         Hp += delta;
-        UpdateLabel();
+        if(Hp>Settings.playerMaxHP){
+            Hp=Settings.playerMaxHP;
+        }
         if(Hp<=0){
             Hp=0;
             StopGame();
         }
+        UpdateLabel();
     }
 
     public AttackType getAttackType() {
@@ -89,6 +92,9 @@ public class GameManager {
         return isShoot;
     }
     private boolean isReloading = false;
+    public boolean isReloading(){
+        return isReloading;
+    }
     public void ReloadAmmo(AttackType type){
         if(!isReloading){
 
@@ -96,6 +102,9 @@ public class GameManager {
             new Reload(type).start();
         }
 
+    }
+    public int getAmmo(){
+        return ammo[attackType.ordinal()];
     }
     class Reload extends Thread{
 
@@ -119,11 +128,11 @@ public class GameManager {
                 case Gun:
                     ammo[type.ordinal()] =Settings.maxGunAmmo;
                     break;
-                case Grenade:
-                    ammo[type.ordinal()] =Settings.maxGrenadeAmmo;
-                    break;
                 case Rpg:
                     ammo[type.ordinal()] =Settings.maxRPGAmmo;
+                    break;
+                case Grenade:
+                    ammo[type.ordinal()] =Settings.maxGrenadeAmmo;
                     break;
             }
             isReloading = false;
@@ -166,11 +175,11 @@ public class GameManager {
     }
     public void StopGame(){
         isGameRunning = false;
-        if(Hp>0){
 
-        }else{
-
-        }
+    }
+    public void EndGame(){
+        isGameRunning = false;
+        UIManager.getManager().SetPanel(UIElement.End);
 
     }
     public void ResetGame(){
@@ -178,10 +187,15 @@ public class GameManager {
         score =0;
         Hp=Settings.playerMaxHP;
         ammo[0] =Settings.maxGunAmmo;
-        ammo[1] =Settings.maxGrenadeAmmo;
-        ammo[2] =Settings.maxRPGAmmo;
+        ammo[1] =Settings.maxRPGAmmo;
+        ammo[2] =Settings.maxGrenadeAmmo;
         UpdateLabel();
 
+    }
+    public void CheckWin(){
+        if(ElementManager.getManager().getElementsByKey(GameElement.ENEMY).size()==0){
+            StopGame();
+        }
     }
     public static boolean IsGameRunning(){
         return isGameRunning;

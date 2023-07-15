@@ -65,7 +65,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 		this.setH(icon2.getIconHeight());
 //		System.out.println("X:"+icon2.getIconWidth()+"Y:"+icon2.getIconHeight());
 		this.setIcon(icon2);
-		animation = new Animation(4);
+		animation = new Animation(6);
 		knifeAnime = new Animation(8);
 		return this;
 	}
@@ -175,15 +175,42 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	@Override
 	protected void updateImage(long gameTime) {
 //		System.out.println(pkType);
-		if(pkType){
-			animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
+		if(pkType&&!gm.isReloading()){
+			switch (gm.getAttackType()){
+				case Gun:
+					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
+					break;
+				case Grenade:
+					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightKnife":"LeftKnife"));
+					break;
+				case Rpg:
+					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightRPG":"LeftRPG"));
+					break;
+				default:
+					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
+					break;
+			}
 			this.setIcon(animation.LoadSprite(gameTime));
 		}else if (saveType) {
 			knifeAnime.SetAnimation(GameLoad.aniMap.get(isRight?"RightKnife":"LeftKnife"));
 			this.setIcon(knifeAnime.LoadSprite(gameTime));
 		}else{
 			animation.ResetAnimation();
-			this.setIcon(GameLoad.imgMap.get(fx));
+			switch (gm.getAttackType()){
+				case Gun:
+					this.setIcon(GameLoad.imgMap.get(isRight?"RIGHT_GUN_ATK_0":"LEFT_GUN_ATK_0"));
+					break;
+				case Grenade:
+					this.setIcon(GameLoad.imgMap.get(isRight?"RIGHT_KNIFE_0":"LEFT_KNIFE_0"));
+					break;
+				case Rpg:
+					this.setIcon(GameLoad.imgMap.get(isRight?"RIGHT_RPG_ATK_0":"LEFT_RPG_ATK_0"));
+					break;
+				default:
+					this.setIcon(GameLoad.imgMap.get(isRight?"RIGHT_GUN_ATK_0":"LEFT_GUN_ATK_0"));
+					break;
+			}
+
 		}
 	}
 	/**
@@ -211,11 +238,25 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 				&& Math.abs(this.getY() - GameManager.HostagePositionY) < 10) {
 			 GameManager.canSave = false;
 		}
-		if(gameTime- fireTime >50&&gm.ShootAmmo()){
+		if(gameTime- fireTime >Settings.ShootSpeed&&gm.ShootAmmo()){
 			fireTime = gameTime;
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
-		ElementObj obj=GameLoad.getObj("file");  		
+			ElementObj obj;
+			switch (gm.getAttackType()){
+			case Gun:
+				obj = GameLoad.getObj("file");
+				break;
+			case Grenade:
+				obj = GameLoad.getObj("grenade");
+				break;
+			case Rpg:
+				obj = GameLoad.getObj("rpg");
+				break;
+			default:
+				obj = GameLoad.getObj("file");
+				break;
+		}
 		ElementObj element = obj.createElement(this.toString());
 //		装入到集合中
 		ElementManager.getManager().addElement(element, GameElement.BULLET);

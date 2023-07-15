@@ -7,20 +7,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-//µĞÈËÀà
+//æ•Œäººç±»
 public class Enemy extends ElementObj implements Runnable{
 
     private ElementManager em=ElementManager.getManager();
-    ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//Ö÷½ÇÎ»ÖÃ
+    ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//ä¸»è§’ä½ç½®
 
-    private String fx;//µĞÈË·½Ïò
-    private boolean pkType=false;//¹¥»÷×´Ì¬
-    private String EnemyState;//µĞÈË×´Ì¬
-    private long gameTime=0L;//ÎªÁËÔÚ±¾Ïß³ÌÖĞÊ¹ÓÃ¶øÌí¼ÓµÄÓÎÏ·Ê±¼ä
+    private String fx;//æ•Œäººæ–¹å‘
+    private boolean pkType=false;//æ”»å‡»çŠ¶æ€
+    private String EnemyState;//æ•ŒäººçŠ¶æ€
+    private long gameTime=0L;//ä¸ºäº†åœ¨æœ¬çº¿ç¨‹ä¸­ä½¿ç”¨è€Œæ·»åŠ çš„æ¸¸æˆæ—¶é—´
     private long Time = 0;
-    Animation Run;//ÅÜ²½¶¯»­
-    Animation Stand;//Õ¾Á¢¶¯»­
-    Animation Attack;//¹¥»÷¶¯»­
+    Animation Run;//è·‘æ­¥åŠ¨ç”»
+    Animation Stand;//ç«™ç«‹åŠ¨ç”»
+    Animation Attack;//æ”»å‡»åŠ¨ç”»
 
     public Enemy(){
         Thread t = new Thread(this);
@@ -45,17 +45,17 @@ public class Enemy extends ElementObj implements Runnable{
         g.drawImage(this.getIcon().getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
     }
 
-    //´´½¨µĞÈË
+    //åˆ›å»ºæ•Œäºº
     @Override
     public ElementObj createElement(String str){
         Random random = new Random();
         ImageIcon icon;
         int LocaY = random.nextInt((Settings.GameY-this.getH()-Settings.playerFootHeight)-(Settings.GameY-Settings.FloorHeight)+1)+(Settings.GameY-Settings.FloorHeight);
 
-        this.setEnemyState("Run");//Ò»¿ªÊ¼ÊÇÅÜ²½×´Ì¬
+        this.setEnemyState("Run");//ä¸€å¼€å§‹æ˜¯è·‘æ­¥çŠ¶æ€
         this.setFx(str);
         this.setY(LocaY);
-        //³õÊ¼»¯¸÷ÖÖ¶¯»­
+
         this.setRun(new Animation(10));
         this.setStand(new Animation(10));
         this.setAttack(new Animation(15));
@@ -66,7 +66,7 @@ public class Enemy extends ElementObj implements Runnable{
             this.setX(500);
             this.setH(icon.getIconHeight());
             this.setW(icon.getIconWidth());
-            //¸ù¾İµĞÈË·½ÏòÉèÖÃ¶¯»­Í¼Æ¬
+
             this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Gun_Right"));
             this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Right"));
             this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Right"));
@@ -77,7 +77,7 @@ public class Enemy extends ElementObj implements Runnable{
             this.setX(0);
             this.setH(icon.getIconHeight());
             this.setW(icon.getIconWidth());
-            //¸ù¾İµĞÈË·½ÏòÉèÖÃ¶¯»­Í¼Æ¬
+
             this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Gun_Left"));
             this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Left"));
             this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Left"));
@@ -113,7 +113,7 @@ public class Enemy extends ElementObj implements Runnable{
         }
     }
 
-    //¸ù¾İ²»Í¬µÄ×´Ì¬¸øÓè²»Í¬µÄ¶¯»­
+    //æ ¹æ®ä¸åŒçš„çŠ¶æ€ç»™äºˆä¸åŒçš„åŠ¨ç”»
     @Override
     protected void updateImage(long gameTime) {
         this.setGameTime(gameTime);

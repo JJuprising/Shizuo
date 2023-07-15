@@ -4,11 +4,7 @@ import java.util.List;
 import java.util.Map;
 import com.bullet.element.ElementObj;
 import com.bullet.element.Hostage;
-import com.bullet.manager.ElementManager;
-import com.bullet.manager.GameElement;
-import com.bullet.manager.GameLoad;
-import com.bullet.manager.GameManager;
-import com.bullet.manager.SoundManager;
+import com.bullet.manager.*;
 
 
 //主线程
@@ -87,10 +83,9 @@ public class GameThread extends Thread{
 			EnemyPK(enemys,bullets);
 			HostagePK(hostages,players);
 			ElementPK(kits,players);
-			
-			gameTime++;//唯一的时间控制
+
 			try {
-				sleep(10);//默认理解为 1秒刷新100次 
+				sleep(Settings.RefreshSpeed);//默认理解为 1秒刷新100次
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

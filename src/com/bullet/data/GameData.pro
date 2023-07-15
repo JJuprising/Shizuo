@@ -176,3 +176,9 @@ KIT1=res/images/kit/gift1.png
 KIT2=res/images/kit/gift2.png
 KIT3=res/images/kit/gift3.png
 
+GUN_LEFT=res/images/bullet/bullet00.png
+GUN_RIGHT=res/images/bullet/bullet01.png
+RPG_LEFT=res/images/bullet/bullet40.png
+RPG_RIGHT=res/images/bullet/bullet41.png
+
+GRENADE = res/images/bullet/image583.png

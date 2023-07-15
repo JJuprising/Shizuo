@@ -2,12 +2,9 @@ package com.bullet.element;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import javax.swing.ImageIcon;
 
-import com.bullet.manager.ElementManager;
-import com.bullet.manager.GameElement;
-import com.bullet.manager.Settings;
+import com.bullet.manager.*;
 
 /**
  * @说明 玩家子弹类，本类的实体对象是由玩家对象调用和创建
@@ -19,14 +16,19 @@ import com.bullet.manager.Settings;
  */
 public class PlayFile extends ElementObj{
 	private int attack;//攻击力
-	private int moveNum=3;//移动速度值
+	private int moveNum=2;//移动速度值
 	private String fx;
 	private ImageIcon icon;
+	ElementManager em;
+	GameManager gm;
+
 //	剩下的大家扩展; 可以扩展出多种子弹： 激光，导弹等等。(玩家类就需要有子弹类型)
 	public PlayFile() {}//一个空的构造方法
 //	对创建这个对象的过程进行封装，外界只需要传输必要的约定参数，返回值就是对象实体
 	@Override   //{X:3,y:5,f:up}
 	public  ElementObj createElement(String str) {//定义字符串的规则
+		gm = GameManager.getManager();
+		em = ElementManager.getManager();
 		String[] split = str.split(",");
 		for(String str1 : split) {//X:3
 			String[] split2 = str1.split(":");// 0下标 是 x,y,f   1下标是值
@@ -37,8 +39,8 @@ public class PlayFile extends ElementObj{
 			}
 		}
 		switch (this.fx) {
-		case "left":icon = new ImageIcon("res/images/子弹/bullet00.png"); break;
-		case "right":icon = new ImageIcon("res/images/子弹/bullet01.png"); break;
+		case "left":icon = GameLoad.imgMap.get("GUN_LEFT"); break;
+		case "right":icon = GameLoad.imgMap.get("GUN_RIGHT"); break;
 		}
 		this.setW(this.icon.getIconWidth());
 		this.setH(this.icon.getIconHeight());
