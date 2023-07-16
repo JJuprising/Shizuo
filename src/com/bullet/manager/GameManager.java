@@ -1,6 +1,7 @@
 package com.bullet.manager;
 
 import com.bullet.element.AttackType;
+import com.bullet.element.Boss;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,8 @@ public class GameManager {
 
 
     private static int score=0;
-    private static int Hp=100;
+    private static int Hp=10;
+    private  int BossHp=5;
     private static AttackType attackType = AttackType.Gun;
     private static int mapID = 1;
     private static int[] ammo = new int[3];
@@ -69,6 +71,20 @@ public class GameManager {
             EndGame();
         }
         UpdateLabel();
+    }
+
+    public int getBossHp() {
+        return BossHp;
+    }
+
+    public void setBossHp(int delta) {
+        BossHp = BossHp+delta;
+//        if(BossHp>5){
+//            BossHp=5;
+//        }
+        if(BossHp<=0){
+            BossHp=0;
+        }
     }
 
     public AttackType getAttackType() {
@@ -208,6 +224,7 @@ public class GameManager {
     public void ResetGame(){
 
         score =0;
+        BossHp=5;
         Hp=Settings.playerMaxHP;
         ammo[0] =Settings.maxGunAmmo;
         ammo[1] =Settings.maxRPGAmmo;

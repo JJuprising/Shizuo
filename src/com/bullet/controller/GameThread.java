@@ -92,7 +92,7 @@ public class GameThread extends Thread{
 			EnemyPK(enemys,bullets);
 			PlanePK(plane,bullets);
 			BossPK(boss,bullets);
-			ElementPK(canons,players);//炮弹碰到主角，炮弹触发动画
+			CanonPK(canons,players);//炮弹碰到主角，炮弹触发动画
 			HostagePK(hostages,players);
 			ElementPK(kits,players);
 			BulletPK(enemybullet,players);
@@ -178,14 +178,14 @@ public class GameThread extends Thread{
 			for(int j=0;j<listB.size();j++) {
 				ElementObj file=listB.get(j);
 				if(enemy.pk(file)) {
-//					问题： 如果是boos，那么也一枪一个吗？？？？
-//					将 setLive(false) 变为一个受攻击方法，还可以传入另外一个对象的攻击力
-//					当收攻击方法里执行时，如果血量减为0 再进行设置生存为 false
-//					扩展 留给大家
-//					System.out.println(listB);
 
-					enemy.setLive(false);
 					file.setLive(false);
+					if(gm.getBossHp()>0){
+
+						gm.setBossHp(-1);
+					}else{
+						enemy.setLive(false);
+					}
 					break;
 				}
 			}
@@ -211,6 +211,19 @@ public class GameThread extends Thread{
 					GameManager.HostageCrash = true;
 					bullet.setLive(false);
 					gm.setHp(-1);
+				}
+			}
+		}
+	}
+	public void CanonPK(List<ElementObj> listA,List<ElementObj>listB) {
+		for(int i=0;i<listA.size();i++) {
+			ElementObj bullet=listA.get(i);
+			for(int j=0;j<listB.size();j++) {
+				ElementObj player=listB.get(j);
+				if(bullet.pk(player)) {
+					GameManager.HostageCrash = true;
+					bullet.setLive(false);
+					gm.setHp(-2);
 				}
 			}
 		}
@@ -282,8 +295,9 @@ public class GameThread extends Thread{
 		List<ElementObj> plane = em.getElementsByKey(GameElement.PLANE);
 		List<ElementObj> boss = em.getElementsByKey(GameElement.BOSS);
 		List<ElementObj> hostage = em.getElementsByKey(GameElement.HOSTAGE);
+		List<ElementObj> canon = em.getElementsByKey(GameElement.ENEMYCANON);
 
-		int count = enemys.size()+plane.size()+boss.size()+hostage.size();
+		int count = enemys.size()+plane.size()+boss.size()+hostage.size()+ canon.size();
 //		System.out.println(count);
 		return count;
 

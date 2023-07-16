@@ -178,8 +178,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	
 	@Override
 	protected void updateImage(long gameTime) {
-//		System.out.println(pkType);
+
 		if(pkType&&!gm.isReloading()){
+			System.out.println("animation");
 			switch (gm.getAttackType()){
 				case Gun:
 					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
@@ -287,7 +288,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	public boolean pk(ElementObj obj) {
 		boolean isHit = this.getRectangle().intersects(obj.getRectangle());
 		if(isHit){
-			gm.setHp(-10);
+			gm.setHp(-1);
 		}
 
 
