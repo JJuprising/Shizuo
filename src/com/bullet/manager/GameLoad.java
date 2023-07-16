@@ -146,6 +146,10 @@ public class GameLoad {
 							ElementObj enemy = emy.createElement(arrs[i]+",Right");
 							em.addElement(enemy,GameElement.ENEMY);
 							break;
+						case "CANON":
+							ElementObj obje = getObj("enemycanon");
+							ElementObj enemy2 = obje.createElement(arrs[i]+",Right");
+							em.addElement(enemy2,GameElement.ENEMY);
 
 					}
 

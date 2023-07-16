@@ -46,7 +46,7 @@ public class CanonFile extends ElementObj{
             this.setLive(false);
             return;
         }
-        //和主角相撞就setLive(false)
+        //鍜屼富瑙掔浉鎾炲氨setLive(false)
         switch (this.fx){
             case "Right": this.setX(this.getX()-this.moveNum);break;
             case "Left": this.setX(this.getX()+this.moveNum);break;
@@ -56,7 +56,7 @@ public class CanonFile extends ElementObj{
     @Override
     public void die(){
         ElementObj obj = GameLoad.getObj("canonfiledie");
-
+        SoundManager.getManager().PlaySound("res/music/fire.wav");
         int locaX = 0;
         int locaY = this.getY()-50;
         if(this.fx.equals("Left")){
