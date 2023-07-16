@@ -6,34 +6,33 @@ import com.bullet.view.Animation;
 import javax.swing.*;
 import java.awt.*;
 
-//æ•Œäººç±»
-public class Enemy extends ElementObj implements Runnable{
-    public static int LocaY=400;
+public class EnemyCanon extends ElementObj implements Runnable{
     private ElementManager em=ElementManager.getManager();
-    ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//ä¸»è§’ä½ç½®
+    ElementObj Play = em.getElementsByKey(GameElement.PLAY).get(0);//Ö÷½ÇÎ»ÖÃ
 
-    private String fx;//æ•Œäººæ–¹å‘
-    private boolean pkType=false;//æ”»å‡»çŠ¶æ€ falseä¸ºæœªå¤„äºAttackçŠ¶æ€è€Œtrueæœªå¤„äºAttackçŠ¶æ€
-    private String EnemyState;//æ•ŒäººçŠ¶æ€
+    private long gameTime=0L;//Ïß³Ì²ÎÊı
+    private long standbyTime = 0L;//Õ¾Á¢µÄÊ±¼ä
+    private long Time = 0; //ÉÏ´Î·¢Éä×Óµ¯Ê±¼ä
+    private long lastshootTime = 0L;//ÉÏ´Î·¢Éä×Óµ¯Ê±¼ä
+    private boolean pkType=false;//¹¥»÷×´Ì¬ falseÎªÎ´´¦ÓÚAttack×´Ì¬¶øtrueÎ´´¦ÓÚAttack×´Ì¬
+    private int addNum = 0;//·¢Éä×Óµ¯Êı
+    private String fx;//ÅÚ¿Ú·½Ïò
+    private String EnemyState;//µĞÈË×´Ì¬
 
-    private long standbyTime = 0L;//ç«™ç«‹çš„æ—¶é—´
-    private long gameTime=0L;//ä¸ºäº†åœ¨æœ¬çº¿ç¨‹ä¸­ä½¿ç”¨è€Œæ·»åŠ çš„æ¸¸æˆæ—¶é—´
-    private long Time = 0; //ä¸Šæ¬¡å‘å°„å­å¼¹æ—¶é—´
-    private long lastshootTime = 0L;//ä¸Šæ¬¡å‘å°„å­å¼¹æ—¶é—´
+    private boolean isNear=false; //ÅĞ¶Ï½üÔ¶£¬¿ØÖÆµĞÈË¶¯×÷
 
-    private boolean isNear=false; //åˆ¤æ–­è¿‘è¿œï¼Œæ§åˆ¶æ•ŒäººåŠ¨ä½œ
+    Animation Run;//ÅÜ²½¶¯»­
+    Animation Stand;//Õ¾Á¢¶¯»­
+    Animation Attack;//¹¥»÷¶¯»­
 
-    private int addNum = 0;
-
-    Animation Run;//è·‘æ­¥åŠ¨ç”»
-    Animation Stand;//ç«™ç«‹åŠ¨ç”»
-    Animation Attack;//æ”»å‡»åŠ¨ç”»
-
-    public Enemy(){
+    public EnemyCanon(){
         Thread t = new Thread(this);
         t.start();
     }
-
+    @Override
+    public void showElement(Graphics g) {
+        g.drawImage(this.getIcon().getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
+    }
     @Override
     public void run() {
         while(true){
@@ -46,58 +45,50 @@ public class Enemy extends ElementObj implements Runnable{
             }
         }
     }
-
-    @Override
-    public void showElement(Graphics g) {
-        g.drawImage(this.getIcon().getImage(), this.getX(), this.getY(), this.getW(), this.getH(), null);
-    }
-
-    //åˆ›å»ºæ•Œäºº
     @Override
     public ElementObj createElement(String str){
         ImageIcon icon;
-        //æ•Œäººä½ç½®æ˜¯ä»Y[400,512]
-        this.setEnemyState("Run");//ä¸€å¼€å§‹æ˜¯è·‘æ­¥çŠ¶æ€
+        //µĞÈËÎ»ÖÃÊÇ´ÓY[400,512]
+        this.setEnemyState("Run");//Ò»¿ªÊ¼ÊÇÅÜ²½×´Ì¬
         this.setFx(str);
         this.setY(Enemy.LocaY);
         Enemy.setLocaY(Enemy.LocaY+30);
-        //åˆå§‹åŒ–å„ç§åŠ¨ç”»
+        //³õÊ¼»¯¸÷ÖÖ¶¯»­
         this.setRun(new Animation(10));
         this.setStand(new Animation(10));
-        this.setAttack(new Animation(15));
+        this.setAttack(new Animation(10));
 
         if(str.equals("Right")){
-            icon = GameLoad.EnemyImgMap.get("Run_Gun_Right_000");
+            icon = GameLoad.EnemyImgMap.get("Run_Canon_Right_000");
             this.setIcon(icon);
             this.setX(Settings.GameX);
             this.setH(icon.getIconHeight());
             this.setW(icon.getIconWidth());
-            //æ ¹æ®æ•Œäººæ–¹å‘è®¾ç½®åŠ¨ç”»å›¾ç‰‡
-            this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Gun_Right"));
-            this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Right"));
-            this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Right"));
+            //¸ù¾İµĞÈË·½ÏòÉèÖÃ¶¯»­Í¼Æ¬
+            this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Canon_Right"));
+            this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Canon_Right"));
+            this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Canon_Right"));
         }
         if (str.equals("Left")){
-            icon = GameLoad.EnemyImgMap.get("Run_Gun_Left_000");
+            icon = GameLoad.EnemyImgMap.get("Run_Canon_Left_000");
             this.setIcon(icon);
             this.setX(0);
             this.setH(icon.getIconHeight());
             this.setW(icon.getIconWidth());
-            //æ ¹æ®æ•Œäººæ–¹å‘è®¾ç½®åŠ¨ç”»å›¾ç‰‡
-            this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Gun_Left"));
-            this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Gun_Left"));
-            this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Gun_Left"));
+            //¸ù¾İµĞÈË·½ÏòÉèÖÃ¶¯»­Í¼Æ¬
+            this.getRun().SetAnimation(GameLoad.aniMap.get("Enemy_Run_Canon_Left"));
+            this.getStand().SetAnimation(GameLoad.aniMap.get("Enemy_Stand_Canon_Left"));
+            this.getAttack().SetAnimation(GameLoad.aniMap.get("Enemy_Attack_Canon_Left"));
         }
         return this;
     }
-
     @Override
     protected void move() {
         int playX = Play.getX();
         int distance = Math.abs(this.getX()-playX);
 
         if(!this.isNear()){
-            if(distance>=150){
+            if(distance>=175){
                 this.setEnemyState("Run");
                 if(this.fx.equals("Right")){
                     this.setX(this.getX()-1);
@@ -105,14 +96,14 @@ public class Enemy extends ElementObj implements Runnable{
                 if(this.fx.equals("Left")){
                     this.setX(this.getX()+1);
                 }
-                if(distance==150){
+                if(distance==175){
                     this.setEnemyState("Stand");
                 }
             } else if (this.getEnemyState().equals("Stand")) {
                 this.setEnemyState("Attack");
             }
         }else{
-            if(distance<=300 && this.getX()>0 && this.getX()<=Settings.GameX){
+            if(distance<=400 && this.getX()>0 && this.getX()<=Settings.GameX){
                 this.setEnemyState("Run");
                 if(this.fx.equals("Right")){
                     this.setX(this.getX()+1);
@@ -120,21 +111,20 @@ public class Enemy extends ElementObj implements Runnable{
                 if(this.fx.equals("Left")){
                     this.setX(this.getX()-1);
                 }
-                if(distance==300 || this.getX()==0){
+                if(distance==400 || this.getX()==0){
                     this.setEnemyState("Stand");
                 }
-            } else if ((distance>=300 || this.getX()==0) && this.getEnemyState().equals("Stand")) {
+            } else if ((distance>=400 || this.getX()==0) && this.getEnemyState().equals("Stand")) {
                 this.setEnemyState("Attack");
             }
         }
     }
 
-    //æ ¹æ®ä¸åŒçš„çŠ¶æ€ç»™äºˆä¸åŒçš„åŠ¨ç”»
     @Override
     protected void updateImage(long gameTime) {
-        this.setGameTime(gameTime);//è¿™ä¸ªä¸ç”¨ç®¡ï¼Œåªæ˜¯ä¼ å‚åˆ°æˆ‘çš„runä¸­çš„
+        this.setGameTime(gameTime);//Õâ¸ö²»ÓÃ¹Ü£¬Ö»ÊÇ´«²Îµ½ÎÒµÄrunÖĞµÄ
 
-        if(this.getStandbyTime() > 0){//ç«™ç«‹çš„æ—¶é—´è¿˜æ²¡æœ‰ç»“æŸ
+        if(this.getStandbyTime() > 0){//Õ¾Á¢µÄÊ±¼ä»¹Ã»ÓĞ½áÊø
             this.setEnemyState("Stand");
             this.setStandbyTime(this.getStandbyTime()-(gameTime-this.getTime()));
             this.setTime(gameTime);
@@ -151,10 +141,10 @@ public class Enemy extends ElementObj implements Runnable{
 
     @Override
     protected void add(long gameTime) {
-        //å½“æ»¡è¶³å‘å°„é—´éš”ï¼Œå¹¶ä¸”åŠ¨ä½œç¬¦åˆå›¾ç‰‡çš„æ—¶å€™å°±å‘å°„å­å¼¹
-        if(gameTime-this.getLastshootTime()>100 && this.getEnemyState().equals("Attack") && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Right_002") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Left_002"))){
+        //µ±Âú×ã·¢Éä¼ä¸ô£¬²¢ÇÒ¶¯×÷·ûºÏÍ¼Æ¬µÄÊ±ºò¾Í·¢Éä×Óµ¯
+        if(gameTime-this.getLastshootTime()>50 && this.getEnemyState().equals("Attack") && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Canon_Right_001") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Canon_Left_001"))){
             this.setPkType(true);
-            ElementObj obj = GameLoad.getObj("enemyfile");
+            ElementObj obj = GameLoad.getObj("canonfile");
 
             int fileX = 0,fileY =0;
             fileY = this.getY()+15;
@@ -166,17 +156,17 @@ public class Enemy extends ElementObj implements Runnable{
             }
 
             ElementObj element = obj.createElement(this.fx+","+ fileX +","+fileY);
-            ElementManager.getManager().addElement(element,GameElement.ENEMYFILE);
+            ElementManager.getManager().addElement(element,GameElement.CANONFILE);
 
-            this.setAddNum(this.getAddNum()+1);//æ¯æ¬¡å‘å°„å­å¼¹æ•°å°±åŠ 1
+            this.setAddNum(this.getAddNum()+1);//Ã¿´Î·¢Éä×Óµ¯Êı¾Í¼Ó1
 
-            this.setLastshootTime(gameTime);//è®°å½•æœ€åå¼€æªæ—¶é—´
-            this.setTime(this.getLastshootTime());//æŠŠæœ€åå¼€æªæ—¶é—´è®°å½•ä¸ºå¼€å§‹ç«™ç«‹çš„æ—¶é—´
+            this.setLastshootTime(gameTime);//¼ÇÂ¼×îºó¿ªÇ¹Ê±¼ä
+            this.setTime(this.getLastshootTime());//°Ñ×îºó¿ªÇ¹Ê±¼ä¼ÇÂ¼Îª¿ªÊ¼Õ¾Á¢µÄÊ±¼ä
         }
-        if(this.isPkType() && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Right_004") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Gun_Left_004"))){
-            this.setStandbyTime(100L);//æ‰“å®Œä¸€æªä¹‹åæ—¶é—´é—´éš”ï¼Œéœ€è¦ç«™ç«‹çš„æ—¶é—´
+        if(this.isPkType() && (Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Canon_Right_004") || Attack.LoadSprite(gameTime)==GameLoad.imgMap.get("Attack_Canon_Left_004"))){
+            this.setStandbyTime(50L);//´òÍêÒ»Ç¹Ö®ºóÊ±¼ä¼ä¸ô£¬ĞèÒªÕ¾Á¢µÄÊ±¼ä
 
-            if(this.getAddNum()%2==0){//å½“å°„å‡»ä¸¤æªåï¼Œå°±è½¬å˜è¿œè¿‘çŠ¶æ€
+            if(this.getAddNum()%2==0){//µ±Éä»÷Á½Ç¹ºó£¬¾Í×ª±äÔ¶½ü×´Ì¬
                 this.setNear(!this.isNear());
             }
 
@@ -186,88 +176,101 @@ public class Enemy extends ElementObj implements Runnable{
 
     @Override
     public void die(){
-        ElementObj obj = GameLoad.getObj("enemydie");
+        ElementObj obj = GameLoad.getObj("enemycanondie");//ÈÔÎ´´´½¨
         ElementObj element = obj.createElement(this.fx+","+this.getX()+","+this.getY());
-        ElementManager.getManager().addElement(element,GameElement.ENEMYDIE);
+        ElementManager.getManager().addElement(element,GameElement.ENEMYCANONDIE);
         GameManager.getManager().setScore(200);
     }
 
+    //ÉèÖÃ/»ñÈ¡gameTime
     public long getGameTime() {
         return gameTime;
     }
     public void setGameTime(long gameTime) {
         this.gameTime = gameTime;
     }
+
+    //ÉèÖÃ/»ñÈ¡·½Ïò
     public String getFx() {
         return fx;
     }
     public void setFx(String fx) {
         this.fx = fx;
     }
-    public long getTime() {
-        return Time;
-    }
-    public void setTime(long time) {
-        Time = time;
-    }
+
+    //ÉèÖÃ/»ñÈ¡µĞÈË×´Ì¬
     public String getEnemyState() {
         return EnemyState;
     }
     public void setEnemyState(String enemyState) {
         EnemyState = enemyState;
     }
+
+    //ÉèÖÃ/»ñÈ¡ÅÜ²½¶¯»­
     public Animation getRun() {
         return Run;
     }
     public void setRun(Animation run) {
         Run = run;
     }
+
+    //ÉèÖÃ/»ñÈ¡Õ¾Á¢¶¯»­
     public Animation getStand() {
         return Stand;
     }
     public void setStand(Animation stand) {
         Stand = stand;
     }
+
+    //ÉèÖÃ/»ñÈ¡¹¥»÷¶¯»­
     public Animation getAttack() {
         return Attack;
     }
     public void setAttack(Animation attack) {
         Attack = attack;
     }
-    public long getStandbyTime() {
-        return standbyTime;
-    }
-    public void setStandbyTime(long standbyTime) {
-        this.standbyTime = standbyTime;
-    }
-    public long getLastshootTime() {
-        return lastshootTime;
-    }
-    public void setLastshootTime(long lastshootTime) {
-        this.lastshootTime = lastshootTime;
-    }
-    public boolean isPkType() {
-        return pkType;
-    }
-    public void setPkType(boolean pkType) {
-        this.pkType = pkType;
-    }
+
+    //ÉèÖÃ/»ñÈ¡µĞÈËÔ¶½ü
     public boolean isNear() {
         return isNear;
     }
     public void setNear(boolean near) {
         isNear = near;
     }
+
+    public long getTime() {
+        return Time;
+    }
+    public void setTime(long time) {
+        Time = time;
+    }
+
+    //ÉèÖÃµÄÕ¾Á¢Ê±¼ä
+    public long getStandbyTime() {
+        return standbyTime;
+    }
+    public void setStandbyTime(long standbyTime) {
+        this.standbyTime = standbyTime;
+    }
+
+    public long getLastshootTime() {
+        return lastshootTime;
+    }
+    public void setLastshootTime(long lastshootTime) {
+        this.lastshootTime = lastshootTime;
+    }
+
+    public boolean isPkType() {
+        return pkType;
+    }
+    public void setPkType(boolean pkType) {
+        this.pkType = pkType;
+    }
+
     public int getAddNum() {
         return addNum;
     }
     public void setAddNum(int addNum) {
         this.addNum = addNum;
-    }
-    public static int getLocaY() {
-        return LocaY;
-    }
-    public static void setLocaY(int locaY) {
-        LocaY = locaY;
     }
 }

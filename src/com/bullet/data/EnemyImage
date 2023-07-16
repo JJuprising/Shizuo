@@ -35,3 +35,41 @@ Die_Gun_Left_001 = res/images/Enemy/L/enemy_die111.png
 Die_Gun_Left_002 = res/images/Enemy/L/enemy_die121.png
 Die_Gun_Left_003 = res/images/Enemy/L/enemy_die131.png
 Die_Gun_Left_004 = res/images/Enemy/L/enemy_die141.png
+
+Run_Canon_Right_000 = res/images/Enemy/L/enemy_run200.png
+Run_Canon_Right_001 = res/images/Enemy/L/enemy_run210.png
+Run_Canon_Right_002 = res/images/Enemy/L/enemy_run220.png
+Run_Canon_Right_003 = res/images/Enemy/L/enemy_run230.png
+Run_Canon_Right_004 = res/images/Enemy/L/enemy_run240.png
+Run_Canon_Left_000 = res/images/Enemy/L/enemy_run201.png
+Run_Canon_Left_001 = res/images/Enemy/L/enemy_run211.png
+Run_Canon_Left_002 = res/images/Enemy/L/enemy_run221.png
+Run_Canon_Left_003 = res/images/Enemy/L/enemy_run231.png
+Run_Canon_Left_004 = res/images/Enemy/L/enemy_run241.png
+
+Stand_Canon_Right_000 = res/images/Enemy/L/enemy_stand200.png
+Stand_Canon_Right_001 = res/images/Enemy/L/enemy_stand210.png
+Stand_Canon_Left_000 = res/images/Enemy/L/enemy_stand201.png
+Stand_Canon_Left_001 = res/images/Enemy/L/enemy_stand211.png
+
+Attack_Canon_Right_000 = res/images/Enemy/L/enemy_attack200.png
+Attack_Canon_Right_001 = res/images/Enemy/L/enemy_attack210.png
+Attack_Canon_Right_002 = res/images/Enemy/L/enemy_attack220.png
+Attack_Canon_Right_003 = res/images/Enemy/L/enemy_attack230.png
+Attack_Canon_Right_004 = res/images/Enemy/L/enemy_attack240.png
+Attack_Canon_Left_000 = res/images/Enemy/L/enemy_attack201.png
+Attack_Canon_Left_001 = res/images/Enemy/L/enemy_attack211.png
+Attack_Canon_Left_002 = res/images/Enemy/L/enemy_attack221.png
+Attack_Canon_Left_003 = res/images/Enemy/L/enemy_attack231.png
+Attack_Canon_Left_004 = res/images/Enemy/L/enemy_attack241.png
+
+Die_Canon_Right_000 = res/images/Enemy/L/enemy_die200.png
+Die_Canon_Right_001 = res/images/Enemy/L/enemy_die210.png
+Die_Canon_Right_002 = res/images/Enemy/L/enemy_die220.png
+Die_Canon_Right_003 = res/images/Enemy/L/enemy_die230.png
+Die_Canon_Right_004 = res/images/Enemy/L/enemy_die240.png
+Die_Canon_Left_000 = res/images/Enemy/L/enemy_die201.png
+Die_Canon_Left_001 = res/images/Enemy/L/enemy_die211.png
+Die_Canon_Left_002 = res/images/Enemy/L/enemy_die221.png
+Die_Canon_Left_003 = res/images/Enemy/L/enemy_die231.png
+Die_Canon_Left_004 = res/images/Enemy/L/enemy_die241.png

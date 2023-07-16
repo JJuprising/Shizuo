@@ -77,12 +77,17 @@ public class GameThread extends Thread{
 			List<ElementObj> bullets = em.getElementsByKey(GameElement.BULLET);
 			List<ElementObj> hostages = em.getElementsByKey(GameElement.HOSTAGE);
 			List<ElementObj> kits = em.getElementsByKey(GameElement.KIT);
+			List<ElementObj> canons = em.getElementsByKey(GameElement.CANONFILE);
+			List<ElementObj> canonenemys = em.getElementsByKey(GameElement.ENEMYCANON);
 //			List<ElementObj> maps = em.getElementsByKey(GameElement.MAPS);
 			moveAndUpdate(all,gameTime);//	游戏元素自动化方法
 //			System.out.println(gameTime);
 			EnemyPK(enemys,bullets);
+			EnemyPK(canonenemys,bullets);
+
 			HostagePK(hostages,players);
 			ElementPK(kits,players);
+			ElementPK(canons,players);//炮弹碰到主角，炮弹触发动画
 
 			try {
 				sleep(Settings.RefreshSpeed);//默认理解为 1秒刷新100次
@@ -92,6 +97,7 @@ public class GameThread extends Thread{
 			}
 		}
 	}
+
 	public void ElementPK(List<ElementObj> listA,List<ElementObj>listB) {
 //		请大家在这里使用循环，做一对一判定，如果为真，就设置2个对象的死亡状态
 		for(int i=0;i<listA.size();i++) {

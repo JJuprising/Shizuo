@@ -164,9 +164,25 @@ public class GameLoad {
 	//加载鬼子
 	public static void loadJanpanese(){
 		Random random = new Random();
-		//每一次加载鬼子会随机生成3-5名鬼子
-		int randomInRange = random.nextInt(3)+3;
-		for(int i=1;i<=randomInRange;i++){
+		//每一次加载鬼子会随机生成3-6名鬼子
+		int randomAll = random.nextInt(4)+3;
+		//生成2-3名炮兵鬼子
+		int randomCanonEnemy = random.nextInt(2)+2;
+		for(int i=1;i<=randomCanonEnemy;i++){
+			ElementObj obj = getObj("enemycanon");
+//			ElementObj obj = getObj("enemy");
+			int randomLocation = random.nextInt(2);//0代表Left，1代表Right
+			if (randomLocation == 0){
+				ElementObj enemy = obj.createElement("Left");
+				em.addElement(enemy,GameElement.ENEMYCANON);
+			}
+			if (randomLocation == 1){
+				ElementObj enemy = obj.createElement("Right");
+				em.addElement(enemy,GameElement.ENEMYCANON);
+			}
+		}
+
+		for(int i =1;i<=randomAll-randomCanonEnemy;i++){
 			ElementObj obj = getObj("enemy");
 			int randomLocation = random.nextInt(2);//0代表Left，1代表Right
 			if (randomLocation == 0){
