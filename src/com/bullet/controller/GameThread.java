@@ -96,6 +96,7 @@ public class GameThread extends Thread{
 			HostagePK(hostages,players);
 			ElementPK(kits,players);
 			BulletPK(enemybullet,players);
+			BulletPK(canons,players);
 			if(GetEnemyCount()<1&&GameManager.IsGameRunning()){
 				gm.EndGame();
 				break;
