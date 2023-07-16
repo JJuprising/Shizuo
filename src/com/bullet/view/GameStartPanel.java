@@ -23,6 +23,7 @@ public class GameStartPanel extends JPanel {
     	
         JLabel label = new JLabel(background);
         setLayout(null);
+
         // 创建两个按钮
         JButton button1 = new JButton(start);
         JButton button2 = new JButton(exit);
@@ -49,7 +50,6 @@ public class GameStartPanel extends JPanel {
         });
 
         // 将标签和按钮添加到面板中
-        
         this.add(button1);
         this.add(button2);
         this.add(label);

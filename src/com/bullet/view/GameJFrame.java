@@ -30,41 +30,28 @@ public class GameJFrame extends JFrame{
 	private KeyListener  keyListener=null;//键盘监听
 	private MouseMotionListener mouseMotionListener=null; //鼠标监听
 	private MouseListener mouseListener=null;
-	private static GameThread thread =null;  //游戏主线程
+	private static GameThread thread =null; //游戏主线程
+	Thread th;
 	private static Label label;
+	private boolean isStart = false;
 	
 	public GameJFrame() {
 		init();
 	}
 	public void init() {
-		this.setSize(Settings.GameX, Settings.GameY+Settings.GameDeltaY+Settings.GameInfoY); //设置窗体大小
+		this.setSize(Settings.GameX, Settings.GameY+Settings.GameDeltaY+Settings.GameInfoY); //窗体大小
 		this.setTitle("Bullet Fight");
-//		addButton();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//设置退出并且关闭
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);//屏幕居中显示
 	}
-	/*窗体布局: 可以讲 存档，读档。button   给大家扩展的*/
-	public void addButton() {
-//		initLabel();
-	}
-
-	/**
-	 * 启动方法
-	 */
-	Thread th;
-	private boolean isStart = false;
-
 	public void start() {
-		if(!isStart&&this.jPanel instanceof Runnable){//是否开启过线程，只有游戏界面需要键盘监听和游戏线程
-//			System.out.println(keyListener);
+		if(!isStart&&this.jPanel instanceof Runnable){//判断是否开启过线程
 			if(keyListener !=null) {
 				this.addKeyListener(keyListener);
-
 			}
 			if(thread !=null) {
 				thread.start();//启动线程
 			}
-
 			if(this.jPanel instanceof Runnable) {//带多线程接口的就运行
 				Runnable run=(Runnable)this.jPanel;
 				th=new Thread(run);
@@ -77,24 +64,16 @@ public class GameJFrame extends JFrame{
 		requestFocus();//聚焦当前面板，使得keylistener能工作
 	}
 
-	/*set注入：等大家学习ssm 通过set方法注入配置文件中读取的数据;讲配置文件
-	 * 中的数据赋值为类的属性
-	 * 构造注入：需要配合构造方法
-	 * spring 中ioc 进行对象的自动生成，管理。
-	 * */
 	public void setjPanel(JPanel jPanel) {
 		if(this.jPanel!=null){
 			this.remove(this.jPanel);
-
 		}
 		this.jPanel = jPanel;
 		this.add(jPanel);
 		jPanel.repaint();
-//		System.out.println(123);
 	}
 	public void setKeyListener(KeyListener keyListener) {
 		this.keyListener = keyListener;
-
 	}
 	public void setMouseMotionListener(MouseMotionListener mouseMotionListener) {
 		this.mouseMotionListener = mouseMotionListener;
