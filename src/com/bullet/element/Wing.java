@@ -34,23 +34,24 @@ public class Wing extends ElementObj{
     @Override
     public ElementObj createElement(String str) {
         //出现位置应该是屏幕右边界
-        int x= 0;
-        int y= 0;
+
+
+
+        String[] split = str.split(",");
+        int x = Integer.parseInt(split[0]);
+        int y = Integer.parseInt(split[1]);
+
+
+
 
         ImageIcon icon=null; /*GameLoad.imgMap.get("LEFT_PLANE");*/
-
-
-        name=str;
-        switch (name){
+        name = split[2];
+        switch (split[2]){
             case "FRONT_WING":
                 icon=GameLoad.imgMap.get("FRONT_WING");
-                x=Settings.GameX-10;
-                y=42;
                 break;
             case "BACK_WING":
                 icon=GameLoad.imgMap.get("BACK_WING");
-                x=Settings.GameX+74;
-                y=40;
                 break;
         }
 
@@ -60,7 +61,7 @@ public class Wing extends ElementObj{
         this.setW(icon.getIconWidth());
         this.setH(icon.getIconHeight());
         this.setIcon(icon);
-        System.out.println("机翼生成");
+//        System.out.println("机翼生成");
         return this;
     }
 

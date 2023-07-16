@@ -1,7 +1,8 @@
 left=res/images/plays/attack000.png
 right=res/images/plays/attack001.png
 
-BACKGROUND=res/images/background/backimage1.gif
+BACKGROUND1=res/images/background/backimage1.gif
+BACKGROUND2=res/images/background/backimage2.png
 
 LEFT_GUN_ATK_0=res/images/plays/attack000.png
 LEFT_GUN_ATK_1=res/images/plays/attack010.png

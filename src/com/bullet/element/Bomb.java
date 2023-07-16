@@ -1,7 +1,6 @@
 package com.bullet.element;
 
-import com.bullet.manager.GameLoad;
-import com.bullet.manager.Settings;
+import com.bullet.manager.*;
 import com.bullet.view.Animation;
 
 import javax.swing.*;
@@ -114,6 +113,10 @@ public class Bomb extends ElementObj{
         }
         //结束死亡动画
         if (overKey&&markTime&&gameTime-initTime>=100){
+            SoundManager.getManager().PlaySound("res/music/music (16).wav");
+//            ElementObj obj = GameLoad.getObj("enemyfile");
+//            ElementObj element = obj.createElement("Left"+","+ this.getX() +","+this.getY()+20);
+//            ElementManager.getManager().addElement(element, GameElement.ENEMYFILE);
             this.setLive(false);
         }
 

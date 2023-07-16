@@ -19,10 +19,12 @@ public class Hostage extends ElementObj{
 
 	@Override
 	public ElementObj createElement(String str) {
+		String[] split = str.split(",");
+		this.setX(Integer.parseInt(split[0]));
+		this.setY(Integer.parseInt(split[1]));
 		ImageIcon icon;
 		icon = GameLoad.imgMap.get("HOSTAGE_STAY_0");
-		this.setX(400);
-		this.setY(400);
+
 		this.setW(icon.getIconWidth());
 		this.setH(icon.getIconHeight());
 		this.setIcon(icon);
@@ -54,6 +56,7 @@ public class Hostage extends ElementObj{
 			GameManager.HostagePositionX = this.getX();
 		}
 	}
+
 	@Override
 	protected void add(long gameTime) {
 		if (!GameManager.canSave && !GameManager.isGive && gameTime - this.Time > 150) {
