@@ -3,10 +3,8 @@ package com.bullet.element;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
-import com.bullet.manager.ElementManager;
-import com.bullet.manager.GameElement;
-import com.bullet.manager.GameLoad;
-import com.bullet.manager.Settings;
+
+import com.bullet.manager.*;
 
 /**
  * @说明 玩家子弹类，本类的实体对象是由玩家对象调用和创建
@@ -67,15 +65,11 @@ public class PlayRPG extends ElementObj{
      * 对于子弹来说：1.出边界  2.碰撞  3.玩家放保险
      * 处理方式就是，当达到死亡的条件时，只进行 修改死亡状态的操作。
      */
-//	@Override
-//	public void die() {
-//		ElementManager em=ElementManager.getManager();
-//		ImageIcon icon=new ImageIcon("image/tank/play2/player2_up.png");
-//		ElementObj obj=new Play(this.getX(),this.getY(),50,50,icon);//实例化对象
-////		讲对象放入到 元素管理器中
-////		em.getElementsByKey(GameElement.PLAY).add(obj);
-//		em.addElement(obj,GameElement.DIE);//直接添加
-//	}
+	@Override
+	public void die() {
+		super.die();
+        SoundManager.getManager().PlaySound("res/music/music (3).wav");
+	}
 
 //    /**子弹变装*/
 //	private long time=0;

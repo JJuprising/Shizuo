@@ -23,13 +23,15 @@ public class GameThread extends Thread{
 	@Override
 	public void run() {
 		while(true) {
-//		游戏开始前   读进度条，加载游戏资源(场景资源)
-			gm.StartGame();
-			gameLoad(mapID);
+			if(gm.IsGameRunning()){
+				//		游戏开始前   读进度条，加载游戏资源(场景资源)
+				gameLoad(mapID);
 //		游戏进行时   游戏过程中
-			gameRun();		
+				gameRun();
 //		游戏场景结束  游戏资源回收(场景资源)
-			gameOver();
+				gameOver();
+			}
+
 			try {
 				sleep(50);
 			} catch (InterruptedException e) {
@@ -57,6 +59,7 @@ public class GameThread extends Thread{
 //		GameLoad.loadEnemy();
 //		}
 ////		全部加载完成，游戏启动
+		gm.setGameStates(true);
 	}
 	/**
 	 * @说明  游戏进行时
@@ -88,8 +91,9 @@ public class GameThread extends Thread{
 			HostagePK(hostages,players);
 			ElementPK(kits,players);
 			BulletPK(enemybullet,players);
-			if(GetEnemyCount()<1){
+			if(GetEnemyCount()<1&&GameManager.IsGameRunning()){
 				gm.EndGame();
+				break;
 			}
 
 
@@ -237,22 +241,27 @@ public class GameThread extends Thread{
 
 	/**游戏切换关卡*/
 	private void gameOver() {
-		Map<GameElement, List<ElementObj>> all = em.getGameElements();
-		for(GameElement ge:GameElement.values()) {
-			List<ElementObj> list = all.get(ge);
+		System.out.println("End");
+		if(!GameManager.IsGameRunning()){
+			Map<GameElement, List<ElementObj>> all = em.getGameElements();
+			for(GameElement ge:GameElement.values()) {
+				List<ElementObj> list = all.get(ge);
 //			编写这样直接操作集合数据的代码建议不要使用迭代器。
 //			for(int i=0;i<list.size();i++) {
-			for(int i=list.size()-1;i>=0;i--){
-				ElementObj obj=list.get(i);//读取为基类
-				obj.die();//死亡时创建死亡实例
-				list.remove(i);
+				for(int i=list.size()-1;i>=0;i--){
+					ElementObj obj=list.get(i);//读取为基类
+					obj.die();//死亡时创建死亡实例
+					list.remove(i);
+				}
 			}
 		}
+
 	}
 	public void ChangeMap(int mapID){
 		gm.StopGame();
 		this.mapID = mapID;
 		gm.setMapID(mapID);
+		gm.StartGame();
 		try {
 			sleep(50);
 		} catch (InterruptedException e) {

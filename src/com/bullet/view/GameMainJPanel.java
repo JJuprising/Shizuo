@@ -99,7 +99,7 @@ public class GameMainJPanel extends JPanel implements Runnable{
 	}
 	@Override
 	public void run() {  //接口实现
-		while(GameManager.IsGameRunning()) {
+		while(true) {
 //			System.out.println("多线程运动");
 			this.repaint();
 //			一般情况下，多线程都会使用一个休眠,控制速度

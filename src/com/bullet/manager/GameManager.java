@@ -170,7 +170,7 @@ public class GameManager {
     }
     public void UpdateLabel2(){
         finalScore.setText("Score:"+score);
-        if (Hp <= 0) {
+        if (Hp > 0) {
             finalLabel.setText("You Win!");
         } else {
             finalLabel.setText("Game Over!");
@@ -194,7 +194,9 @@ public class GameManager {
     }
     public void StopGame(){
         isGameRunning = false;
-
+    }
+    public void setGameStates(boolean states){
+        isGameRunning = states;
     }
     public void EndGame(){
         isGameRunning = false;

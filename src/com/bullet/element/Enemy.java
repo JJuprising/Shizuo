@@ -63,7 +63,7 @@ public class Enemy extends ElementObj implements Runnable{
         this.setX(Integer.parseInt(split[0]));
         this.setY(Integer.parseInt(split[1]));
         GameManager.enemyPositionX.add(Integer.parseInt(split[0]));
-        System.out.println(GameManager.enemyPositionX);
+//        System.out.println(GameManager.enemyPositionX);
         this.setFx(split[2]);
         ImageIcon icon;
         this.setEnemyState("Run");//一开始是跑步状态
