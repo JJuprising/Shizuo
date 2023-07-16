@@ -81,7 +81,7 @@ public class GameThread extends Thread{
 			EnemyPK(enemys,bullets);
 			PlanePK(plane,bullets);
 			BossPK(boss,bullets);
-			ElementPK(canons,players);//炮弹碰到主角，炮弹触发动画
+			CanonPK(canons,players);//炮弹碰到主角，炮弹触发动画
 			HostagePK(hostages,players);
 			ElementPK(kits,players);
 			BulletPK(enemybullet,players);
@@ -154,8 +154,13 @@ public class GameThread extends Thread{
 			for(int j=0;j<listB.size();j++) {
 				ElementObj file=listB.get(j);
 				if(enemy.pk(file)) {
-					enemy.setLive(false);
 					file.setLive(false);
+					if(gm.getBossHp()>0){
+
+						gm.setBossHp(-1);
+					}else{
+						enemy.setLive(false);
+					}
 					break;
 				}
 			}
@@ -187,6 +192,20 @@ public class GameThread extends Thread{
 			}
 		}
 	}
+	public void CanonPK(List<ElementObj> listA,List<ElementObj>listB) {
+		for(int i=0;i<listA.size();i++) {
+			ElementObj bullet=listA.get(i);
+			for(int j=0;j<listB.size();j++) {
+				ElementObj player=listB.get(j);
+				if(bullet.pk(player)) {
+					GameManager.HostageCrash = true;
+					bullet.setLive(false);
+					gm.setHp(-2);
+				}
+			}
+		}
+	}
+	
 
 //	游戏元素自动化方法
 	public void moveAndUpdate(Map<GameElement, List<ElementObj>> all,long gameTime) {
@@ -244,8 +263,10 @@ public class GameThread extends Thread{
 		List<ElementObj> plane = em.getElementsByKey(GameElement.PLANE);
 		List<ElementObj> boss = em.getElementsByKey(GameElement.BOSS);
 		List<ElementObj> hostage = em.getElementsByKey(GameElement.HOSTAGE);
+		List<ElementObj> canon = em.getElementsByKey(GameElement.ENEMYCANON);
 
-		int count = enemys.size()+plane.size()+boss.size()+hostage.size();
+		int count = enemys.size()+plane.size()+boss.size()+hostage.size()+ canon.size();
+//		System.out.println(count);
 		return count;
 	}
 }

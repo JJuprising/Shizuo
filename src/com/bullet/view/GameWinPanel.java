@@ -29,10 +29,10 @@ public class GameWinPanel extends JPanel {
         JButton button1 = new JButton(start);
         JButton button2 = new JButton(exit);
 
-        label1.setBounds(200,0,300,300);
-        label1.setFont(new Font("宋体",Font.BOLD,20));
-        label2.setBounds(600,0,300,300);
-        label2.setFont(new Font("宋体",Font.BOLD,20));
+        label1.setBounds(360,0,500,300);
+        label1.setFont(new Font("宋体",Font.BOLD,80));
+        label2.setBounds(400,200,300,300);
+        label2.setFont(new Font("宋体",Font.BOLD,40));
         button1.setBounds(200,525,200,50);
         button2.setBounds(600,525,200,50);
 
