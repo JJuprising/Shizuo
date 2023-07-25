@@ -1,0 +1,793 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.bullet.controller.GameListener",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1377934078 { 
+   	label=bullet
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1400774639 { 
+   	label=view
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Animation1262214948[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Animation</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   animationSpeed: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idx: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sprites: ArrayList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startTime: long [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ LoadSprite(currentTime: long): ImageIcon</TD></TR>
+<TR><TD ALIGN="LEFT" >+ ResetAnimation()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ SetAnimation(sprites: ArrayList&lt;String&gt;)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameJFrame1262214948[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameJFrame</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   isStart: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   jPanel: JPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   keyListener: KeyListener [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mouseListener: MouseListener [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mouseMotionListener: MouseMotionListener [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   th: Thread [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ ChangeMap(mapID: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ SetLabel(content: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addButton()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ init()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ start()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameMainJPanel1262214948[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameMainJPanel</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   em: ElementManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gm: GameManager [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ init()</TD></TR>
+<TR><TD ALIGN="LEFT" >- initLabel()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ paint(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ run()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameSelectPanel1262214948[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameSelectPanel</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameStartPanel1262214948[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameStartPanel</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameWinPanel1262214948[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameWinPanel</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1474672632 { 
+   	label=controller
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   GameListener634426149[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameListener</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   em: ElementManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   set: Set&lt;Integer&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ keyPressed(e: KeyEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyReleased(e: KeyEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyTyped(e: KeyEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameThread634426149[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameThread</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   em: ElementManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gm: GameManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mapID: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sm: SoundManager [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ ChangeMap(mapID: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ ElementPK(listA: List&lt;ElementObj&gt;, listB: List&lt;ElementObj&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ EnemyPK(listA: List&lt;ElementObj&gt;, listB: List&lt;ElementObj&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ HostagePK(listA: List&lt;ElementObj&gt;, listB: List&lt;ElementObj&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >- gameLoad(MapID: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >- gameOver()</TD></TR>
+<TR><TD ALIGN="LEFT" >- gameRun()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ moveAndUpdate(all: Map&lt;GameElement, List&lt;ElementObj&gt;&gt;, gameTime: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ run()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1602974224 { 
+   	label=element
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Bomb1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Bomb</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   animation: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   attack: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   bombAnimationList: ArrayList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   initTime: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   lastTime: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   markTime: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveNum: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   overAnimationList: ArrayList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   overKey: boolean [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Boss1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Boss</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   animation: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveSpeed: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   pkType: boolean [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" >+ die()</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ElementObj1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ElementObj</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   h: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   icon: ImageIcon [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   live: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   w: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   x: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   y: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># add(gameTime: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" >+ die()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyClick(bl: boolean, key: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ model(gameTime: long)</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ pk(obj: ElementObj): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage()</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Enemy1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Enemy</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   Attack: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   EnemyState: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   Play: ElementObj [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   Run: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   Stand: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Time: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   addNum: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   em: ElementManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gameTime: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isNear: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   lastshootTime: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   pkType: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   standbyTime: long [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># add(gameTime: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" >+ die()</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ run()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+EnemyDie1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)EnemyDie</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   Die: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+EnemyFile1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)EnemyFile</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveNum: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Hostage1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Hostage</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   Time: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   animationSave: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   animationStay: Animation [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># add(gameTime: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" >+ die()</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Kit1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Kit</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MapObj1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MapObj</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Plane1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Plane</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   fireTime: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isLeft: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveSpeed: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   pkType: boolean [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ add(gameTime: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Play1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Play</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   animation: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   attackType: AttackType [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   down: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fireTime: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gm: GameManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isRight: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   knifeAnime: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   left: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   pkType: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   right: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   saveType: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   test: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   up: boolean [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ add(gameTime: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyClick(bl: boolean, key: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ pk(obj: ElementObj): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PlayFile1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PlayFile</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   attack: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   em: ElementManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   gm: GameManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   icon: ImageIcon [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveNum: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PlayGrenade1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PlayGrenade</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   attack: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   delta: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   deltaY: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   g: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   icon: ImageIcon [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveNum: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   t: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   v: float [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PlayRPG1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PlayRPG</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   attack: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   icon: ImageIcon [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveNum: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PlayerFoot1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PlayerFoot</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   animation: Animation [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   down: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isMoving: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isRight: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   left: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   right: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   up: boolean [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyClick(bl: boolean, key: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Wing1910131171[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Wing</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   fireTime: long [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fx: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isLeft: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moveSpeed: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   pkType: boolean [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ createElement(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" ># move()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showElement(g: Graphics)</TD></TR>
+<TR><TD ALIGN="LEFT" ># updateImage(gameTime: long)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_193895743 { 
+   	label=manager
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   ElementManager587966158[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ElementManager</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   gameElements: Map&lt;GameElement, List&lt;ElementObj&gt;&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addElement(obj: ElementObj, ge: GameElement)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getElementsByKey(ge: GameElement): List&lt;ElementObj&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ init()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameLoad587966158[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameLoad</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getObj(str: String): ElementObj</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadAni()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadBoss()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadHostage()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadImg()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadJapanese()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadMap(mapId: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadObj()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadPlane()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ loadPlayer()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameManager587966158[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameManager</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   HpLabel: Label [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   ammoLabel: Label [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isReloading: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   levelLabel: Label [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   scoreLabel: Label [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   weaponLabel: Label [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ CheckWin()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ EndGame()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ IsGameRunning(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ ReloadAmmo(type: AttackType)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ ResetGame()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ SetLabel(weaponLabel: Label, ammoLabel: Label, HpLabel: Label, scoreLabel: Label, levelLabel: Label)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ ShootAmmo(): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ StartGame()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ StopGame()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ UpdateLabel()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+SoundManager587966158[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)SoundManager</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ PlayBGM(url: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ PlaySound(url: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+UIManager587966158[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)UIManager</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   gameJFrame: GameJFrame [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   listener: GameListener [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   mainPanel: GameMainJPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   selectPanel: GameSelectPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   startPanel: GameStartPanel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   th: GameThread [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   winPanel: GameWinPanel [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ SetPanel(page: UIElement)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ init()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+Bomb1910131171 -> Animation1262214948[label="animation
+[0..1]"];
+Boss1910131171 -> Animation1262214948[label="animation
+[0..1]"];
+ElementManager587966158 -> ElementObj1910131171[label="gameElements
+[0..*]"];
+ElementObj1910131171 -> Bomb1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> Boss1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> Enemy1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> EnemyDie1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> EnemyFile1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> Hostage1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> Kit1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> MapObj1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> Plane1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> Play1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> PlayFile1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> PlayGrenade1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> PlayRPG1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> PlayerFoot1910131171[arrowhead=none, arrowtail=empty, dir=both];
+ElementObj1910131171 -> Wing1910131171[arrowhead=none, arrowtail=empty, dir=both];
+Enemy1910131171 -> Animation1262214948[label="Attack
+[0..1]"];
+Enemy1910131171 -> Animation1262214948[label="Run
+[0..1]"];
+Enemy1910131171 -> Animation1262214948[label="Stand
+[0..1]"];
+Enemy1910131171 -> ElementManager587966158[label="em
+[0..1]"];
+Enemy1910131171 -> ElementObj1910131171[label="Play
+[0..1]"];
+EnemyDie1910131171 -> Animation1262214948[label="Die
+[0..1]"];
+GameListener634426149 -> ElementManager587966158[label="em
+[0..1]"];
+GameMainJPanel1262214948 -> ElementManager587966158[label="em
+[0..1]"];
+GameMainJPanel1262214948 -> ElementObj1910131171[label="paint() -> showElement()"];
+GameMainJPanel1262214948 -> GameManager587966158[label="gm
+[0..1]"];
+GameManager587966158 -> ElementManager587966158[label="CheckWin() -> getElementsByKey()"];
+GameManager587966158 -> UIManager587966158[label="EndGame() -> SetPanel()"];
+GameThread634426149 -> ElementManager587966158[label="em
+[0..1]"];
+GameThread634426149 -> GameManager587966158[label="gm
+[0..1]"];
+GameThread634426149 -> SoundManager587966158[label="sm
+[0..1]"];
+Hostage1910131171 -> Animation1262214948[label="animationSave
+[0..1]"];
+Hostage1910131171 -> Animation1262214948[label="animationStay
+[0..1]"];
+Hostage1910131171 -> ElementManager587966158[label="add() -> addElement()"];
+Hostage1910131171 -> GameLoad587966158[label="add() -> getObj()"];
+Plane1910131171 -> ElementManager587966158[label="add() -> addElement()"];
+Plane1910131171 -> GameLoad587966158[label="add() -> getObj()"];
+Play1910131171 -> Animation1262214948[label="animation
+[0..1]"];
+Play1910131171 -> Animation1262214948[label="knifeAnime
+[0..1]"];
+Play1910131171 -> ElementManager587966158[label="add() -> addElement()"];
+Play1910131171 -> GameManager587966158[label="gm
+[0..1]"];
+PlayFile1910131171 -> ElementManager587966158[label="em
+[0..1]"];
+PlayFile1910131171 -> GameManager587966158[label="gm
+[0..1]"];
+PlayerFoot1910131171 -> Animation1262214948[label="animation
+[0..1]"];
+UIManager587966158 -> GameJFrame1262214948[label="gameJFrame
+[0..1]"];
+UIManager587966158 -> GameListener634426149[label="listener
+[0..1]"];
+UIManager587966158 -> GameMainJPanel1262214948[label="mainPanel
+[0..1]"];
+UIManager587966158 -> GameSelectPanel1262214948[label="selectPanel
+[0..1]"];
+UIManager587966158 -> GameStartPanel1262214948[label="startPanel
+[0..1]"];
+UIManager587966158 -> GameThread634426149[label="th
+[0..1]"];
+UIManager587966158 -> GameWinPanel1262214948[label="winPanel
+[0..1]"];
+    
+}
+@enduml
