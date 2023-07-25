@@ -1,6 +1,7 @@
 package com.bullet.view;
 
 import com.bullet.manager.Settings;
+import com.bullet.manager.SoundManager;
 import com.bullet.manager.UIElement;
 import com.bullet.manager.UIManager;
 
@@ -22,6 +23,7 @@ public class GameStartPanel extends JPanel {
     	
         JLabel label = new JLabel(background);
         setLayout(null);
+
         // 创建两个按钮
         JButton button1 = new JButton(start);
         JButton button2 = new JButton(exit);
@@ -35,18 +37,19 @@ public class GameStartPanel extends JPanel {
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 UIManager um = UIManager.getManager();
+                SoundManager.getManager().PlaySound("res/music/gun.wav");
                 um.SetPanel(UIElement.Select);
             }
         });
 
         button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                SoundManager.getManager().PlaySound("res/music/gun.wav");
                 System.exit(114514);
             }
         });
 
         // 将标签和按钮添加到面板中
-        
         this.add(button1);
         this.add(button2);
         this.add(label);

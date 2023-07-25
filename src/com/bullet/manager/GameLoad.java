@@ -113,21 +113,21 @@ public class GameLoad {
 							ElementObj planeObj=getObj("plane");
 							ElementObj planeBody = planeObj.createElement(x+","+y+",BODY"); //机身
 
-							x-=10;
-							y-=8;
-							//前翼
-							ElementObj wingObj1=getObj("wing");
-
-							ElementObj font_wing=wingObj1.createElement(x+","+y+",FRONT_WING");
-
-							x+=84;
-							y-=2;
-							//尾翼
-							ElementObj wingObj2=getObj("wing");
-							ElementObj back_wing=wingObj2.createElement(x+","+y+",BACK_WING");
+//							x-=10;
+//							y-=8;
+//							//前翼
+//							ElementObj wingObj1=getObj("wing");
+//
+//							ElementObj font_wing=wingObj1.createElement(x+","+y+",FRONT_WING");
+//
+//							x+=84;
+//							y-=2;
+//							//尾翼
+//							ElementObj wingObj2=getObj("wing");
+//							ElementObj back_wing=wingObj2.createElement(x+","+y+",BACK_WING");
 							em.addElement(planeBody, GameElement.PLANE);
-							em.addElement(font_wing,GameElement.PLANE);
-							em.addElement(back_wing,GameElement.PLANE);
+//							em.addElement(font_wing,GameElement.PLANE);
+//							em.addElement(back_wing,GameElement.PLANE);
 							break;
 						case "BOSS":
 							//加载Boss
@@ -146,6 +146,10 @@ public class GameLoad {
 							ElementObj enemy = emy.createElement(arrs[i]+",Right");
 							em.addElement(enemy,GameElement.ENEMY);
 							break;
+						case "CANON":
+							ElementObj obje = getObj("enemycanon");
+							ElementObj enemy2 = obje.createElement(arrs[i]+",Right");
+							em.addElement(enemy2,GameElement.ENEMY);
 
 					}
 
@@ -263,9 +267,25 @@ public class GameLoad {
 	//加载鬼子
 	public static void loadJapanese(){
 		Random random = new Random();
-		//每一次加载鬼子会随机生成3-5名鬼子
-		int randomInRange = random.nextInt(3)+3;
-		for(int i=1;i<=randomInRange;i++){
+		//每一次加载鬼子会随机生成3-6名鬼子
+		int randomAll = random.nextInt(4)+3;
+		//生成2-3名炮兵鬼子
+		int randomCanonEnemy = random.nextInt(2)+2;
+		for(int i=1;i<=randomCanonEnemy;i++){
+			ElementObj obj = getObj("enemycanon");
+//			ElementObj obj = getObj("enemy");
+			int randomLocation = random.nextInt(2);//0代表Left，1代表Right
+			if (randomLocation == 0){
+				ElementObj enemy = obj.createElement("Left");
+				em.addElement(enemy,GameElement.ENEMYCANON);
+			}
+			if (randomLocation == 1){
+				ElementObj enemy = obj.createElement("Right");
+				em.addElement(enemy,GameElement.ENEMYCANON);
+			}
+		}
+
+		for(int i =1;i<=randomAll-randomCanonEnemy;i++){
 			ElementObj obj = getObj("enemy");
 			int randomLocation = random.nextInt(2);//0代表Left，1代表Right
 			if (randomLocation == 0){

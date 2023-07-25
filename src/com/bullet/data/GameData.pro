@@ -112,8 +112,68 @@ Die_Gun_Left_002 = res/images/Enemy/L/enemy_die121.png
 Die_Gun_Left_003 = res/images/Enemy/L/enemy_die131.png
 Die_Gun_Left_004 = res/images/Enemy/L/enemy_die141.png
 
+Run_Canon_Right_000 = res/images/Enemy/L/enemy_run200.png
+Run_Canon_Right_001 = res/images/Enemy/L/enemy_run210.png
+Run_Canon_Right_002 = res/images/Enemy/L/enemy_run220.png
+Run_Canon_Right_003 = res/images/Enemy/L/enemy_run230.png
+Run_Canon_Right_004 = res/images/Enemy/L/enemy_run240.png
+Run_Canon_Left_000 = res/images/Enemy/L/enemy_run201.png
+Run_Canon_Left_001 = res/images/Enemy/L/enemy_run211.png
+Run_Canon_Left_002 = res/images/Enemy/L/enemy_run221.png
+Run_Canon_Left_003 = res/images/Enemy/L/enemy_run231.png
+Run_Canon_Left_004 = res/images/Enemy/L/enemy_run241.png
+
+Stand_Canon_Right_000 = res/images/Enemy/L/enemy_stand200.png
+Stand_Canon_Right_001 = res/images/Enemy/L/enemy_stand210.png
+Stand_Canon_Left_000 = res/images/Enemy/L/enemy_stand201.png
+Stand_Canon_Left_001 = res/images/Enemy/L/enemy_stand211.png
+
+Attack_Canon_Right_000 = res/images/Enemy/L/enemy_attack200.png
+Attack_Canon_Right_001 = res/images/Enemy/L/enemy_attack210.png
+Attack_Canon_Right_002 = res/images/Enemy/L/enemy_attack220.png
+Attack_Canon_Right_003 = res/images/Enemy/L/enemy_attack230.png
+Attack_Canon_Right_004 = res/images/Enemy/L/enemy_attack240.png
+Attack_Canon_Left_000 = res/images/Enemy/L/enemy_attack201.png
+Attack_Canon_Left_001 = res/images/Enemy/L/enemy_attack211.png
+Attack_Canon_Left_002 = res/images/Enemy/L/enemy_attack221.png
+Attack_Canon_Left_003 = res/images/Enemy/L/enemy_attack231.png
+Attack_Canon_Left_004 = res/images/Enemy/L/enemy_attack241.png
+
+Die_Canon_Right_000 = res/images/Enemy/L/enemy_die200.png
+Die_Canon_Right_001 = res/images/Enemy/L/enemy_die210.png
+Die_Canon_Right_002 = res/images/Enemy/L/enemy_die220.png
+Die_Canon_Right_003 = res/images/Enemy/L/enemy_die230.png
+Die_Canon_Right_004 = res/images/Enemy/L/enemy_die240.png
+Die_Canon_Left_000 = res/images/Enemy/L/enemy_die201.png
+Die_Canon_Left_001 = res/images/Enemy/L/enemy_die211.png
+Die_Canon_Left_002 = res/images/Enemy/L/enemy_die221.png
+Die_Canon_Left_003 = res/images/Enemy/L/enemy_die231.png
+Die_Canon_Left_004 = res/images/Enemy/L/enemy_die241.png
+
 Bullet_Right = res/images/bullet/bullet10.png
 Bullet_Left = res/images/bullet/bullet11.png
+
+Canon_Right = res/images/bullet/bullet40.png
+Canon_Left = res/images/bullet/bullet41.png
+
+CanonFile_Die_Right_000 = res/images/firebomb/fire/fire0_right.png
+CanonFile_Die_Right_001 = res/images/firebomb/fire/fire1_right.png
+CanonFile_Die_Right_002 = res/images/firebomb/fire/fire2_right.png
+CanonFile_Die_Right_003 = res/images/firebomb/fire/fire3_right.png
+CanonFile_Die_Right_004 = res/images/firebomb/fire/fire4_right.png
+CanonFile_Die_Right_005 = res/images/firebomb/fire/fire5_right.png
+CanonFile_Die_Right_006 = res/images/firebomb/fire/fire6_right.png
+CanonFile_Die_Right_007 = res/images/firebomb/fire/fire7_right.png
+CanonFile_Die_Right_008 = res/images/firebomb/fire/fire8_right.png
+CanonFile_Die_Left_000 = res/images/firebomb/fire/fire0_left.png
+CanonFile_Die_Left_001 = res/images/firebomb/fire/fire1_left.png
+CanonFile_Die_Left_002 = res/images/firebomb/fire/fire2_left.png
+CanonFile_Die_Left_003 = res/images/firebomb/fire/fire3_left.png
+CanonFile_Die_Left_004 = res/images/firebomb/fire/fire4_left.png
+CanonFile_Die_Left_005 = res/images/firebomb/fire/fire5_left.png
+CanonFile_Die_Left_006 = res/images/firebomb/fire/fire6_left.png
+CanonFile_Die_Left_007 = res/images/firebomb/fire/fire7_left.png
+CanonFile_Die_Left_008 = res/images/firebomb/fire/fire8_left.png
 
 HOSTAGE_SAVE_0=res/images/hostage/oder13.png
 HOSTAGE_SAVE_1=res/images/hostage/oder14.png

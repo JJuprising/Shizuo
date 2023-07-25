@@ -54,17 +54,19 @@ public class Plane extends ElementObj{
     @Override
     protected void move() {
         if (this.getX()<=10){
-            isLeft=!isLeft;
+            isLeft=false;
             fx="RIGHT_PLANE";
+        }
+        if(this.getX()>Settings.GameX-10){
+            isLeft=true;
         }
         if(isLeft&& this.getX()>0){
             this.setX(this.getX() - moveSpeed);
             fx="LEFT_PLANE";
         }
-        if(!isLeft){
+        if(!isLeft&& this.getX()<Settings.GameX){
             this.setX(this.getX() + moveSpeed);
             fx="RIGHT_PLANE";
-
         }
     }
 

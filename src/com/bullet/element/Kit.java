@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 
 import com.bullet.manager.GameLoad;
 import com.bullet.manager.GameManager;
+import com.bullet.manager.SoundManager;
 
 public class Kit extends ElementObj{
 	
@@ -41,5 +42,10 @@ public class Kit extends ElementObj{
 				&& GameManager.isMoving && GameManager.fx == "LEFT_STAND") {
 			this.setX(this.getX() + 2);
 		}
+	}
+	@Override
+	public void die(){
+		super.die();
+		SoundManager.getManager().PlaySound("res/music/music (17).wav");
 	}
 }

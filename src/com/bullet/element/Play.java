@@ -5,11 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-import com.bullet.manager.ElementManager;
-import com.bullet.manager.GameElement;
-import com.bullet.manager.GameLoad;
-import com.bullet.manager.GameManager;
-import com.bullet.manager.Settings;
+import com.bullet.manager.*;
 import com.bullet.view.Animation;
 
 public class Play extends ElementObj /* implements Comparable<Play>*/{
@@ -112,15 +108,23 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 			case 32://空格键
 				this.pkType=true; break;//开启攻击状态
 			case 83://S键
-				this.saveType = true; break;//开机拯救状态
+				this.saveType = true; //开机拯救状态
+				this.pkType=false;
+				SoundManager.getManager().PlaySound("res/music/knife.wav");
+				break;
+			case 82://R键
+				gm.ReloadAmmo(); break;//开机拯救状态
 			case 49:
 				gm.setAttackType(AttackType.Gun);
+				SoundManager.getManager().PlaySound("res/music/music (6).wav");
 				break;
 			case 50:
 				gm.setAttackType(AttackType.Rpg);
+				SoundManager.getManager().PlaySound("res/music/music (6).wav");
 				break;
 			case 51:
 				gm.setAttackType(AttackType.Grenade);
+				SoundManager.getManager().PlaySound("res/music/music (6).wav");
 				break;
 			}
 		}else {
@@ -174,8 +178,9 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	
 	@Override
 	protected void updateImage(long gameTime) {
-//		System.out.println(pkType);
+
 		if(pkType&&!gm.isReloading()){
+			System.out.println("animation");
 			switch (gm.getAttackType()){
 				case Gun:
 					animation.SetAnimation(GameLoad.aniMap.get(isRight?"RightGun":"LeftGun"));
@@ -238,7 +243,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 				&& Math.abs(this.getY() - GameManager.HostagePositionY) < 10) {
 			 GameManager.canSave = false;
 		}
-		if(gameTime- fireTime >Settings.ShootSpeed&&gm.ShootAmmo()){
+		if(this.pkType&&gameTime- fireTime >Settings.ShootSpeed&&gm.ShootAmmo()){
 			fireTime = gameTime;
 //		将构造对象的多个步骤进行封装成为一个方法，返回值直接是这个对象
 //		传递一个固定格式   {X:3,y:5,f:up} json格式
@@ -246,12 +251,15 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 			switch (gm.getAttackType()){
 			case Gun:
 				obj = GameLoad.getObj("file");
+				SoundManager.getManager().PlaySound("res/music/gun.wav");
 				break;
 			case Grenade:
 				obj = GameLoad.getObj("grenade");
+				SoundManager.getManager().PlaySound("res/music/music (19).wav");
 				break;
 			case Rpg:
 				obj = GameLoad.getObj("rpg");
+				SoundManager.getManager().PlaySound("res/music/music (5).wav");
 				break;
 			default:
 				obj = GameLoad.getObj("file");
@@ -280,7 +288,7 @@ public class Play extends ElementObj /* implements Comparable<Play>*/{
 	public boolean pk(ElementObj obj) {
 		boolean isHit = this.getRectangle().intersects(obj.getRectangle());
 		if(isHit){
-			gm.setHp(-10);
+			gm.setHp(-1);
 		}
 
 

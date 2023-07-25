@@ -1,8 +1,11 @@
 package com.bullet.manager;
 
 import com.bullet.element.AttackType;
+import com.bullet.element.Boss;
 
+import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameManager {
 
@@ -25,10 +28,12 @@ public class GameManager {
     public static boolean HostageCrash = false;//人物和人质是否碰撞
     public static boolean canSave = true; //true表示能拯救 false表示不能拯救 给人质用
     public static boolean isGive = false;
+    public static ArrayList<Integer> enemyPositionX = new ArrayList<>();
 
 
     private static int score=0;
-    private static int Hp=100;
+    private static int Hp=10;
+    private  int BossHp=5;
     private static AttackType attackType = AttackType.Gun;
     private static int mapID = 1;
     private static int[] ammo = new int[3];
@@ -63,9 +68,23 @@ public class GameManager {
         }
         if(Hp<=0){
             Hp=0;
-            StopGame();
+            EndGame();
         }
         UpdateLabel();
+    }
+
+    public int getBossHp() {
+        return BossHp;
+    }
+
+    public void setBossHp(int delta) {
+        BossHp = BossHp+delta;
+//        if(BossHp>5){
+//            BossHp=5;
+//        }
+        if(BossHp<=0){
+            BossHp=0;
+        }
     }
 
     public AttackType getAttackType() {
@@ -85,7 +104,7 @@ public class GameManager {
             isShoot = true;
         }
         if (ammo[attackType.ordinal()]<=0){
-            ReloadAmmo(attackType);
+            ReloadAmmo();
             UpdateLabel();
 
         }
@@ -95,11 +114,12 @@ public class GameManager {
     public boolean isReloading(){
         return isReloading;
     }
-    public void ReloadAmmo(AttackType type){
+    public void ReloadAmmo(){
         if(!isReloading){
 
             isReloading = true;
-            new Reload(type).start();
+            SoundManager.getManager().PlaySound("res/music/music (30).wav");
+            new Reload(attackType).start();
         }
 
     }
@@ -150,12 +170,27 @@ public class GameManager {
     public Label scoreLabel;
     public Label levelLabel;
 
+    public Label finalLabel;
+    public Label finalScore;
+
     public void SetLabel(Label weaponLabel,Label ammoLabel, Label HpLabel, Label scoreLabel, Label levelLabel){
         this.weaponLabel = weaponLabel;
         this.ammoLabel = ammoLabel;
         this.HpLabel = HpLabel;
         this.scoreLabel = scoreLabel;
         this.levelLabel = levelLabel;
+    }
+    public void SetLabel2(Label finalLabel,Label finalScore){
+        this.finalLabel = finalLabel;
+        this.finalScore = finalScore;
+    }
+    public void UpdateLabel2(){
+        finalScore.setText("Score:"+score);
+        if (Hp > 0) {
+            finalLabel.setText("You Win!");
+        } else {
+            finalLabel.setText("Game Over!");
+        }
     }
     public void UpdateLabel(){
         levelLabel.setText("Level:"+mapID);
@@ -175,16 +210,21 @@ public class GameManager {
     }
     public void StopGame(){
         isGameRunning = false;
-
+    }
+    public void setGameStates(boolean states){
+        isGameRunning = states;
     }
     public void EndGame(){
         isGameRunning = false;
         UIManager.getManager().SetPanel(UIElement.End);
+        UpdateLabel2();
+
 
     }
     public void ResetGame(){
 
         score =0;
+        BossHp=5;
         Hp=Settings.playerMaxHP;
         ammo[0] =Settings.maxGunAmmo;
         ammo[1] =Settings.maxRPGAmmo;
@@ -194,11 +234,7 @@ public class GameManager {
         UpdateLabel();
 
     }
-    public void CheckWin(){
-        if(ElementManager.getManager().getElementsByKey(GameElement.ENEMY).size()==0){
-            StopGame();
-        }
-    }
+
     public static boolean IsGameRunning(){
         return isGameRunning;
     }
